@@ -1,0 +1,294 @@
+
+--- PAGINA 1 ---
+Guida SISTEMATICA Funzioni: Template da Usare SEMPRE
+SCHEMA GENERALE PER OGNI FUNZIONE
+CATEGORIA 1: HEAP E ARRAY
+1.1 VERIFICA PROPRIETÀ MAX-HEAP
+ALGORITMO
+CORRETTEZZA
+Per induzione su i: Controllo ogni nodo interno i che soddisfi A[i] ≥ A[2i] e A[i] ≥ A[2i+1]. Se tutti i nodi
+interni rispettano la proprietà, l'intero array è un max-heap.
+COMPLESSITÀ
+O(n) - visito ogni nodo interno una volta sola (n/2 nodi)
+ESEMPIO
+A = [90, 65, 73, 45, 63] → verifica 90≥65,73 e 65≥45,63 ✓
+VARIANTI
+• Min-Heap: cambia < con >
+• Con size separato: IsMaxHeap(A, heap_size)1. ALGORITMO: pseudocodice preciso1. ALGORITMO: pseudocodice preciso
+2. CORRETTEZZA: dimostrazione (induzione/invariante)  2. CORRETTEZZA: dimostrazione (induzione/invariante)  
+3. COMPLESSITÀ: ricorrenza + risoluzione3. COMPLESSITÀ: ricorrenza + risoluzione
+4. ESEMPIO: applicazione pratica4. ESEMPIO: applicazione pratica
+5. VARIANTI: modifiche comuni5. VARIANTI: modifiche comuni
+pseudocode
+IsMaxHeap(A, n):IsMaxHeap(A, n):
+    for i = 1 to floor(n/2):    for i = 1 to floor(n/2):
+        left = 2*i        left = 2*i
+        right = 2*i + 1        right = 2*i + 1
+                
+        if left ≤ n AND A[i] < A[left]:        if left ≤ n AND A[i] < A[left]:
+            return False            return False
+        if right ≤ n AND A[i] < A[right]:        if right ≤ n AND A[i] < A[right]:
+            return False            return False
+    return True    return True
+--- PAGINA 2 ---
+1.2 COSTRUZIONE MAX-HEAP DA ARRAY
+ALGORITMO
+CORRETTEZZA
+Per induzione sul livello: Parto dalle foglie (già heap) e vado verso la radice. Ogni chiamata Max-
+Heapify(A,i) assume che i sottoalberi left(i) e right(i) siano già max-heap e rende max-heap il sottoalbero
+radicato in i.
+COMPLESSITÀ
+O(n) - non O(n log n)! Somma geometrica: Σ(livello × nodi_livello)
+ESEMPIO
+[4,1,3,2,16,9,10,14,8,7] → [16,14,10,8,7,9,3,2,4,1]
+1.3 INSERIMENTO IN HEAP
+ALGORITMOpseudocode
+BuildMaxHeap(A, n):BuildMaxHeap(A, n):
+    heap_size = n    heap_size = n
+    for i = floor(n/2) down to 1:    for i = floor(n/2) down to 1:
+        Max-Heapify(A, i)        Max-Heapify(A, i)
+Max-Heapify(A, i):Max-Heapify(A, i):
+    l = 2*i    l = 2*i
+    r = 2*i + 1    r = 2*i + 1
+    largest = i    largest = i
+        
+    if l ≤ heap_size AND A[l] > A[largest]:    if l ≤ heap_size AND A[l] > A[largest]:
+        largest = l        largest = l
+    if r ≤ heap_size AND A[r] > A[largest]:    if r ≤ heap_size AND A[r] > A[largest]:
+        largest = r        largest = r
+                
+    if largest ≠ i:    if largest ≠ i:
+        swap A[i] with A[largest]        swap A[i] with A[largest]
+        Max-Heapify(A, largest)        Max-Heapify(A, largest)
+--- PAGINA 3 ---
+CORRETTEZZA
+Invariante: A[1..heap_size-1] è max-heap. Inserisco in posizione heap_size e "faccio risalire" finché
+proprietà heap è ripristinata.
+COMPLESSITÀ
+O(log n) - nel caso pessimo risale fino alla radice (altezza heap)
+CATEGORIA 2: BST E ALBERI
+2.1 VERIFICA PROPRIETÀ BST (Metodo 1: In-Order)
+ALGORITMO
+CORRETTEZZA
+Proprietà BST: visita in-order produce sequenza ordinata. Se durante visita trovo elemento ≤ precedente
+→ non è BST.pseudocode
+Heap-Insert(A, key):Heap-Insert(A, key):
+    heap_size = heap_size + 1    heap_size = heap_size + 1
+    A[heap_size] = -∞    A[heap_size] = -∞
+    Heap-Increase-Key(A, heap_size, key)    Heap-Increase-Key(A, heap_size, key)
+Heap-Increase-Key(A, i, key):Heap-Increase-Key(A, i, key):
+    A[i] = key    A[i] = key
+    while i > 1 AND A[Parent(i)] < A[i]:    while i > 1 AND A[Parent(i)] < A[i]:
+        swap A[i] with A[Parent(i)]        swap A[i] with A[Parent(i)]
+        i = Parent(i)        i = Parent(i)
+pseudocode
+IsBST(T):IsBST(T):
+    is_valid, last = InOrderCheck(T.root, -∞)    is_valid, last = InOrderCheck(T.root, -∞)
+    return is_valid    return is_valid
+InOrderCheck(x, last):InOrderCheck(x, last):
+    if x = nil:    if x = nil:
+        return True, last        return True, last
+        
+    valid_left, last = InOrderCheck(x.left, last)    valid_left, last = InOrderCheck(x.left, last)
+    if not valid_left OR last ≥ x.key:    if not valid_left OR last ≥ x.key:
+        return False, last        return False, last
+        
+    return InOrderCheck(x.right, x.key)    return InOrderCheck(x.right, x.key)
+--- PAGINA 4 ---
+COMPLESSITÀ
+O(n) - visita ogni nodo una volta
+2.2 VERIFICA PROPRIETÀ BST (Metodo 2: Min-Max)
+ALGORITMO
+CORRETTEZZA
+Propagazione vincoli: ogni nodo deve rispettare min < key < max. Propago vincoli ai sottoalberi.
+COMPLESSITÀ
+O(n) - visita ogni nodo una volta
+2.3 COSTRUZIONE BST BILANCIATO DA ARRAY
+ALGORITMO
+CORRETTEZZApseudocode
+IsBST(T):IsBST(T):
+    return CheckBST(T.root, -∞, +∞)    return CheckBST(T.root, -∞, +∞)
+CheckBST(x, min_val, max_val):CheckBST(x, min_val, max_val):
+    if x = nil:    if x = nil:
+        return True        return True
+        
+    if x.key ≤ min_val OR x.key ≥ max_val:    if x.key ≤ min_val OR x.key ≥ max_val:
+        return False        return False
+        
+    return CheckBST(x.left, min_val, x.key) AND     return CheckBST(x.left, min_val, x.key) AND 
+           CheckBST(x.right, x.key, max_val)           CheckBST(x.right, x.key, max_val)
+pseudocode
+ArrayToBST(A, p, q):ArrayToBST(A, p, q):
+    if p > q:    if p > q:
+        return nil        return nil
+        
+    m = floor((p + q) / 2)    m = floor((p + q) / 2)
+    x = CreateNode(A[m])    x = CreateNode(A[m])
+    x.left = ArrayToBST(A, p, m-1)    x.left = ArrayToBST(A, p, m-1)
+    x.right = ArrayToBST(A, m+1, q)    x.right = ArrayToBST(A, m+1, q)
+    return x    return x
+--- PAGINA 5 ---
+Per induzione su n: Scelgo elemento mediano come radice. Per proprietà array ordinato: elementi a
+sinistra < radice < elementi a destra. Ricorsivamente costruisco sottoalberi bilanciati.
+COMPLESSITÀ
+T(n) = 2T(n/2) + O(1) = O(n) (Master Theorem)
+ESEMPIO
+[1,3,5,7,9] → radice=5, left=[1,3], right=[7,9]
+2.4 INSERIMENTO BST CON CAMPO AGGIUNTIVO
+ALGORITMO (campo "even" = somma sottoalbero pari/dispari)
+CORRETTEZZA
+Invariante: x.even = (somma sottoalbero x è pari). Quando inserisco z, aggiorno tutti gli antenati perché
+la loro somma cambia.
+COMPLESSITÀ
+O(h) dove h = altezza albero
+2.5 RANGE QUERY IN BSTpseudocode
+Insert(T, z):Insert(T, z):
+    x = T.root    x = T.root
+    y = nil    y = nil
+    z.even = (z.key mod 2 == 0)    z.even = (z.key mod 2 == 0)
+        
+    while x ≠ nil:    while x ≠ nil:
+        x.even = (x.even == z.even)  // XOR logico        x.even = (x.even == z.even)  // XOR logico
+        y = x        y = x
+        if z.key < x.key:        if z.key < x.key:
+            x = x.left            x = x.left
+        else:        else:
+            x = x.right            x = x.right
+        
+    z.p = y    z.p = y
+    if y = nil:    if y = nil:
+        T.root = z        T.root = z
+    else if z.key < y.key:    else if z.key < y.key:
+        y.left = z        y.left = z
+    else:    else:
+        y.right = z        y.right = z
+--- PAGINA 6 ---
+ALGORITMO
+CORRETTEZZA
+Potatura BST: vado a sinistra solo se x.key ≥ k1, a destra solo se x.key ≤ k2. Stampo x.key solo se
+nell'intervallo.
+COMPLESSITÀ
+O(h + k) dove h=altezza, k=elementi nell'intervallo
+CATEGORIA 3: DIVIDE ET IMPERA
+3.1 RICERCA BINARIA (Template Base)
+ALGORITMO
+CORRETTEZZA
+Per induzione su lunghezza: Se array vuoto → nil. Altrimenti confronto con elemento centrale e ricorro
+sulla metà corretta per proprietà ordinamento.pseudocode
+Range(T, k1, k2):Range(T, k1, k2):
+    RangeRec(T.root, k1, k2)    RangeRec(T.root, k1, k2)
+RangeRec(x, k1, k2):RangeRec(x, k1, k2):
+    if x ≠ nil:    if x ≠ nil:
+        if x.key ≥ k1:        if x.key ≥ k1:
+            RangeRec(x.left, k1, k2)            RangeRec(x.left, k1, k2)
+        if k1 ≤ x.key ≤ k2:        if k1 ≤ x.key ≤ k2:
+            print x.key            print x.key
+        if x.key ≤ k2:        if x.key ≤ k2:
+            RangeRec(x.right, k1, k2)            RangeRec(x.right, k1, k2)
+pseudocode
+BinarySearch(A, p, r, k):BinarySearch(A, p, r, k):
+    if p > r:    if p > r:
+        return nil        return nil
+        
+    q = floor((p + r) / 2)    q = floor((p + r) / 2)
+    if A[q] = k:    if A[q] = k:
+        return q        return q
+    elif A[q] > k:    elif A[q] > k:
+        return BinarySearch(A, p, q-1, k)        return BinarySearch(A, p, q-1, k)
+    else:    else:
+        return BinarySearch(A, q+1, r, k)        return BinarySearch(A, q+1, r, k)
+--- PAGINA 7 ---
+COMPLESSITÀ
+T(n) = T(n/2) + O(1) = O(log n) (Master Theorem)
+3.2 TROVA ELEMENTO > x (Variante Ricerca)
+ALGORITMO
+CORRETTEZZA
+Invariante: soluzione è in A[p..r] o non esiste. Se A[q] ≤ x cerco a destra, altrimenti la soluzione è A[q] o a
+sinistra.
+COMPLESSITÀ
+O(log n)
+3.3 TROVA GAP IN ARRAY
+ALGORITMO
+CORRETTEZZApseudocode
+FindGreater(A, p, r, x):FindGreater(A, p, r, x):
+    if p > r:    if p > r:
+        return r + 1        return r + 1
+        
+    q = floor((p + r) / 2)    q = floor((p + r) / 2)
+    if A[q] ≤ x:    if A[q] ≤ x:
+        return FindGreater(A, q+1, r, x)        return FindGreater(A, q+1, r, x)
+    else:    else:
+        return FindGreater(A, p, q-1, x)        return FindGreater(A, p, q-1, x)
+pseudocode
+// Precondizione: A[r] - A[p] ≥ r - p + 1// Precondizione: A[r] - A[p] ≥ r - p + 1
+FindGap(A, p, r):FindGap(A, p, r):
+    if p = r - 1:    if p = r - 1:
+        return p        return p
+        
+    q = floor((p + r) / 2)    q = floor((p + r) / 2)
+    if A[q] - A[p] > q - p:    if A[q] - A[p] > q - p:
+        return FindGap(A, p, q)        return FindGap(A, p, q)
+    else:    else:
+        return FindGap(A, q, r)        return FindGap(A, q, r)
+--- PAGINA 8 ---
+Invariante: esiste gap in A[p..r]. Se differenza A[q]-A[p] > spazio disponibile → gap a sinistra, altrimenti a
+destra.
+COMPLESSITÀ
+T(n) = T(n/2) + O(1) = O(log n)
+3.4 TROVA MASSIMO (Divide et Impera)
+ALGORITMO
+CORRETTEZZA
+Per induzione: Caso base un elemento. Altrimenti massimo è il max tra massimi delle due metà.
+COMPLESSITÀ
+T(n) = 2T(n/2) + O(1) = O(n) (Master Theorem)
+3.5 CONTA INVERSIONI
+ALGORITMOpseudocode
+FindMax(A, p, r):FindMax(A, p, r):
+    if p = r:    if p = r:
+        return A[p]        return A[p]
+        
+    q = floor((p + r) / 2)    q = floor((p + r) / 2)
+    max_left = FindMax(A, p, q)    max_left = FindMax(A, p, q)
+    max_right = FindMax(A, q+1, r)    max_right = FindMax(A, q+1, r)
+    return max(max_left, max_right)    return max(max_left, max_right)
+--- PAGINA 9 ---
+CORRETTEZZA
+Divide et impera: inversioni totali = inv(sinistra) + inv(destra) + inv(cross). Durante merge conto
+inversioni cross.
+COMPLESSITÀ
+T(n) = 2T(n/2) + O(n) = O(n log n)
+TEMPLATE UNIVERSALE CORRETTEZZA
+Per Algoritmi Ricorsivi:
+1. Caso base: dimensione piccola (n=0,1)
+2. Passo induttivo: se vale per input < n, vale per n
+3. Riduzione: ogni chiamata riduce problema
+Per Algoritmi Iterativi:
+1. Inizializzazione: invariante vera all'inizio
+2. Mantenimento: invariante preservata da ogni iterazione
+3. Terminazione: invariante + condizione stop → correttezza
+Schema Template Completo:pseudocode
+CountInversions(A, p, r):CountInversions(A, p, r):
+    if p ≥ r:    if p ≥ r:
+        return 0        return 0
+        
+    q = floor((p + r) / 2)    q = floor((p + r) / 2)
+    inv_left = CountInversions(A, p, q)    inv_left = CountInversions(A, p, q)
+    inv_right = CountInversions(A, q+1, r)    inv_right = CountInversions(A, q+1, r)
+    inv_cross = MergeAndCount(A, p, q, r)    inv_cross = MergeAndCount(A, p, q, r)
+    return inv_left + inv_right + inv_cross    return inv_left + inv_right + inv_cross
+MergeAndCount(A, p, q, r):MergeAndCount(A, p, q, r):
+    // Come merge di MergeSort ma conta inversioni cross    // Come merge di MergeSort ma conta inversioni cross
+    inversions = 0    inversions = 0
+    // quando prendo da right, aggiungo (left_remaining) a inversions    // quando prendo da right, aggiungo (left_remaining) a inversions
+--- PAGINA 10 ---
+USA SEMPRE QUESTO SCHEMA PER OGNI ESERCIZIO!FUNZIONE: nome(parametri)FUNZIONE: nome(parametri)
+INPUT: descrizione precondizioniINPUT: descrizione precondizioni
+OUTPUT: descrizione postcondizioniOUTPUT: descrizione postcondizioni
+ALGORITMO:ALGORITMO:
+[pseudocodice][pseudocodice]
+CORRETTEZZA:CORRETTEZZA:
+[dimostrazione per induzione/invariante][dimostrazione per induzione/invariante]
+COMPLESSITÀ:COMPLESSITÀ:
+[ricorrenza → risoluzione → risultato finale][ricorrenza → risoluzione → risultato finale]
+ESEMPIO:ESEMPIO:
+[applicazione concreta][applicazione concreta]

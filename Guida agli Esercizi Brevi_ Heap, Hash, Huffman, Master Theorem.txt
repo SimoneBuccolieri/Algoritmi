@@ -1,0 +1,244 @@
+
+--- PAGINA 1 ---
+Guida Esercizi Brevi: Heap, Hash, Huffman, Master Theorem e
+Induzione
+PARTE I - HEAP E CODE DI PRIORITÀ
+Definizioni e Rappresentazione
+Heap = Albero binario quasi completo implementato come array con proprietà:
+• Max-heap: A[i] ≥ A[Left(i)] e A[i] ≥ A[Right(i)]
+• Min-heap: A[i] ≤ A[Left(i)] e A[i] ≤ A[Right(i)]
+Navigazione Array:
+• Radice: A[1]
+• Parent(i): A[⌊i/2⌋]
+• Left(i): A[2i]
+• Right(i): A[2i+1]
+Operazioni Fondamentali
+Max-Heapify (Correttezza O(log n))
+Dimostrazione Correttezza per Induzione sull'Altezza:
+• Caso base (h=0): Nodo foglia, proprietà mantenuta
+• Passo induttivo: Se sottoeap sinistro e destro sono corretti, e scambiamo con figlio maggiore,
+proprietà ripristinata
+Build-Max-Heap (O(n) - NON O(n log n)!)python
+MAX_HEAPIFYMAX_HEAPIFY ((AA,, i i))::
+    left     left ==22**ii
+    right     right ==22**i i ++11
+    largest     largest == i i
+        
+ifif left ≤ A left ≤ A ..heap_size heap_size andand A A[[leftleft]]>> A A[[largestlargest]]::
+        largest         largest == left left
+ifif right ≤ A right ≤ A ..heap_size heap_size andand A A[[rightright]]>> A A[[largestlargest]]::
+        largest         largest == right right
+        
+ifif largest ≠ i largest ≠ i ::
+        exchange A        exchange A [[ii]] ↔ A ↔ A[[largestlargest]]
+        MAX_HEAPIFY        MAX_HEAPIFY ((AA,, largest largest ))
+--- PAGINA 2 ---
+Dimostrazione O(n):
+• Maggior parte nodi sono foglie (non richiedono heapify)
+• Numero nodi ad altezza h: ≤ ⌈n/2^(h+1)⌉
+• Costo: Σ_{h=0}^{⌊log n⌋} ⌈n/2^(h+1)⌉ · O(h) = O(n)
+Extract-Max e Insert (O(log n))
+Esempi Tipici Esame
+Costruire Max-Heap da [60, 90, 49, 65, 46, 73, 88, 45, 43]:
+Processo Build-Max-Heap (partendo da i = ⌊9/2⌋ = 4):
+1. i=4 (65): Heapify 65,45,43 → 65,45,43
+2. i=3 (49): Heapify 49,73,88 → 88,73,49
+3. i=2 (90): Heapify 90,65,88 → 90,65,88
+4. i=1 (60): Heapify 60,90,88 → 90,65,88,60,46,73,49,45,43
+Risultato: [90, 65, 88, 60, 46, 73, 49, 45, 43]
+PARTE II - TABELLE HASH
+Funzioni di Hash Fondamentalipython
+BUILD_MAX_HEAPBUILD_MAX_HEAP ((AA))::
+    A    A..heap_size heap_size == length length((AA))
+forfor i  i == ⌊length ⌊length ((AA))//22⌋ downto ⌋ downto 11::
+        MAX_HEAPIFY        MAX_HEAPIFY ((AA,, i i))
+python
+HEAP_EXTRACT_MAXHEAP_EXTRACT_MAX ((AA))::
+ifif A A..heap_size heap_size <<11::
+        error         error "heap underflow""heap underflow"
+maxmax== A A[[11]]
+    A    A[[11]]== A A[[AA..heap_sizeheap_size ]]
+    A    A..heap_size heap_size == A A..heap_size heap_size --11
+    MAX_HEAPIFY    MAX_HEAPIFY ((AA,,11))
+returnreturnmaxmax
+HEAP_INSERTHEAP_INSERT ((AA,, key key))::
+    A    A..heap_size heap_size == A A..heap_size heap_size ++11
+    A    A[[AA..heap_sizeheap_size ]]==--∞∞
+    HEAP_INCREASE_KEY    HEAP_INCREASE_KEY ((AA,, A A..heap_sizeheap_size ,, key key))
+--- PAGINA 3 ---
+Metodo della Divisione
+h(k) = k mod m
+Regole di Progettazione:
+• m primo, non vicino a potenze di 2
+• Evitare m = 2^p (considera solo p bit meno significativi)
+Metodo della Moltiplicazione
+h(k) = ⌊m(kA mod 1)⌋
+Valore suggerito: A = (√5-1)/2 ≈ 0.618034
+Gestione Collisioni
+Chaining (Concatenamento)
+• Ogni slot contiene lista concatenata
+• Fattore di carico: α = n/m
+• Complessità attesa: O(1 + α)
+Open Addressing
+Linear Probing: h'(k,i) = (h(k) + i) mod m
+• Problema: Clustering primario
+Quadratic Probing: h'(k,i) = (h(k) + c₁i + c₂i²) mod m
+• Requisito: c₁,c₂ appropriati per garantire permutazione
+Double Hashing: h'(k,i) = (h₁(k) + i·h₂(k)) mod m
+• Requisito: h₂(k) coprime con m
+• Migliore distribuzione tra i metodi
+Esempi Tipici Esame
+Double Hashing m=8, h₁(k)=k mod 8, h₂(k)=1+2(k mod 6)
+Inserimento [13, 29, 19, 27, 8]:
+--- PAGINA 4 ---
+• k=13: h₁(13)=5, slot libero → posizione 5
+• k=29: h₁(29)=5, occupato, h₂(29)=1+2(29 mod 6)=1+2·5=11 mod 6=5 → (5+1·5) mod 8 = 2 →
+posizione 2
+• k=19: h₁(19)=3, slot libero → posizione 3
+• k=27: h₁(27)=3, occupato, h₂(27)=1+2(27 mod 6)=1+2·3=7 → (3+1·7) mod 8 = 2, occupato → (3+2·7)
+mod 8 = 1 → posizione 1
+• k=8: h₁(8)=0, slot libero → posizione 0
+Funzione Non Appropriata: h(k,i) = (k + 2i) mod m
+• Problema: Se m=10, k=0 genera sequenza 0,2,4,6,8,0,2,4,6,8...
+• Non permutazione completa di {0,1,...,m-1}
+Hash Uniforme e Proprietà Speciali
+Invarianza per Permutazioni
+h(k) = k mod m con m = 2^p - 1 è invariante rispetto a permutazioni delle p-word che costituiscono k.
+Dimostrazione per Induzione:
+• Base k=0: Banale
+• Passo k→k+1: Usando n = a_{k+1}b^{k+1} + n', si dimostra che n mod (b-1) = (a_{k+1} + n' mod
+(b-1)) mod (b-1) = Σ_{j=0}^{k+1} a_j mod (b-1)
+PARTE III - CODIFICA DI HUFFMAN
+Algoritmo di Costruzione
+Esempi Completi dagli Esamipython
+HUFFMANHUFFMAN((CC))::
+    n     n ==||CC||
+    Q     Q == C   C  # Min-heap per frequenze# Min-heap per frequenze
+        
+forfor i  i ==11 to n to n--11::
+        z         z == allocate_node allocate_node (())
+        x         x == EXTRACT_MIN EXTRACT_MIN ((QQ))
+        y         y == EXTRACT_MIN EXTRACT_MIN ((QQ))
+        z        z ..left left == x x
+        z        z ..right right == y y
+        z        z ..freq freq == x x..freq freq ++ y y..freqfreq
+        INSERT        INSERT ((QQ,, z z))
+        
+returnreturn EXTRACT_MIN EXTRACT_MIN ((QQ))# Radice dell'albero# Radice dell'albero
+--- PAGINA 5 ---
+Alfabeto {a,b,c,d,e,f,g} con frequenze [18,32,11,10,4,4,21]
+Processo Step-by-Step:
+1. Min-heap: [(4,e), (4,f), (10,d), (11,c), (18,a), (21,g), (32,b)]
+2. Estrarre e,f → Nuovo nodo (8, e+f)
+3. Min-heap: [(8,e+f), (10,d), (11,c), (18,a), (21,g), (32,b)]
+4. Estrarre (8,e+f),d → Nuovo nodo (18, (e+f)+d)
+5. Continuare fino a radice finale
+Codici Risultanti (convenzione: 0=sinistra, 1=destra):
+• b: 10, g: 11, a: 00, c: 010, d: 0110, e: 01110, f: 01111
+Alfabeto {a,b,c,d,e,f,g} con frequenze [6,21,12,8,3,23,8]
+Albero Risultante:
+Codici: f:0, b:10, c:110, e:1110, d:1111, g:111, a:11
+Proprietà di Ottimalità
+Teorema: Il codice di Huffman è ottimo tra tutti i codici prefissi per l'alfabeto dato.
+Dimostrazione: Due proprietà greedy:
+1. Due caratteri con frequenza minima possono stare alla profondità massima
+2. Due caratteri con frequenza minima possono essere fratelli
+PARTE IV - MASTER THEOREM E RICORRENZE
+Forma Standard
+T(n) = aT(n/b) + f(n) dove a ≥ 1, b > 1      (81)      (81)
+    /      \    /      \
+  f(23)    (58)  f(23)    (58)
+          /    \          /    \
+       b(21)   (37)       b(21)   (37)
+              /    \              /    \
+           (19)   a(6)           (19)   a(6)
+          /    \          /    \
+       c(12)   (11)       c(12)   (11)
+              /    \              /    \
+           (6)    g(8)           (6)    g(8)
+          /  \          /  \
+       e(3)  d(8)       e(3)  d(8)
+--- PAGINA 6 ---
+Tre Casi Fondamentali
+Caso 1: f(n) = O(n^{log_b(a)-ε}) per ε > 0
+Risultato: T(n) = Θ(n^{log_b(a)}) Intuizione: Costo dominato dalle foglie dell'albero di ricorsione
+Caso 2: f(n) = Θ(n^{log_b(a)})
+Risultato: T(n) = Θ(n^{log_b(a)} · log n) Intuizione: Costo bilanciato tra livelli
+Caso 3: f(n) = Ω(n^{log_b(a)+ε}) per ε > 0 E af(n/b) ≤ cf(n) per c < 1
+Risultato: T(n) = Θ(f(n)) Intuizione: Costo dominato dalla radice
+Esempi Risolti dagli Esami
+T(n) = 4T(n/2) + n log n
+• a=4, b=2, f(n)=n log n
+• n^{log_b(a)} = n^{log_2(4)} = n²
+• f(n) = n log n = O(n^{2-ε}) per qualsiasi ε < 1
+• Caso 1: T(n) = Θ(n²)
+T(n) = 4T(n/2) + n^{5/2}
+• a=4, b=2, f(n)=n^{5/2}
+• n^{log_b(a)} = n²
+• f(n) = n^{5/2} = Ω(n^{2+1/2})
+• Condizione regolarità: 4(n/2)^{5/2} = n^{5/2}/√2 ≤ cn^{5/2} per c=1/√2 < 1
+• Caso 3: T(n) = Θ(n^{5/2})
+T(n) = T(n-2) + 2n (Non Master Theorem)
+Metodo di Sostituzione: Ipotesi: T(n) ≤ cn²
+quando 4c - 2 ≥ 0, ovvero c ≥ 1/2.
+Metodi Alternativi
+Albero delle RicorrenzeT(n) = T(n-2) + 2nT(n) = T(n-2) + 2n
+     ≤ c(n-2)² + 2n     ≤ c(n-2)² + 2n
+     = c(n² - 4n + 4) + 2n     = c(n² - 4n + 4) + 2n
+     = cn² - (4c-2)n + 4c     = cn² - (4c-2)n + 4c
+     ≤ cn²     ≤ cn²
+--- PAGINA 7 ---
+1. Disegnare albero di chiamate ricorsive
+2. Calcolare costo per livello
+3. Sommare tutti i livelli
+4. Determinare numero di livelli (altezza)
+Metodo di Sostituzione
+1. Ipotizzare forma della soluzione
+2. Dimostrare per induzione (normale o forte)
+3. Determinare costanti appropriate
+PARTE V - INDUZIONE FORTE
+Quando Usare Induzione Forte
+Induzione Normale Fallisce quando il passo induttivo richiede informazioni su più valori precedenti, non
+solo n-1.
+Principio dell'Induzione Forte
+Base: P(0) (o P(1)) è vera Passo: Se P(k) è vera per tutti k < n, allora P(n) è vera Conclusione: P(n) è vera
+per tutti n ∈ ℕ
+Esempi dove Serve Induzione Forte
+Correttezza di Algoritmi Divide-et-Impera
+MergeSort: Per dimostrare correttezza su array di taglia n, dobbiamo assumere correttezza su
+sottoearray di taglia ⌊n/2⌋ e ⌈n/2⌉.
+Fibonacci e Ricorrenze Multiple
+T(n) = T(n-1) + 2T(n-2) + c
+L'induzione normale non funziona perché dobbiamo ipotizzare forme per T(n-1) E T(n-2).
+Con Induzione Forte:Teorema: MergeSort(A,p,r) ordina correttamente A[p..r]Teorema: MergeSort(A,p,r) ordina correttamente A[p..r]
+Dimostrazione per induzione forte sulla taglia n = r-p+1:Dimostrazione per induzione forte sulla taglia n = r-p+1:
+- Base (n=1): Singolo elemento già ordinato- Base (n=1): Singolo elemento già ordinato
+- Passo: Assumendo correttezza per tutte le taglie < n,- Passo: Assumendo correttezza per tutte le taglie < n,
+  le chiamate ricorsive su A[p..q] e A[q+1..r] producono  le chiamate ricorsive su A[p..q] e A[q+1..r] producono
+  sottoarray ordinati che Merge combina correttamente  sottoarray ordinati che Merge combina correttamente
+--- PAGINA 8 ---
+Alberi Binari e Proprietà Strutturali
+Teorema: Un albero binario con n nodi interni ha n+1 foglie
+Induzione Forte: Assumere vera per tutti gli alberi con meno di n nodi interni, poi considerare albero con
+n nodi dividendo tra sottoalberi sinistro e destro.
+Pattern di Riconoscimento
+Usa Induzione Forte quando:
+• Ricorrenze multiple: T(n) dipende da T(n-1), T(n-2), ecc.
+• Algoritmi divide-et-impera: divisione in sottoproblemi non unitari
+• Strutture dati ricorsive: alberi, grafi
+• Dimostrazioni su insiemi infiniti: numeri primi, partizioni
+Usa Induzione Normale quando:
+• Ricorrenza singola: T(n) dipende solo da T(n-1)
+• Progressione sequenziale chiara
+• Proprietà numeriche semplici
+STRATEGIA ESAMI
+Checklist Rapida Heap Build-Max-Heap: O(n), non O(n log n) Operazioni: Extract/Insert O(log n) Rappresentazione array: Parent(i) = ⌊i/2⌋
+Checklist Rapida Hash Linear probing: clustering primario Double hashing: migliore distribuzione Condizione regolarità Caso 3 Master Theorem
+Checklist Rapida Huffman Min-heap per frequenze Ottimalità sempre garantita Costruzione bottom-upIpotesi: T(k) ≥ d·2^k per tutti k < nIpotesi: T(k) ≥ d·2^k per tutti k < n
+Passo: T(n) = T(n-1) + 2T(n-2) + cPasso: T(n) = T(n-1) + 2T(n-2) + c
+            ≥ d·2^(n-1) + 2d·2^(n-2) + c            ≥ d·2^(n-1) + 2d·2^(n-2) + c
+            = d(2^(n-1) + 2·2^(n-2))            = d(2^(n-1) + 2·2^(n-2))
+            = d·2^n ✓             = d·2^n ✓
+--- PAGINA 9 ---
+Checklist Rapida Master Theorem Identificare a, b, f(n) Calcolare n^{log_b(a)} Confrontare con f(n) Caso 3: verificare condizione regolarità
+Checklist Induzione Normale fallisce? → Prova forte Definire chiaramente ipotesi induttiva Coprire tutti i casi base necessari Passo induttivo deve usare ipotesi per casi < n

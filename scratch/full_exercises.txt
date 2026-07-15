@@ -1,0 +1,2946 @@
+
+--- Page 1 ---
+Algoritmi e Strutture Dati
+AA 2022/2023
+Paolo Baldan
+Dipartimento di Matematica
+Universit` a di Padova
+2 ottobre 2022
+Segue una raccolta di esercizi svolti, suddivisi approssimativamente per aree tematiche. Gli
+esercizi sono spesso accompagnati da una bozza di soluzione, che contiene una indicazione su
+come procedere nella soluzione dell’esercizio. Spesso la soluzione ` e solo abbozzata ed ` e quindi da
+intendersi come una guida alla soluzione. In particolare, quando la domanda richieda definizioni
+o illustrazioni di procedimenti senza contributi originali, la soluzione non le include. Inoltre il
+documento ` e di recente redazione e pu` o contenere sviste e piccoli errori. Segnalazioni in questo
+senso sono benvenute.
+Si ringraziano per le segnalazioni (in ordine temporale): Luca Biasotto, Luca Marcato, Bogdan
+Stanciu, Bianca Andreea Ciuche, Alberto Schiabel, Alberto Miola, Elisabetta Piombin, Jordan
+Gottardo, Sara Righetto, Ilaria Peron.
+1 Limiti asintotici e ricorrenze
+Domanda 1 Risolvere la ricorrenza T(n) = 4 T(n/2) +nlognutilizzando il master theorem.
+Soluzione: Rispetto allo schema generale si ha a= 4, b= 2, f(n) =nlogn. Si osserva che
+logba= 2 quindi f(n) =O(nlogba−ϵ) (per 0 < ϵ < 1) e quindi T(n) = Θ( n2).
+Domanda 2 Mostrare che la ricorrenza T(n) =T(n/2) +T(n/4) +nammette soluzione T(n) =
+Θ(n) utilizzando il metodo di sostituzione.
+Soluzione: Si prova separatamente che asintoticamente
+1.T(n)≤cn, per un’opportuna costante c
+2.T(n)≥dn, per un’opportuna costante d
+Ad esempio, per la prima,
+T(n) = T(n/2) +T(n/4) +n
+≤n/2c+n/4c+n
+= (1 + 3 /4c)n
+≤cn
+quando 1 + 3 /4c≤c, ovvero c≥4.
+Domanda 3 Risolvere la ricorrenza T(n) = 4 T(n/2) +n2√nutilizzando il master theorem.
+1
+--- Page 2 ---
+2 Algoritmi e Strutture Dati - 2018/2019
+Soluzione: Rispetto allo schema generale si ha a= 4, b= 2, f(n) =n2√n=n5
+2. Si osserva che
+logba= 2 quindi f(n) = Ω( nlogba+ϵ) (per 0 < ϵ≤1
+2). In aggiunta vale la condizione di regolarit` a,
+ovvero af(n
+b)≤cf(n) per qualche c <1. Infatti af(n
+b) = 4 f(n
+2) = 4n2
+4rn
+2=n2rn
+2≤cn2√n
+perc≥1√
+2(che ` e <1). Quindi T(n) = Θ( n2√n).
+Domanda 4 Risolvere la ricorrenza T(n) =T(n−2) + 2 nutilizzando il metodo di sostituzione
+per dimostrare un limite asintotico stretto.
+Soluzione: Mostriamo che T(n) = Θ( n2) Si prova separatamente che asintoticamente
+1.T(n)≤cn2, per un’opportuna costante c
+2.T(n)≥dn2, per un’opportuna costante d
+Ad esempio, per la prima,
+T(n) = T(n−2) + 2 n
+≤c(n−2)2+ 2n
+=c(n2−4n+ 4) + 2 n
+=cn2−((4c−2)n−4c)
+≤cn2
+quando (4 c−2)n−4c≥0, che vale per c >1
+2en≥4c
+4c−2, ad es. c= 1 e n≥2.
+Per la seconda, risulter` a, dualmente (4 d−2)n−4d≤0, che vale, ad esempio, per qualunque
+ned=1
+2.
+Domanda 5 Risolvere la ricorrenza
+T(n) =3 se n= 0
+T(n−1) + 2 se n >0
+utilizzando il metodo di sostituzione per determinare una soluzione esatta (non asintotica).
+Soluzione: Mostriamo per induzione che T(n) =an+b, determinando aeb. Per n= 0 si ottiene
+T(n) = 3 = b, quindi b= 3. Nel caso induttivo, si ottiene
+T(n+ 1) = T(n) + 2 = an+b+ 2
+Affinch´ e an+b+ 2 = a(n+ 1) + boccorre che a= 2. Quindi, T(n) = 2 n+ 3.
+Domanda 6 Sia data la seguente equazione di ricorrenza:
+T(n) =1 se n= 1
+3T(n/5) +T(n/6) +nsen >1
+Si fornisca un limite asintotico stretto per la soluzione.
+Soluzione: Vale T(n) = Θ( n). Dimostriamo ad esempio che
+T(n) = Ω( n)
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 3 ---
+3 Algoritmi e Strutture Dati - 2018/2019
+ovvero che asintoticamente, per un’opportuna costante c >0
+T(n)≥cn
+Infatti
+T(n) = 3 T(n/5) +T(n/6) +n≤per ipotesi induttiva
+3cn/5 +cn/6 +n=
+c(23/30)n+n
+vorremmo fosse ≥cn, che vale se (1 −23/30)c≤1, ovvero c≤30/7.
+Domanda 7 Sia data la seguente equazione di ricorrenza:
+T(n) = 5 T(⌊n/3⌋) + 2n2
+Si fornisca un limite asintotico stretto per la soluzione.
+Soluzione: Vale T(n) = Θ( n2), tramite il master theorem. Infatti, secondo lo schema generale
+a= 5,b= 3, quindi occorre confrontare nlog35ef(n) = 2 n2. Facile vedere che, essendo log35<2,
+valef(n) = Ω( nlog35+ϵ) per un opportuno ϵ >0. Inoltre vale la condizione di regolarit` a af(n/b)≤
+kf(n) per un opportuno k <1, infatti
+af(n/b) = 5 f(n/3) = 5 ∗2(n/3)2= 10/9n2≤kf(n) =k2∗n2
+si riduce a 5 /9≤k, che vale, ad es. per k= 5/9.
+Domanda 8 Sia data la seguente equazione di ricorrenza:
+T(n) =T(n−1) + log n
+Si dimostri che T(n) =O(nlogn).
+Soluzione: Si procede una prova induttiva del fatto che T(n)≤cnlogn.
+T(n) = T(n−1) + log n
+≤c(n−1) log( n−1) + log n
+≤c(n−1) log n+ log n
+= ( cn−c+ 1) log n
+≤cnlogn
+perc≥1.
+Domanda 9 Sia data la seguente equazione di ricorrenza:
+T(n) =T(n/2) +T(√n/2) + 2 n
+Si dimostri che T(n) = Θ( n).
+Soluzione: Si procede una prova induttiva del fatto che T(n)≤cneT(n)≥dn, per opportune
+costanti c, d > 0, asintoticamente. Dimostriamo prima che T(n)≤cn:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 4 ---
+4 Algoritmi e Strutture Dati - 2018/2019
+T(n) = T(n
+2) +T(√n
+2) + 2n
+≤c(n
+2) +c(√n
+2) + 2n per ipotesi induttiva
+=cn+√n
+2+ 2n
+≤c(n+n
+2)/2 + 2 n dato che√n≤n
+2pern≥4
+≤c(3n/4) + 2 n
+=n(3/4c+ 2)
+perctale che 3 /4c+ 2≤c, ovvero c≥8.
+Per la parte T(n)≥dn, osserviamo che
+T(n) = T(n
+2) +T(√n
+2) + 2n
+≥d(n
+2) +d(√n
+2) + 2nper ipotesi induttiva
+=dn+√n
+2+ 2n
+≥dn
+2+ 2n dato che√n≥0
+≥dn
+perd≤4.
+Domanda 10 Si consideri la ricorrenza
+T(n) =T4n
+5
++n
+2+ log n
+Fornire limite asintotico stretto per la soluzione.
+Soluzione: Si pu` o utilizzare il master theorem dato che la ricorrenza ` e nella forma
+T(n) =a Tn
+b
++f(n)
+cona= 1, b= 5/4 ef(n) =n/2 + log n.
+Vale che nlogba=nlog5/41=n0= 1, quindi
+f(n) = Ω( nlogba+ϵ) = Ω( nϵ)
+per 0 < ϵ < 1.
+Inoltre vale la condizione di regolarit` a a f(n/b)≤kf(n) per qualche 0 < k < 1. Infatti
+a f(n/b) = f(4n/5)
+= 2 n/5 + log 4 n/5
+= 2 n/5 + log n−log(5 /4)
+< k (n/2 + log n)
+che risulta soddisfatta per k >4/5 (quindi k/2>2/5) enabbastanza grande. Quindi T(n) =
+Θ(n+ log n) = Θ( n).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 5 ---
+5 Algoritmi e Strutture Dati - 2018/2019
+Domanda 11 Si dimostri che la ricorrenza che segue ha soluzione T(n) = Θ( n)
+T(n) =1
+2T(n−1) +n
+Soluzione: Si prova separatamente che asintoticamente
+1.T(n)≤cn, per un’opportuna costante c
+2.T(n)≤dn, per un’opportuna costante d
+Ad esempio, per la prima,
+T(n) =1
+2T(n−1) +n
+≤1
+2c(n−1) +n
+= (1
+2c+ 1)n−1
+2c
+≤(1
+2c+ 1)n
+≤cn
+dove l’ultima disuguaglianza vale xquando c≥2.
+Per la seconda, risulter` a, dualmente
+T(n)≥(1
+2d+ 1)n−1
+2d
+≥dn
+vale, ad esempio, per qualunque n≥1 ed≥1.
+Domanda 12 Dare la definizione di Ω( f(n)). Dimostrare che la ricorrenza che segue ha soluzione
+T(n) = Ω(2n)
+T(n) =n−1X
+k=1T(k)T(n−k)
+Soluzione: Si deve provare che esiste una costante c >0 e un n0tali che per ogni n≥n0
+T(n)≥c2n
+Si procede induttivamente:
+T(n) =Pn−1
+k=1T(k)T(n−k)
+≥Pn−1
+k=1c2kc2n−k
+=Pn−1
+k=1c22n
+=c2(n−1)2n
+≥c2n
+pern≥2, e qualunque c≥1.
+Domanda 13 Dare la definizione di O(f(n)). Dimostrare che la ricorrenza che segue ha soluzione
+T(n) =O(n)
+T(n) =2
+3T(n−1) + 2 n
+Soluzione:
+Si deve provare che esiste una costante c >0 e un n0tali che per ogni n≥n0
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 6 ---
+6 Algoritmi e Strutture Dati - 2018/2019
+T(n)≤cn
+Si procede induttivamente:
+T(n) =2
+3T(n−1) + 2 n
+≤2
+3c(n−1) + 2 n
+≤cn
+Affinch´ e l’ultima disuguaglianza valga, occorre che
+c(1
+3n+2
+3)≥2n
+Ora
+c(1
+3n+2
+3)≥c2
+3n≥2n
+dove l’ultima disuguaglianza ` e certamente verificata per per ogni n, sec≥3.
+Domanda 14 Dare una soluzione asintotica per la ricorrenza T(n) = 3 T(n/2) +n(n+ 1).
+Soluzione: Si usa il master theorem con a= 3,b= 2,f(n) =n(n+ 1). Si deve confrontare f(n)
+connlogba) =nlog23ed essendo che log23<2 per qualunque 0 < ϵ < 2−log23 si vede facilmente
+chef(n) = Ω( nlog23+ϵ).
+Per concludere che T(n) = Θ( f(n)) = Θ( n2) usando il caso 3 del master theorem occorre
+dimostrare la regolarit` a di f(n), ovvero che af(n/b)< kf (n) per 0 < k < 1, asintoticamente. Si
+imposta
+af(n/b) = 3 n/2(n/2 + 1) < kn (n+ 1)
+e si vede che n/2 + 1 <5n/8 per n > n 0= 8, quindi sotto questa condizione
+af(n/b) = 3 n/2(n/2 + 1) <15/16n(n+ 1)
+ovvero k= 15/16 va bene.
+Domanda 15 Data la ricorrenza T(n) =T(n/2) +T(n/3) +√n+ 2 dimostrare che ha soluzione
+T(n) =O(n). Il limite ` e stretto, ovvero vale anche T(n) = Ω( n)? [Questa seconda parte della
+domanda, per un errore nella scelta dei coefficienti risultava pi` u complessa di quanto preventivato,
+quindi non ` e stata considerata nella valutazione. Allego comunque la soluzione per completezza.]
+Soluzione: Per dimostrare che T(n) =O(n) occorre trovare c >0 en0∈Ntale che per ogni
+n≥n0,T(n)≤cn. Procediamo con un ragionamento induttivo
+T(n) = T(n/2) +T(n/3) +√n+ 2
+≤cn/2 +cn/3 +√n+ 2
+=cn/2 +cn/3 +√n+ 2
+= 5 /6cn+√n+ 2
+= 5 /6cn+n+ 2
+≤cn
+vale se 1 /6cn≥n+ 2m, quindi, ad esempio, per c≥7 en≥12.
+Il limite non ` e stretto. Un tentativo di dimostrazione induttiva che T(n)≥dnper qualche
+d >0 fallisce. Tuttavia questo non consente di concludere.
+Si pu` o invece dimostrare che T(n) =O(nα) con α= 5/6. Infatti, ancora in modo induttivo:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 7 ---
+7 Algoritmi e Strutture Dati - 2018/2019
+T(n) = T(n/2) +T(n/3) +√n+ 2
+≤cn/2 +cn/3 +√n+ 2
+=c(n/2)α+c(n/3)α+√n+ 2 [dato che√n+ 2≤nαpern≥5]
+≤cnα((1/2)α+ (1/3)α) +nα
+≤cnα
+vale se c(1−(1/2)α−(1/3)α)nα≥nα, quindi, osservando che la quantit` a 1 −(1/2)α−(1/3)α>0,
+` e sufficiente scegliere c≥1/(1−(1/2)α−(1/3)α) en≥5.
+Questo prova che T(n) =O(nα) e quindi non pu` o essere T(n) = Ω( n).
+Domanda 16 Data la ricorrenza T(n) = 5 T(n/3) + ( n−2)2, trovare la soluzione asintotica.
+Soluzione: Si usa il master theorem con a= 5,b= 3,f(n) = (n−2)2. Si deve confrontare f(n)
+connlogba) =nlog35ed essendo che log35<2 per qualunque 0 < ϵ < 2−log23 si vede facilmente
+chef(n) = Ω( nlog23+ϵ).
+Per concludere che T(n) = Θ( f(n)) = Θ( n2) usando il caso 3 del master theorem occorre
+dimostrare la regolarit` a di f(n), ovvero che af(n/b)< kf (n) per 0 < k < 1, asintoticamente. Si
+imposta
+af(n/b) = 5( n/3−2)2< k(n−2)2
+e si osserva
+5(n/3−2)2<5((n−2)/3)2= 5/9(n−2)2
+per cui si pu` o scegliere k= 5/9<1 enqualunque.
+Domanda 17 Dare la definizione di Ω( f(n)). Mostrare che se f(n) = Ω( g(n)) eg(n) = Ω( h(n))
+allora f(n) = Ω( h(n)).
+Soluzione: Si ha che
+Ω(f(n)) ={g(n)| ∃c >0.∃n0∈N.∀n≥n0.0≤cg(n)≤f(n)}.
+Sef(n) = Ω( g(n) eg(n) = Ω( h(n)) allora esistono c1, c2>0,n1, n2∈Ntali che per ogni
+n≥n1
+0≤c1g(n)≤f(n) (1)
+e per ogni n≥n2
+0≤c2h(n)≤g(n) (2)
+Ne consegue che per ogni n≥max{n1, n2}, moltiplicando (2) per c1si ha
+0≤c1c2h(n)≤c1g(n)≤f(n)
+ovvero, indicato con n0= max {n1, n2}ec=c1c2, per ogni n≥n0,
+0≤ch(n)≤f(n)
+ovvero f(n) = Ω( h(n)).
+Domanda 18 Dare la definizione di Θ( f(n)). Mostrare che Θ( f(n)) =O(f(n))∩Ω(f(n)).
+Soluzione: Per la prima parte
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 8 ---
+8 Algoritmi e Strutture Dati - 2018/2019
+Θ(f(n)) ={g(n)| ∃n0∈N.∃c, c2>0.∀n≥n0.0≤c1f(n)≤g(n)≤c1f(n)}.
+Per dimostrare che Θ( f(n)) =O(f(n))∩Ω(f(n)), ricordiamo che
+1.O(f(n)) ={g(n)| ∃n0∈N.∃c >0.∀n≥n0.0≤g(n)≤cf(n)}
+2. Ω( f(n)) ={g(n)| ∃n0∈N.∃c >0.∀n≥n0.0≤cf(n)≤g(n)}.
+Proviamo separatamente le due inclusioni. Se g(n)∈Θ(n) allora chiaramente g(n)∈Ω(f(n)),
+grazie all’esistenza di n0ec1, e similmente g(n)∈O(f(n)), grazie all’esistenza di n0ec2.
+Per il contrario, se g(n)∈Ω(f(n)) eg(n)∈O(f(n)), per la prima esistono c1>0,n1∈Ntali
+che per ogni n≥n1vale
+0≤c1f(n)≤g(n)
+e per la seconda esistono c2>0,n2∈Ntali che per ogni n≥n2vale
+0≤g(n)≤c2f(n)
+Quindi, detto n0= max( n1, n2) per ogni n≥n0,
+0≤c1f(n)≤g(n)≤c1f(n)
+ovvero f(n)∈Θ(f(n)).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 9 ---
+9 Algoritmi e Strutture Dati - 2018/2019
+2 Divide et impera e Ricorsione
+Esercizio 1 Dato un array di interi A[1..n], chiamiamo gapun indice i∈[1, n) tale che A[i+
+1]−A[i]>1.
+i. Mostrare per induzione su nche un array A[1..n] tale che A[n]−A[1]≥n(quindi n≥2)
+contiene almeno un gap.
+ii. Fornire lo pseudocodice di una procedura ricorsiva divide et impera gapche dato un array
+A[1..n] tale che A[n]−A[1]≥nrestituisce un gap in A.
+iii. Valutare la complessit` a della funzione, utilizzando il master theorem.
+Soluzione: La prova per induzione ` e la seguente:
+•(n= 2) Banale, il gap ` e in i= 1.
+•(n >2) Sia A[n]−A[1]≥n. Allora se A[n]−A[n−1]>1, si ha che i=n−1 ` e un gap e
+abbiamo concluso. Altrimenti, si osserva che A[n]−A[1] = A[n]−A[n−1] +A[n−1]−A[1].
+Quindi A[n−1]−A[1] = ( A[n]−A[1])−(A[n]−A[n−1])≥n−1, quindi per ipotesi induttiva
+A[1..n−1] contiene un gap.
+La prova funziona anche se invece che spezzare l’array in A[1..n−1] eA[n−1..n], lo si spezza
+inA[1..⌈n/2⌉] eA[⌈n/2⌉..n]. Da questo segue l’algoritmo:
+gap(A,p,r) // p < r (almeno due elementi) , A[r] - A[p] >= r-p+1
+if p = r-1
+return p
+else
+q = (p+r)/2
+if A[q] - A[p] > q-p+1
+gap(A,p,q)
+else
+// note che allora A[r] - A[q] > r-q+1
+gap(A,q,r)
+Si ha che T(n) =T(n/2) + 1, quindi il master theorem, dato che nlogba=nlog21=n0= Θ(1),
+ci dice che T(n) = Θ( n0logn) = Θ(log n).
+Esercizio 2 Scrivere una procedura di tipo divide et impera over che dato un array di interi di-
+stinti A[1..n], ordinato in modo crescente, e un intero xrestituisce l’indice del pi` u piccolo elemento
+inAstrettamente maggiore di x. Se nessun elemento di Asoddisfa la condizione, si restituisca
+n+ 1. Valutare la complessit` a dell’algoritmo.
+Soluzione: Si realizza una funzione ricorsiva over(A,p,r,x) che restituisce il minimo indice
+i∈[p, r] tale che A[i]> xse un tale indice esiste, altrimenti r+ 1.
+over(A,p,r,x)
+if r-p < 0
+return r+1
+else
+q = floor((r+p)/2)
+if A[q] <= x
+return over(A,q+1,r,x)
+else
+return over(A,p,q-1,x)
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 10 ---
+10 Algoritmi e Strutture Dati - 2018/2019
+La correttezza pu` o essere dimostrata per induzione sulla lunghezza ndel sottoarray, ovvero
+n=|r−p+ 1|. Quando n= 0 quindi r < p l’intervallo [ p, r] ` e vuoto, e correttamente la funzione
+ritorna r+ 1. Se invece n >0, ovvero r > p , siaq=⌊p+r/2⌋. Distinguiamo due casi:
+•seA[q]>x allora, per ipotesi induttiva, la chiamata over(A,p,q-1,x) ritorna il minimo
+indice iin[p,q-1] tale che A[i]>x , se un tale indice esiste, e in questo caso ` e anche il
+minimo indice in [p,r] con questa propriet` a. Se nessun elemento in A[p,q-1] ` e maggiore
+dixcorrettamente ritorna q−1 + 1 = qche[p,q-1] sar` a il minimo indice in [p,r] di un
+elemento maggiore di x.
+•seA[q]<=x allora la chiamata over(A,q+1,r,x) ritorna il minimo indice iin[q+1,r] tale
+cheA[i]>x , se un tale indice esiste (e in questo caso sar` a anche il minimo indice in [p,r] ),
+er+ 1 altrimenti.
+La complessit` a ` e data dalla ricorrenza T(n) =T(n/2) +ce quindi T(n) = Θ(log n) dal master
+theorem.
+Esercizio 3 Realizzare una procedure di tipo divide et impera Max(A,p,r) per trovare il massimo
+nell’array A[p,r] . Si assuma che l’array non sia vuoto ( p≤r). Scrivere lo pseudocodice e valutare
+la complessit` a con il master theorem.
+Soluzione:
+Max(A, p, r)
+if p = r
+return A[p]
+else // p < r
+q = (p+r)/2
+m1 = Max(A,p,q)
+m2 = Max(A,q+1,r)
+if m1<m2
+return m2
+else
+return m1
+Esercizio 4 SiaA[1..n] un array di interi distinti ordinato in senso crescente. Dimostrare che
+dato un qualunque indice i, seA[i] > i allora A[j]>j per ogni j>ie analogamente se A[i] < i
+allora A[j]<j per ogni j<i.
+Utilizzare l’osservazione per realizzare una funzione Fix(A) che dato l’array di interi A[1..n]
+ordinato senza ripetizioni restituisce un indice itale che A[i]=i , se esiste, e 0altrimenti. Valutarne
+la complessit` a.
+Soluzione: Per la prima parte sia iun indice tale che A[i]> i, ovvero A[i]≥i+ 1. Si osserva
+che, se i < n allora A[i+ 1]> A[i]≥i+ 1 ovvero A[i+ 1]> i+ 1. Usando questo fatto, si conclude
+con un ragionamento induttivo (che per ogni j≥1 vale A[i+j]≥i+j).
+A questo punto, un algoritmo pu` o essere il seguente
+Fix(A)
+return Fix-rec(A,1,n)
+Fix-rec(A,p,r)
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 11 ---
+11 Algoritmi e Strutture Dati - 2018/2019
+if p <= r
+q = p+r/2
+if A[q] = q
+return q
+else if A[q] < q
+return Fix(A,q+1,r)
+else
+return Fix(A,p,q-1)
+else
+return 0
+Il costo ` e dato dalla ricorrenza T(n) =T(n/2) +cche ha soluzione T(n) = Θ(log n).
+Domanda 19 Scrivere una funzione ricorsiva subseq(X,Y,m,n) che date due sequenze X[1..m]
+eY[1..n], di lunghezza menrispettivamente, verifica se X` e una sottosequenza di Ye restituisce
+un valore booleano conseguente. Valutarne la complessit` a.
+Soluzione: La soluzione ` e:
+# subseq: dati due array X[1..m] e Y[1..n] determina se X e’ una sottosequenza
+# di Y
+subseq(X,Y,m,n):
+if m == 0
+return True
+elif m <= n
+if X[m] == Y[n]:
+return subseq(X,Y,m-1,n-1)
+else:
+return subseq(X,Y,m,n-1)
+else
+return False
+Per quanto riguarda la complessit` a si ha che ogni chiamata, esclusa la parte ricorsiva, ha costo
+costante e nel caso peggiore scorro tutta la seconda stringa, quindi ci sono nchiamate. Quindi il
+costo ` e O(n).
+Esercizio 5 Un array A[1..n] di numeri si dice alternante se non ha elementi contigui identici
+(ovvero per ogni i≤n−1 vale A[i]̸=A[i+1] ) e inoltre per ogni i≤n−2, vale che ai< ai+1> ai+2
+oppure ai> ai+1< ai+2. Ad esempio gli array [1, 2, -1, 3, 2] e [5, 1, 2, -1, 3, 2] sono alternanti,
+mentre non lo sono [1, 2, 3] e [1, 1, 2]. Scrivere una funzione ricorsiva alt(A,n) che dato un array
+A[1..n] di numeri verifica se ` e alternante. Valutarne la complessit` a.
+Soluzione:
+# alt: dato un array A[1..n] verifica se e’ alternante
+alt(A,n)
+return altRec(A,n,0) or altRec(A,n,1)
+altRec(A,i,dir)
+# verifica se A[1..i] e’ alternante.
+# usa un ulteriore parametro per indicare se la sequenza alternante deve
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 12 ---
+12 Algoritmi e Strutture Dati - 2018/2019
+# concludersi crescendo (0) o decrescendo (1).
+if i==1
+return True
+else
+if dir==0
+return altRec(A,i-1,1) and (A[i-1] < A[i])
+else
+return altRec(A,i-1,0) and (A[i-1] > A[i])
+Dato che la parte non ricorsiva ` e di costo costante, la complessit` a si pu` o esprimere come
+T(n) = 1 + T(n−1) che porta a T(n) = Θ( n).
+Una soluzione pi` u compatta:
+# alt: dato un array A[1..n] verifica se e’ alternante
+alt(A,n)
+return altRec(A,n,true) or altRec(A,n,false)
+altRec(A,i,dir)
+# verifica se A[1..i] e’ alternante.
+# usa un ulteriore parametro per indicare se la sequenza alternante deve
+# concludersi crescendo (true) o decrescendo (false).
+if i==1
+return True
+else
+return altRec(A,i-1,not dir)
+and (A[i-1] <> A[i])
+and (dir xnor (A[i-1] > A[i])) # usa il fatto che
+# true xnor V = not V
+# false xnor V = V
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 13 ---
+13 Algoritmi e Strutture Dati - 2018/2019
+3 Ordinamento
+Esercizio 6 Fornire lo pseudocodice di una procedura min(A,B) che dati due array AeBche siano
+uno la permutazione dell’altro ne trova l’elemento minimo confrontando esclusivamente elementi di
+Aed elementi di B(non si possono confrontare due elementi di Ao due elementi di Btra loro, e non
+si possono fare copie degli array, ovvero la funzione deve operare con spazio costante). Valutare la
+complessit` a della funzione.
+Soluzione: L’idea ` e quella di confrontare gli elementi di AeB, scorrendoli con due indici i,j
+avanzando in Bquando A[i]≤B[j] e in Baltrimenti. Sul lato di Al’avanzamento si fermer` a ad
+un elemento A[i] che sar` a minore o uguale di tutti gli elementi di B. Il vero e proprio invariante ` e
+un po’ complicato.
+min(A,B)
+i=j=1
+// invariante: (forall h \in [0,i) exists k in [0,j] A[h] > B[k]) or
+(i <= n) and (forall k \in [0,j) exists h in [0,i] A[h] <= B[k])
+while (j <= n)
+if A[i] <= B[j]
+j = j+1
+else
+i = i+1
+return A[i]
+Si noti che l’invariante implica implica i≤n, quindi questo controllo nel ciclo non ` e necessario.
+Il numero di iterazioni ` e al massimo 2 ndato che uno dei due indici ( ioppure j) viene sempre
+incrementato. Dunque la complessit` a ` e Θ( n).
+Domanda 20 Realizzare una fDunzione RevCountingSort(A,B,n,k) che, dato un array A[1..n]
+contenente interi nell’intervallo [0..k] , restituisce in B[1..n] una sua permutazione ordinata in
+modo decrescente utilizzando una variante del counting sort. Valutarne la complessit` a.
+Soluzione:
+RevCountingSort (A, B, n, k)
+C[1..k] = 0
+for i = 1 to n
+C[A[i]] = C[A[i]]+1
+for j = k-1 downto 0 do
+C[j] = C[j] + C[j+1]
+for j = 1 to n
+B[C[A[i]]] = A[i]
+C[A[i]] = C[A[i]] - 1
+Esercizio 7 Realizzare una funzione Anagramma(x,y) che date due stringhe xeysull’alfabeto
+{0, 1}, verifica se x` e un anagramma di yrestituendo conseguentemente true ofalse . Una
+stringa ` e vista come un array di caratteri, con lunghezza data dall’attributo len. Ad esempio, la
+stringa x` e la sequenza di caratteri x[1] x[2] ...x[x.len] . Valutare la complessit` a.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 14 ---
+14 Algoritmi e Strutture Dati - 2018/2019
+Soluzione:
+i. L’implementazione ` e la seguente:
+Anagramma(x,y)
+diff[0..1] = 0 # diff[v] = difference between number of v’s in x and
+# number of v’s in y, up to now
+for i=1 to x.len
+diff[x[i]]++
+diff[y[i]]--
+if (diff[0] == 0) and (x.len = y.len)
+# adding (diff[1] == 0) is useless as implied by the first two conditiosn
+return true
+else
+return false
+# nota: il controllo sulla lunghezza poteva essere anticipato
+ii. Complessit` a chiaramente Θ( n).
+Domanda 21 Realizzare una funzione Double(A,n) che, dato un array A[1,n] ordinato in senso
+crescente, verifica se esiste una coppia di indici i, j tali che A[j] =2∗A[i]. Restituisce la coppia
+se esiste e (0,0) altrimenti. Scrivere lo pseudocodice e valutare la complessit` a.
+Soluzione:
+Il codice pu` o essere:
+double(A,n) { // assume A[1,n] ordinato
+n = A.length // ritorna una coppia i, j
+// tale che 2*A[i] = A[j]
+i=1
+j=1
+while (i<=n) and (j<=n) and (2*A[i] <> A[j])
+if (2*A[i] > A[j])
+j++
+else
+i++
+if (i<=n) and (j<=n)
+return (i,j)
+else
+return (0,0)
+`E facile vedere che si mantiene l’invariante ∀i′∈[0, i).∀j′∈[0, j).2∗A[i]̸=A[j]. Da questo la
+correttezza segue immediatamente. Il costo ` e lineare (il numero di iterazioni ` e pari ad al pi` u 2 n,
+ed ogni iterazione ha costo costante, quindi T(n) =O(n).
+Esercizio 8 Si dica che un array A[1..n] ` e bi-ordinato se esiste un indice ktale che A[1..k]
+` e ordinato in senso crescente e A[k..n] ` e ordinato in senso decrescente. Realizzare un algoritmo
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 15 ---
+15 Algoritmi e Strutture Dati - 2018/2019
+top(A,n) che dato in input un array Abi-ordinato con elementi distinti ne determina il valore
+massimo. Ad esempio su A = (1 2 3 14 13 4) restituisce 14. Valutarne la complessit` a.
+Soluzione:
+top(A,n)
+top-rec(A,i,j)
+top_rec(A,i,j)
+if (i=j)
+return A[i]
+else
+q = (i+j)/2
+if A[q] <= A[q+1]
+return top_rec(q+1,j)
+else
+return top_rec(i,q)
+Esercizio 9 Scrivere una funzione perm(m,n) che dati due numeri interi men, maggiori o uguali
+di 0, verifica se uno dei due numeri pu` o essere ottenuto permutando le cifre dell’altro. Ad esempio
+915 e 159 sono uno la permutazione dell’altro mentre 911 e 19 no. Attenzione al ruolo degli zeri,
+ad es. 150 ` e la permutazione di 51, dato che 51 = 051. Valutarne la complessit` a.
+(Suggerimento : Il counting sort pu` o fornire una ispirazione.)
+Soluzione:
+# perm: dati due interi positivi m e n verifica se uno e’ la
+# permutazione dell’altro.
+perm(m,n):
+# use an array for counting the difference in the number of digits
+# of the two numbers. Note that we do not need to count the 0’s as
+# different number of 0’s can be compensated by putting 0’s in front
+# D[i] = difference count for cypher i
+for i=1 to 9
+D[i] = 0
+while (m > 0)
+# compute the last digit of m
+d = m mod 10
+if (d > 0)
+D[d]++
+m = m div 10
+while (n > 0)
+# compute the last digit of m
+d = n mod 10
+if (d > 0)
+D[d]--
+n=n div 10
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 16 ---
+16 Algoritmi e Strutture Dati - 2018/2019
+# returns True if D contains all zeros
+i = 1
+while (i<=9) and (D[i]==0)
+i++
+return (i>9)
+I primi due cicli while hanno complessit` a Θ(log m) e Θ(log n), mentre l’ultimo ` e Θ(9) = Θ(1).
+Quindi la complessit` a ` e Θ(log m+ log n) = Θ(log max {m, n}).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 17 ---
+17 Algoritmi e Strutture Dati - 2018/2019
+4 Heap
+Domanda 22 Scrivere una funzione sndmin (A) che dato in input un array Aorganizzato a
+min-heap, restituisce il successore della radice, ovvero il minimo elemento dello heap maggiore
+della radice. Se un tale elemento non esiste genera un errore. Assumere che Asia non vuoto e gli
+elementi in Asiano tutti distinti.
+Soluzione: `E sufficiente ricordare che ogni nodo di un min-heap ` e minore o uguale ai discendenti
+per dedurre che il successore della radice, se esiste, ` e uno dei due figli A[2] o A[3].
+sndmin(A)
+if A.heapsize > 2
+return min (A[2], A[3])
+else if A.heapsize = 2
+return A[2]
+else
+return error
+Domanda 23 Scrivere una funzione IsMaxHeap(A) che dato in input un array di interi A[1..n]
+che verifica se A` e organizzato a max-heap e ritorna un corrispondente valore booleano. Valutarne
+la complessit` a.
+Soluzione: Versione ricorsiva
+IsMaxHeap(A,i,j) // verifica se l’array A[i,j] e’ un max-heap
+(o meglio, se contiene un max-heap radicato in i,
+dato che al passo ricorsivo non tutto [i,j]
+conterra’ il sottoalbero scelto
+l = 2*i
+r = 2*i+1
+if l<j
+leftOk = A[i] >= A[l] and IsMaxHeap(l, j)
+else
+leftOk = true
+if r<j
+rightOk = A[i] >= A[r] and IsMaxHeap(r, j)
+else
+rightOk = true
+return leftOk and rightOk
+Per quanto riguarda la complessit` a si osservi che T(n) =c+2T(n/2) per un’opportuna costante
+ce quindi, utilizzando il master theorem, si deduce che la complessit` a ` e O(n).
+Versione iterativa
+IsMaxHeap(A,n) // verifica se l’array A[1..n] e’ un max-heap
+i=2
+while (i <= n) and (A[i] <= A[i/2])
+i++
+return (i==n+1)
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 18 ---
+18 Algoritmi e Strutture Dati - 2018/2019
+Domanda 24 Fornire lo pseudocodice della procedura HeapExtractMin(A) per estrarre il minimo
+elemento da un min-heap A, realizzato tramite un array come visto a lezione (la dimensione
+corrente dello heap ` e data dall’attributo A.heapsize ). Discuterne la complessit` a.
+Soluzione:
+Heap-Extract-Min(A) // A e’ un min-heap
+if A.heapsize < 1
+error \underflow"
+else
+min = A[1]
+A[1] = A[A.heapsize]
+A.heapsize = A.heapsize - 1
+Min-Heapify(A,1)
+return min
+MinHeapify(A,i)
+l = 2i, r =2i+1
+min = i
+if l <= A.heapsize and A[l] < A[m]
+min = l
+if r <= A.heapsize and A[r] < A[m]
+min = r
+if min <> i
+A[i] <-> A[m]
+MinHeapify(A,m)
+Domanda 25 Dare la definizione di max-heap. Dato un array A[1..12] con sequenza di elemen-
+ti[60, 6, 45, 95, 30, 24, 15, 80, 19, 38, 21, 70] si indichi il risultato della procedura
+BuildMaxHeap applicata ad A. Si descriva sinteticamente come si procede per arrivare al risultato.
+Soluzione: L’array risultante (si vedano le procedure sul libro) ` e:
+[95, 80, 70, 60, 38, 45, 15, 6, 19, 30, 21, 24]
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 19 ---
+19 Algoritmi e Strutture Dati - 2018/2019
+5 Alberi e ricorsione
+Domanda 26 Dato un albero nel quale i nodi contengono una chiave, si definisca costo di
+un cammino dalla radice ad una foglia, come la somma delle chiavi dei nodi che compaiono nel
+cammino. Scrivere una funzione MaxPath(T) che opera nel modo seguente. Prende in input un
+albero binario T, con radice T.root , e nodi xche hanno come campi x.k,x.lex.r, ovvero una
+chiave, il puntatore al figlio sinistro e destro, rispettivamente. Resituisce la il costo del cammino
+di costo massimo dalla radice ad una foglia. Valutarne la complessit` a.
+Soluzione:
+MaxPath(x)
+if x=nil
+return 0
+elseif x.l = nil
+return x.key + MaxPath(x.r)
+elseif x.r = nil
+return x.key + MaxPath(x.l)
+else
+return x.key + max { MaxPath(x.l), MaxPath(x.r) }
+Domanda 27 Realizzare una procedura Level(T) che dato un albero binario T, con radice
+T.root , e nodi xcon campi x.left ,x.right ex.key , rispettivamente figlio destro, figlio sinistro
+e chiave intera, ritorna il numero di nodi per i quali la chiave x.key ` e minore o uguale al livello
+del nodo (la radice ha livello 0, i suoi figli livello 1 e cos` ı via). Valutare la complessit` a.
+Soluzione:
+// ritorna il numero di nodi y del sottoalbero radicato in x, tali che
+// y.key <= livello
+Level(x, level)
+if x == nil
+return 0
+else
+left = Level(x.left, level+1)
+right = Level(x.right, level+1)
+if x.key <= level
+return left + right + 1
+else
+return left + right
+// chiamata di base
+Level(T)
+return Level (T.root, 0)
+Si tratta di una visita dell’albero, quindi la complessit` a ` e lineare Θ( n).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 20 ---
+20 Algoritmi e Strutture Dati - 2018/2019
+Domanda 28 SiaTun albero binario i cui nodi xhanno i campi x.left,x.right ,x.key . L’albero
+si dice un sum-heap se per ogni nodo x, la chiave di x` e maggiore o uguale sia alla somma delle
+chiavi nel sottoalbero sinistro che alla somma delle chiavi nel sottoalbero destro.
+Scrivere una funzione IsSumHeap(T) che dato in input un albero Tverifica se T` e un sum-heap
+e ritorna un corrispondente valore booleano. Valutarne la complessit` a.
+Soluzione: La soluzione pu` o essere
+IsSumHeap(T)
+return IsSumHeap-rec(T.root)
+IsSumHeap-rec(x) // verifica se l’albero radicato in x e’ un sum-heap
+e ritorna true/false e la somma delle chiavi nel
+sottoalbero radicato in x
+if x = nil
+return true, 0
+else
+isSumHeapL, sumL = IsSumHeap-rec(x.left)
+isSumHeapR, sumR = IsSumHeap-rec(x.right)
+return (x.key >= sumL) and (x.key >= sumR),
+x.key + sumL + sumR
+Per quanto riguarda la complessit` a, se l’albero ` e bilanciato, T(n) =c+ 2T(n/2) per un’op-
+portuna costante ce quindi, utilizzando il master theorem, si deduce che la complessit` a ` e Θ( n).
+Se l’albero non ` e bilanciato, si pu` o osservare che si tratta di una visita (costo lineare) o pi` u
+precisamente scrivere la ricorrenza
+T(n) =T(k) +T(n−k−1) +c
+e provare, per sostituzione, che T(n) =an+b` e soluzione per opportune costanti a, b.
+Esercizio 10 Un nodo xdi un albero binario Tsi dice fairse la somma delle chiavi nel cammino
+che conduce dalla radice dell’albero al nodo x(escluso) coincide con la somma delle chiavi nel
+sottoalbero di radice x(con xincluso). Realizzare un algoritmo ricorsivo printFair(T) che dato
+un albero Tstampa tutti i suoi nodi fair. Supporre che ogni nodo abbia i campi x.left,x.right ,x.p,
+x.key . Valutare la complessit` a dell’algoritmo.
+Un esempio: i nodi grigi sono fair
+3
+1
+1 11
+2
+2
+Soluzione: L’algoritmo pu` o essere il seguente:
+printFair(x,path) // x = node of the tree
+// path=sum of the keys in the path from the root to x
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 21 ---
+21 Algoritmi e Strutture Dati - 2018/2019
+// Action: print the fair nodes and
+// returns the sum of the keys in the subtree
+if (x == nil)
+return 0
+left = printFair(x.l, path + x.key)
+right = printFair(x.r, path + x.key)
+sumTree = left + right + x.key
+if (path == sumTree)
+print x
+return sumTree
+e viene chiamato come printFair(T.root, 0) .
+Si tratta di una visita, quindi con costo O(n) (pi` u precisamente ottenibile con il master theorem
+come soluzione della ricorrenza T(n) = 2 T(n/2) +c.
+Esercizio 11 Sia dato un albero i cui nodi contengono una chiave intera x.key , oltre ai campi x.l,
+x.rex.pche rappresentano rispettivamente il figlio sinistro, il figlio destro e il padre. Si definisce
+grado di squilibrio di un nodo il valore assoluto della differenza tra la somma delle chiavi nei nodi
+foglia del sottoalbero sinistro e la somma delle chiavi dei nodi foglia del sottoalbero destro. Il grado
+di squilibrio di un albero ` e il massimo grado di squilibrio dei suoi nodi.
+Fornire lo pseudocodice di una funzione sdegree(T) che calcola il grado di squilibrio dell’albero
+T(si possono utilizzare funzioni ricorsive di supporto). Valutare la complessit` a della funzione.
+Soluzione:
+// computes the sum of the leaf nodes of the subtree and the sdegree
+// for the node x (returns two values)
+sdegree(x)
+if (x == nil)
+sum = 0
+degree = 0
+elif (x.left == nil) and (x.right = nil) # leaf
+sum = x.key
+degree = 0
+else
+suml, degreel = sdegree(x.l)
+sumr, degreer = sdegree(x.r)
+sum = suml + sumr
+degree = max { degreel, degreel, abs(suml - sumr) }
+return sum, degree
+Esercizio 12 Si consideri un albero binario T, i cui nodi xhanno i campi x. l,x. r,x. pche
+rappresentano il figlio sinistro, il figlio destro e il padre, rispettivamente. Un cammino ` e una
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 22 ---
+22 Algoritmi e Strutture Dati - 2018/2019
+sequenza di nodi x0, x1, . . . , x ntale che per ogni i= 1, . . . , n valexi+1.p=xi. Il cammino ` e detto
+terminabile sexn.l=niloppure xn.r=nil. Diciamo che l’albero ` e 1-bilanciato se tutti i cammini
+terminabili dalla radice hanno lunghezze che differiscono al pi` u di 1. Scrivere una funzione bal1(T)
+che dato in input l’albero Tverifica se ` e 1-bilanciato e ritorna un corrispondente valore booleano.
+Valutarne la complessit` a.
+Soluzione: La soluzione pu` o basarsi su di una funzione ricorsiva che calcola per un nodo xla
+lunghezza massima e minima dei cammini terminabili da x
+bal1(T) // verifica se l’albero radicato in x e’ 1-bilanciato,
+// ovvero i cammini dalla radice terminati da nil hanno
+// lunghezze che differiscono al piu di 1
+// si basa su di una funzione ricorsica che calcola la
+// lunghezza minima e massima dei cammini.
+min,max = bal1rec(T.root)
+return max-min <= 1
+bal1rec(x)
+if x = nil
+return (0,0)
+else
+(left_min,left_max) = bal1(x.left)
+(right_min,r_right_max) = bal1(x.right)
+return max(left_min, right_min) + 1, max(left_max,right_max) + 1
+Per quanto riguarda la complessit` a si osservi che T(n) =c+T(k)+T(n−k−1) per un’opportuna
+costante ce quindi, la complessit` a ` e O(n).
+Esercizio 13 SiaTun albero binario i cui nodi xhanno i campi x.left,x.right ,x.key . L’albero
+si dice k-bounded , per un certo valore k, se per ogni nodo xla somma delle chiavi lungo ciascun
+cammino da xad una foglia ` e minore o uguale a k.
+Scrivere una funzione k-bound(T,k) che dato in input un albero Te un valore kverifica se T
+` ek-bounded e ritorna un corrispondente valore booleano. Valutarne la complessit` a.
+Soluzione:
+k-bound(T,k)
+return k-bound-rec(T.root)
+k-bound-rec(x,k) // Verifica se l’albero radicato in x e’ k-bounded
+Ritorna true/false e la somma delle chiavi in un
+cammino da x alla radice con somma massima
+if x = nil
+return true, 0
+else
+if x.left = nil
+isKBound, max = k-bound-rec(x.right,k)
+max = max + x.key
+else if x.right = nil
+isKBound, max = k-bound-rec(x.left,k)
+max = max + x.key
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 23 ---
+23 Algoritmi e Strutture Dati - 2018/2019
+else
+isKBoundL, maxL = k-bound-rec(x.left,k)
+isKBoundR, maxR = k-bound-rec(x.right,k)
+max = max { maxR, maxL } + x.key
+isKBound = isKBoundL and isKBoundR and max <= k
+return isKBound, max
+La complessit` a ` e Θ( n).
+Domanda 29 Scrivere una funzione complete (T) che dato in input un albero binario verifica se
+` e completo (ovvero ogni nodo interno ha due figli e tutte le foglie hanno la stessa distanza dalla
+radice).
+Soluzione:
+complete(x) // verifica se l’albero radicato in x e’ completo: ritorna
+// l’altezza dell’albero in caso positivo e -1 in caso negativo
+if x = nil
+return 0
+else
+countl = complete(x.left)
+countr = complete(x.right)
+if (countr == -1) or (countl == -1) or (countl <> countr)
+return -1
+else
+return countl+1
+Per quanto riguarda la complessit` a si osservi che T(n) =c+T(k)+T(n−k−1) per un’opportuna
+costante ce quindi, la complessit` a ` e O(n).
+Domanda 30 Scrivere una funzione diff(T) che dato in input un albero binario Tdetermina la
+massima differenza di lunghezza tra due cammini che vanno dalla radice ad un sottoalbero vuoto.
+Ad esempio sull’albero ottenuto inserendo 1, 2 e 3 produce 2, su quello ottenuto inserendo 2, 1, 3
+produce 0. Valutarne la complessit` a.
+Soluzione: Il programma si basa su una una funzione ricorsiva diff-rec(x) che restituisce il la
+lunghezza del minimo e massimo cammino per il sottoalbero radicato in x
+diff(T)
+min,max = diffRec(T.root)
+return
+diff-rec(x)
+if x = nil
+return 0,0
+else
+minl, maxl = diff-rec(x.left)
+minr, maxr = diff-rec(x.right)
+return min(minl,minr)+1, max(maxl,maxr)+1
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 24 ---
+24 Algoritmi e Strutture Dati - 2018/2019
+Per quanto riguarda la complessit` a si osservi che si tratta di una visita dell’albero, quindi Θ( n).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 25 ---
+25 Algoritmi e Strutture Dati - 2018/2019
+6 Tabelle Hash
+Domanda 31 Si consideri una tabella hash di dimensione m= 8, e indirizzamento aperto con
+doppio hash basato sulle funzioni h1(k) =k mod m eh2(k) = 1 + k mod (m−2). Si descriva in
+dettaglio come avviene l’inserimento della sequenza di chiavi: 12, 3, 22, 14, 38.
+Soluzione: Si ottiene
+0-
+114
+2-
+33
+412
+5-
+622
+738
+Domanda 32 Si consideri una tabella hash di dimensione m= 8, e indirizzamento aperto con
+doppio hash basato sulle funzioni h1(k) =k mod m eh2(k) = 1 + 2 ∗(k mod (m−3)). Si descriva
+in dettaglio come avviene l’inserimento della sequenza di chiavi: 34, 12, 18, 9, 42.
+Soluzione: Si ottiene
+0-
+118
+234
+39
+412
+5-
+6-
+742
+Domanda 33 Si consideri una tabella hash di dimensione m= 8, e indirizzamento aperto con
+doppio hash basato sulle funzioni h1(k) =k mod m eh2(k) = 1 + k mod (m−2). Si descriva in
+dettaglio come avviene l’inserimento della sequenza di chiavi: 14, 22, 10, 16, 8.
+Soluzione: Si ottiene
+016
+18
+210
+322
+4-
+5-
+614
+7-
+Domanda 34 Si consideri una tabella hash di dimensione m= 8, gestita mediante chaining
+(liste di trabocco) con funzione di hash h(k) =k mod m . Si descriva in dettaglio come avviene
+l’inserimento della sequenza di chiavi: 14, 10, 22, 18, 19.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 26 ---
+26 Algoritmi e Strutture Dati - 2018/2019
+Soluzione: Si ottiene
+0
+1
+2 18→10
+3 19
+4
+5
+6 22→14
+7
+Domanda 35 Si consideri una tabella hash di dimensione m= 9, e indirizzamento aperto con
+doppio hash basato sulle funzioni h1(k) =k mod m eh2(k) = 1 + k mod (m−2). Si descriva in
+dettaglio come avviene l’inserimento della sequenza di chiavi: 12, 3, 22, 14, 38.
+Soluzione: Si ottiene
+0-
+1-
+238
+312
+422
+514
+6-
+73
+8-
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 27 ---
+27 Algoritmi e Strutture Dati - 2018/2019
+7 Alberi Binari di Ricerca e Red Black Trees
+Domanda 36 Realizzare una funzione pred(x) che dato in input un nodo x, di un albero binario
+di ricerca T, restituisce il predecessore di x(oppure nil, se il predecessore non esiste). Come a
+lezione, supporre che ogni nodo abbia i campi x.left,x.right ,x.p,x.key .
+Soluzione:
+pred(x)
+if x.left <> nil
+return max (x.left)
+else
+y = x.p
+while (y <> nil) and (x == y.left)
+x=y
+y=y.p
+return y
+max (x)
+while x.right <> nil
+x = x.right
+return x
+Domanda 37 Scrivere una funzione IsABR(A) che dato in input un array di interi A[1..n] ,
+interpretato come albero binario (come nel caso degli heap, ogni A[i] ` e un nodo con figlio sinistro
+e destro A[2i] eA[2i+1] ) verifica se A` e un albero binario di ricerca. Valutarne la complessit` a.
+Soluzione: Una versione iterativa, di tempo O(nlogn) consiste nel verificare che ogni nodo sia
+minore o uguale dei nodi dei quali ` e nel sottoalbero sinistro e maggiore o uguale di quelli in cui ` e
+nel sottoalbero destro
+IsABR(A)
+n = A.length
+i = n
+isABR = true
+while ((i > 1) and isABR)
+j = i
+while j>1 # risale l’albero
+if even(j) # i nodi di indice pari sono figli sx
+isABR = isABR and A[i] <= A[j/2]
+else # quelli di indice dispari figli dx
+isABR = isABR and A[i] >= A[j/2]
+j = j/2
+i = i-1
+return isABR
+E varie versioni ricorsive, la prima per ogni nodo verifica che sia maggiore o uguale al massimo del
+sottoalbero destro e minore o uguale del minimo del sottoalbero destro. Dato che prima controlla
+che tali sottoalberi siano ABR pu` o cercare minimo e massimo in tempo log ncosa che assicura
+che il costo complessivo ` e lineare. Infatti T(n) = 2 T(n/2) + 2 log nche secondo il master theorem
+porta a T(n) = Θ( n).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 28 ---
+28 Algoritmi e Strutture Dati - 2018/2019
+IsABR0(A,n)
+return IsABR0_rec(A,n,1)
+IsABR0_rec(A,n,i):
+if i > n
+return True
+else:
+isABRL = IsABR0_rec(A,n,2*i)
+isABRR = IsABR0_rec(A,n,2*i+1)
+M = max(A,n,2*i) # massimo del sottoalbero sx (assumendolo
+ABR, gia’ controllato!)
+m = min(A,n,2*i+1) # minimo del sottoalbero dx (assumendolo
+ABR, gia’ controllato!)
+return isABRL and isABRR
+and A[i] >= M
+and A[i] <= m
+Tmin(A,n,i):
+if i>n:
+return +INFTY
+else:
+while (2*i <=n):
+i = 2*i # scende a sx
+return A[i]
+Si pu` o evitare il ciclo per cercare minimo e massimo tenendo conto conto che il minimo corri-
+sponde a A[m] con mmassimo valore ≤nottenuto moltiplicando iper 2, ovvero m=i∗2k≤n,
+conhmassimo quindi
+h=⌊log2n/i⌋
+e similmente, il massimo corrisponde a A[M] con Mottenuto da imoltiplicando per 2 e sommando
+1, iterativemanete, ma senza superare n. Osservando che l’operazione suddetta iterata k, ovvero
+(i∗2 + 1) ∗2 + 1 . . .) fatto kvolte, conduce a i∗2k+ 1 + 2 + . . .+ 2k−1, si ha M=i∗2k+ 2k−1 =
+2k(i+ 1)−1≤nconkmassimo, per cui
+k=⌊log2(n+ 1)/(i+ 1)⌋
+Le altre di costo lineare:
+# soluzione di tempo lineare
+IsABR1(A,n)
+isABR,m,M = IsABR1_rec(A,n,1) # ritorna tre valori per il sottoalbero radicato in A[i]
+# - e’ ABR? (true/false)
+# - minimo
+# - massimo
+return isABR
+IsABR1_rec(A,n,i):
+if i > n
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 29 ---
+29 Algoritmi e Strutture Dati - 2018/2019
+return True, INFTY, -INFTY
+else:
+isABRL, mL, ML = IsABR1_rec(A,n,2*i)
+isABRR, mR, MR = IsABR1_rec(A,n,2*i+1)
+return isABRL and isABRR
+and A[i] >= ML
+and A[i] <= mR,
+min(mL, mR, A[i]),
+max(ML, MR, A[i])
+// altra soluzione di tempo lineare
+// effettua una visita e verifica simmetrica e che produca l’array ordinato
+IsABR2(A,n)
+isABR, last = visitAndCheck(A,1,-INFTY)
+// visita simmetrica con verifica che il prossimo
+// valore incontrato sia inferiore al precedente
+// ritorna due valori
+// ok
+// ultimo valore prodotto
+return isABR
+visitAndCheck(A,i,last)
+if i > n
+return True, last
+else:
+ok_left, last = visitAndCheck(A,2*i,last)
+// conceptually, now visit A[i]
+ok = last <= A[i]
+ok_right, last = visitAndCheck(A,2*i+1,A[i])
+return ok_left and ok and ok_right, last
+Domanda 38 Si consideri una variante degli alberi binari di ricerca nella quale i nodi xhanno
+un campo x.pred (predecessore) invece che il campo x.p(parent). Realizzare la procedura di
+Insert(T,z) che inserisce un nodo znell’albero. Valutarne la complessit` a.
+Soluzione: La soluzione con complessit` a O(h) dove h` e l’altezza dell’albero pu` o essere:
+Insert(T,z)
+x = T.root
+y = nil // father
+w = nil // successor
+while (x <> nil)
+y = x
+if z.key < x.key
+x = x.left
+w = y
+else
+x = x.right
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 30 ---
+30 Algoritmi e Strutture Dati - 2018/2019
+z.p = y // omit if ’parent’ is not a field
+if y = nil
+T.root = z
+else if z.key < y.key
+y.left = z
+z.prec = y.prec
+else
+y.right = z
+z.prec = y
+if w <> nil
+w.prec = z
+Esercizio 14 Realizzare una procedura BST(A) che dato un array A[1..n] di interi, ordinato in
+modo crescente, costruisce un albero binario di ricerca di altezza minima che contiene gli elementi
+diAe ne restituisce la radice. Per allocare un nuovo nodo dell’albero si utilizzi una funzione
+mknod(k) che dato un intero kritorna un nuovo nodo con x.key=k e figlio destro e sinistro x.left
+= x.right = nil . Valutarne la complessit` a.
+Soluzione:
+i. L’implementazione ` e la seguente:
+BST(A)
+return BST-rec(A,1,n)
+BST-rec(T,A,p,q)
+if p <= q
+m = floor(p+q/2)
+x=mknode(A[m])
+x.l = BST-rec(A,p,m-1)
+x.r = BST-rec(A,m+1,q)
+else
+x = nil
+return x
+ii. Si ottiene la ricorrenza T(n) = 2 T(n/2) + Θ(1) e quindi il costo ` e T(n) =O(n).
+Esercizio 15 Si consideri una estensione degli alberi binari di ricerca nei quali ogni nodo xha
+anche un campo booleano x. even che vale true ofalse a seconda che la somma delle chiavi nel
+sottoalbero radicato in xsia pari o dispari. Realizzare la procedura Insert(T,z) di modo che
+mantenga correttamente aggiornato anche il campo even. Valutarne la complessit` a.
+Soluzione:
+Insert(T,z)
+x = T.root
+y = nil
+z.even = (z.key mod 2 == 0)
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 31 ---
+31 Algoritmi e Strutture Dati - 2018/2019
+while (x <> nil)
+x.even = (x.even == z.even) // z e‘ inserito nel sottoalbero radicato
+// in x, quindi si aggiunge alla somma
+// che sara’ pari se la somma precedente
+// e z.key sono entrambi pari o entrambi
+// dispari e sara’ dispari altrimenti
+y = x
+if z.key < x.key
+x = x.left
+else
+w = y
+x = x.right
+z.p = y
+if y = nil
+T.root = z
+else if z.key < y.key
+y.left = z
+else
+y.right = z
+La complessit` a ` e Θ( h).
+Esercizio 16 Scrivere una funzione range(T,k1,k2) che dato un albero binario di ricerca Te due
+interi k1ek2tali che k1≤k2, stampa, in ordine crescente, tutte le chiavi kcontenute nell’albero
+tali che k1≤k≤k2. Valutarne la complessit` a.
+Soluzione:
+range(T, k1, k2)
+range_rec(T.root, k1, k2)
+range_rec(x,k1,k2)
+if x <> nil
+if x.key >= k1
+range_rec(x.left, k1, k2)
+if x.key >= k1 and x.key <= k2
+print x.key
+if x.key <= k2
+range_rec(x.right, k1, k2)
+Domanda 39 [5] Scrivere una funzione blackHeight (T) che dato in input un albero binario di
+ricerca T, i cui nodi xhanno, oltre ai campi x.key ,x.left ex.right , hanno un campo x.col che pu` o
+essere B(per “black”) oppure R(per “red”), verifica se per ogni nodo, il cammino da quel nodo a
+qualsiasi foglia contiene lo stesso numero di nodi neri (altezza nera). In caso negativo, restituisce
+−1, altrimenti restituisce l’altezza nera della radice.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 32 ---
+32 Algoritmi e Strutture Dati - 2018/2019
+Soluzione:
+blackHeight(x) // calcola l’altezza nera di x
+if x = nil
+return 0
+else
+countl = blackHeight(x.left)
+countr = blackHeight(x.right)
+// le altezze nere sono diverse se ho un sottoalbero con altezze diverse
+// oppure entrambi i sottoalberi sono non vuoti e con altezze nere diverse
+if (countr == -1) or (countl == -1) or
+(x.left <> nil and x.right <> nil and countl <> countr)
+count=-1
+else
+if (x.left == nil)
+count = countr
+else
+count = countl
+if x.col == B
+count = count+1
+return count
+Per quanto riguarda la complessit` a si osservi che T(n) =c+T(k)+T(n−k) per un’opportuna
+costante ce quindi, la complessit` a ` e O(n).
+Esercizio 17 Scrivere una funzione RBTree(T) che dato in input un albero binario di ricerca T,
+i cui nodi x, oltre ai campi x.key ,x.left ex.right , hanno un campo x.col che pu` o essere B(per
+“black”) oppure R(per “red”), verifica se questo ` e un Red-Black tree. In caso negativo, restituisce
+−1, altrimenti restituisce l’altezza nera della radice. Valutarne la complessit` a.
+Soluzione:
+RBTree(T) // verifica se T e’ un RB-tree
+if T.root == T.nil
+return 0
+elif T.root.color == R
+return -1
+else
+return RB-rec(T.root)
+RB-rec(x) // calcola l’altezza nera di x e la restituisce se
+- le altezze nere dei figli sono uguali
+- se il nodo e‘ R i figli sono B
+- le foglie dei sottoalberi sono B
+altrimenti restituisce -1
+if x == T.nil // foglia, T.nil e’ automaticamente nero
+return 0
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 33 ---
+33 Algoritmi e Strutture Dati - 2018/2019
+elif (x.color == R) and ((x.l.color == R) or (x.r.color == R))
+return -1
+else
+left = RB-rec(x.left)
+right = RB-rec(x.right)
+// se uno dei due sottoalberi non soddisfa le richieste
+// oppure entrambi i sottoalberi le soddisfano ma
+// sono non vuoti e con altezze nere diverse
+if (right == -1) or (left == -1) or (left <> right)
+count=-1
+else
+count = left
+if x.col == B
+count = count+1
+return count
+Per quanto riguarda la complessit` a si osservi che T(n) =c+T(k)+T(n−k) per un’opportuna
+costante ce quindi, la complessit` a ` e O(n).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 34 ---
+34 Algoritmi e Strutture Dati - 2018/2019
+8 Programazione Dinamica
+Esercizio 18 Dare un algoritmo per individuare, all’interno di una stringa a1. . . a nuna sot-
+tostringa (di caratteri consecutivi) palindroma di lunghezza massima. Ad esempio, nella stringa
+“colonna ” la sottostringa palindroma di lunghezza massima ` e “ olo”. Pi` u precisamente:
+i. dare una caratterizzazione ricorsiva della lunghezza massima li,jdi una sottostringa
+palindroma di ai. . . a j;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina la lunghezza massima;
+iii. trasformare l’algoritmo in modo che permetta anche di individuare la stringa, non solo la sua
+lunghezza;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione: La caratterizzazione ricorsiva della lunghezza massima li,jdi una sottostringa
+palindroma di ai,j=ai. . . a jderiva dall’osservazione che
+•sei > j , quindi ai,j=ε` e la stringa vuota, dato che la stringa vuota ` e palindroma li,j= 0;
+•sei=jquindi ai,j` e la stringa di un solo carattere, che ` e palindroma, vale li,j= 1;
+•altrimenti, se i < j quindi ai,jconsta di almeno due caratteri, distinguiamo due sottocasi:
+–seai=aje la sottostringa ai+1,j−1` e palindroma, anche ai,j` e palindroma. Quest’ultima
+condizione si riduce a li+1,j−1=|ai+1,j−1|=j−i−1. In questo caso vale li,j=j−i+1
+(lunghezza di ai,j)
+–se invece ai̸=aj, una sottostringa palindroma non pu` o comprendere entrambi gli
+estremi e quindi ci si riduce ai sottoproblemi ai+1,jeai,j−1e si prende il massimo.
+In sintesi:
+li,j=
+
+0 if i > j
+1 if i=j
+li+1,j−1+ 2 if ai=ajandli+1,j−1=j−i−1
+max{li,j−1, li+1,j}otherwise ( ai=ajandli+1,j−1̸=j−i−1 orai̸=aj)
+Ne segue l’algoritmo che riceve in input la stringa, nella forma di un array di caratteri A[1, n] e
+usa una matrice L[1..n,0..n] dove L[i, j] rappresenta la lunghezza di una sottostringa palindroma
+inA[i, j]
+palindrome(A, n)
+for i = 1 to n
+L[i,i-1] = 0
+L[i,i] = 1
+for len = 2 to n
+for i = 1 to n-len+1
+j = i + len - 1
+if (A[i] = A[j]) and (L[i+1,j-1] = j-i-1)
+L[i,j] = L[i+1,j-1] + 2
+else
+L[i,j] = max (L[i,j-1], L[i+1,j])
+return L[1,n]
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 35 ---
+35 Algoritmi e Strutture Dati - 2018/2019
+Se vogliamo anche la sottostringa, occorre ricordare il massimo e dove viene raggiunto, lo faccia-
+mo mediante un array P[1..n,1..n] tale che P[i, j] contenga l’indice dal quale inizia la sottostringa
+palindroma pi` u lunga di ai,j
+palindrome(A, n)
+for i = 1 to n
+L[i,i-1] = 0
+L[i,i] = 1
+P[i,i] = i
+for len = 2 to n
+for i = 1 to n-len+1
+j = i + len - 1
+if (A[i] = A[j]) and (L[i+1,j-1] = j-i-1)
+L[i,j] = L[i+1,j-1] + 2
+P[i,j] = i
+else
+if L[i,j-1] >= L[i+1,j]
+L[i,j] = L[i,j-1]
+P[i,j] = P[i][j-1]
+else
+L[i,j] = L[i+1,j]
+P[i,j] = P[i+1][j]
+start = P[1,n]
+end = start + L[1,n]-1
+return A[start..end]
+La complessit` a ` e Θ( n2).
+Una soluzione differente, non basata su programmazione dinamica, consiste nel cercare da ogni
+punto della stringa, una sottostringa palindroma centrata in quel punto di lunghezza dispari, che
+dunque includa quel carattere come centrale oppure pari, quindi che parte dalla stringa vuota.
+Dato che i punti da controllare sono ne per ognuno i due casi (pari o dispari) costano al pi` u
+n, ottengo comunque una complessit` a quadratica.
+# extend the extremes as much as possible, with pairs of identical
+# letters (starting from j=i+1 or j=i+2 at the end we are sure that
+# A[i+1,j-1] is palindrome)
+extend (A, i, j, n)
+while (i>=1) and (j<=n) and (A[i] == A[j]):
+i--
+j++
+return i+1, j-i-1
+# search the longest palindrome substring
+palindrome(A,n)
+m_start = -1 # start of a longest palindrome
+m_len = -1 # length of a longest palindrome
+for i = 1 to n
+start, len = extend(A,i,i+1,n) # find the longest palindrome of even len
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 36 ---
+36 Algoritmi e Strutture Dati - 2018/2019
+if (m_len < len) # centered in i
+m_len = len
+m_start = start
+start, len = extend(A,i,i+2,n) # find the longest palindrome of odd len
+if (m_len < len) # centered in i
+m_len = len
+m_start = start
+return A[m_start:m_start+m_len-1]
+Esercizio 19 Sia data un’espressione E=x1op1x2op2. . . x n−1opn−1xn, con n≥2, dove
+ogni xi` e un intero positivo e opi∈ {+,∗}di somma o di moltiplicazione (dati). Utilizzando la
+programmazione dinamica si determini una parentetizzazione dell’espressione che rende il valore
+dell’espressione minimo. Ad esempio, l’input 7+10 ∗2 pu` o essere parentetizzato come ((7+10) ∗2) =
+34 oppure come (7 + (10 ∗2)) = 27. In questo caso, la parentetizzazione desiderata ` e quindi la
+seconda. Pi` u precisamente:
+i. dare una caratterizzazione ricorsiva del valore minimo vi,jprodotto da una parentetizzazione
+della sottoespressione xiopi. . . op j−1xj;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina il valore minimo;
+iii. trasformare l’algoritmo in modo che permetta anche di stampare l’espressione;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione: Vale la propriet` a di sottostruttura ottima, ovvero se prendo una parentetizzazione
+ottima dell’espressione xiopi. . . op j−1xje considero la posizione kdelle parentesi pi` u esterne
+(xiopi. . . op k−1xk)opk(xk+1opk+ 1. . . op j−1xj), per ogni sottoespressione ottengo una parente-
+tizzazione ancora ottima. Questo deriva dal fatto che la somma ` e monotona negli argomenti, e
+il prodotto lo ` e per numeri non negativi (quindi nelle ipotesi). Se invece avessimo avuto anche
+numeri negativi, occorreva tenere sia il minimo che il massimo e tener conto del segno (es. per
+avere il valore minimo di un prodotto quando un fattore ` e positivo e l’altro negativo, occorre
+prendere il minimo per il primo e il massimo per il secondo). A margine, si noti che se i numeri
+erano strettamente positivi, allora si poteva procedere con un algoritmo greedy che esegue prima
+i prodotti e poi le somme (tanto le operazioni sono associative). In presenza dello zero, non vale
+pi` u (forse si puo’ adattare?)
+Sulla base della discussione precedente, la caratterizzazione ricorsiva ` e quindi:
+vi,j=xi ifi=j
+min{vi,kopkvk+1,j|i≤k≤j−1}ifj > i
+Ne segue l’algoritmo che riceve in input l’espressione, nella forma di un array di due array
+x[1, n],op[1, n−1] e usa una matrice v[1..n,0..n] dove v[i, j] rappresenta il valore minimo per una
+parentetizzazione della sottoespressione corrispondente.
+ParMin(x,op,n)
+for i=1 to n
+v[i,i] = x[i]
+for len = 2 to n
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 37 ---
+37 Algoritmi e Strutture Dati - 2018/2019
+for i = 1 to n - len + 1
+j = i + len - 1
+v[i,j] = +infty
+for k = i to j-1
+q = v[i,k] op[k] v[k+1,j]
+if v[i,j] > q
+v[i,j] = q
+return v
+Se vogliamo anche la parentetizzazione, occorr ricordare il punto in cui si “spezza” ogni espres-
+sione e lo facciamo mediante un array p[1..n,1..n] tale che p[i, j] contenga l’indice kper il quale si
+raggiunge il minimo.
+ParMin(x,op,n)
+for i=1 to n
+v[i,i] = x[i]
+for len = 2 to n
+for i = 1 to n - len + 1
+j = i + len - 1
+v[i,j] = +infty
+for k = i to j-1
+q = v[i,k] op[k] v[k+1,j]
+if v[i,j] > q
+v[i,j] = q
+p[i,j] = k
+return v,p
+Quindi, per stampare la parentetizzazione:
+print(x,op,n)
+v,p = ParMin(x,op,n)
+print_rec(x,op,1,n,p)
+print_rec(x,op,i,j,p)
+if i=j
+print x[i]
+else
+k = p[i,j]
+print "("
+print_rec (x,op,i,k,p)
+print ")", op[k], "("
+print_rec (x,op,k+1,j,p)
+print ")"
+La complessit` a ` e Θ( n3).
+Esercizio 20 Si ricordi che data una sequenza X=x1. . . x k, si indica con Xiil prefisso x1. . . x i.
+Una sottosequenza di X` exi1. . . x ihcon 1≤i1< i2< . . . i h≤k, ovvero ` e una sequenza ottenuta
+daXeliminando alcuni elementi. Quando Y` e sottosequenza di Xsi scrive Y⊑X.
+Realizzare un algoritmo che, date due sequenze X=x1. . . x keY=y1. . . y hdetermina una
+shortest common supersequence (SCS) ovvero una sequenza Z, di lunghezza minima, tale che
+X⊑ZeY⊑Z. Ad esempio per X=abfeY=afgj una SCS ` e abfgj .
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 38 ---
+38 Algoritmi e Strutture Dati - 2018/2019
+i. Dare una caratterizzazione ricorsiva della lunghezza li,jdi una SCS di XieYje dedurne un
+algoritmo;
+ii. trasformare l’algoritmo in modo che fornisca una SCS di XeY;
+iii. valutare la complessit` a dell’algoritmo.
+Soluzione: La caratterizzazione ricorsiva ` e:
+li,j=
+
+i+j ifi= 0 or j= 0
+li−1,j−1+ 1 if i, j > 0 exi=yj
+min{li,j−1, li−1,j}+ 1 if i, j > 0 exi̸=yj
+Ne segue l’algoritmo che riceve in input le stringhe, nella forma di array di caratteri X[1, k],
+Y[1, h] e usa una matrice L[0..k,0..h] dove L[i, j] rappresenta la lunghezza della minima SCS di
+XieYj.
+SCSlen (X,Y,k,h)
+for i=0 to k
+L[i,0] = i
+for j=1 to h
+L[0,j] = j
+for i=1 to k
+for j = 1 to h
+if (X[i] = X[j])
+L[i,j] = L[i-1,j-1] + 1
+else
+L[i,j] = min (L[i,j-1], L[i-1,j]) + 1
+return L[k,h]
+Se vogliamo anche la SCS occorre tener conto delle scelte effettuate per raggiungere l’ottimo.
+Lo facciamo mediante un array P[1..n,1..n]
+SCS-data (X,Y,k,h)
+for i=0 to k
+L[i,0] = i
+for j=1 to h
+L[0,j] = j
+for i=1 to k
+for j = 1 to h
+if (X[i] = X[j])
+L[i,j] = L[i-1,j-1] + 1
+P[i,j] = "xy"
+else
+if L[i,j-1] <= L[i-1,j]
+L[i,j] = L[i,j-1] + 1
+P[i,j] = y
+else
+L[i,j] = L[i-1,j] + 1
+P[i,j] = x
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 39 ---
+39 Algoritmi e Strutture Dati - 2018/2019
+return L, P
+SCS (X,Y,i,j,P)
+if i==0
+print Y[j]
+elseif j==0
+print X[i]
+else
+if P[i,j] = xy
+SCS(X,Y,i-1,j-1,P)
+print X[i]
+elseif P[i,j] = x
+SCS(X,Y,i-1,j,P)
+print X[i]
+else
+SCS(X,Y,i,j-1,P)
+print Y[j]
+La complessit` a ` e Θ( hk).
+Esercizio 21 Si supponga di dover pagare una certa somma s. Per farlo si hanno a disposizione le
+banconote b1, . . . , b nciascuna di valore v1, . . . , v n(numeri naturali). Si vuole determinare, se esiste,
+un insieme di banconote bi1, . . . , b ikche totalizzi esattamente la somma richiesta e che minimizzi
+il numero kdi banconote utilizzate.
+i. mostrare che vale la propriet` a della sottostruttura ottima e fornire una caratterizzazione ri-
+corsiva del costo c(s′, j) della soluzione ottima per il sottoproblema di dare una somma pari
+as′con le banconote in b1, . . . , b j, con j≤n;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina il costo della soluzione ottima;
+iii. trasformare l’algoritmo in modo che permetta anche di individuare la soluzione, non solo il
+suo costo;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. Vale la propriet` a della sosttostruttura ottima, ovvero se bi1, . . . , b ik` e una soluzione ottima per
+il problema con somma se banconote B=b1, . . . , b nallora certamente bi2. . . bik` e soluzione
+ottima per il problema con somma s−vi1e banconote B\{bi1}. Infatti una soluzione migliore,
+ovvero con un numero di banconote inferiore a k−1, per il sottoproblema potrebbe essere
+combinata con bi1e darebbe una soluzione per il problema di partenza, con un numero di
+banconote < ke quindi migliore di quella ottima.
+La caratterizzazione ricorsiva del costo della soluzione ottima c(s′, j) segue immediatamente
+dall’osservazione che
+•ses′= 0, ovvero la somma da dare ` e nulla, non occorre alcuna banconota c(s′, j) = 0.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 40 ---
+40 Algoritmi e Strutture Dati - 2018/2019
+•ses′>0 ej= 0, dato che non possiamo totalizzare una somma non nulla con 0 banconote
+non c’` e soluzione e convenzionalmente assegnamo c(s′, j) = +∞
+•Altrimenti, j >0. Se vj≤s′la banconota j-ma potrebbe essere utilizzata o meno, quindi
+si considera il minimo tra la soluzione ottima che la include e quella che non la include
+c(s′, j) = min {c(s′, j−1), c(s′−vj, j−1) + 1}
+Infine, se vj> s′la banconota va certamente scartata, quindi c(s′, j) =c(s′, j−1).
+In sintesi:
+c(s′, j) =
+
+0 if s′= 0
+∞ ifj= 0 and s′>0
+min{c(s′, j−1), c(s′−vj, j−1) + 1}ifj >0,s′>0 and vj≤s′
+c(s′, j−1) altrimenti
+ii. Ne segue l’algoritmo che riceve in input la somma sda totalizzare e l’array v[1..n] dei valori
+delle banconote a disposizione,
+banconote(s,v,n)
+for j = 0 to n
+for s’ = 0 to s
+c[s’,j] = -1 // valore non usato
+return banconote_rec(s,v,n,c)
+banconote_rec(s’,v,j,c)
+if c[s’,j] = -1
+if s’=0
+c[s’,j] = 0
+elseif j=0
+c[s’,j] = infy // somma impossibile da totalizzare
+elseif v[j] <= s’
+c[s’,j] = min { banconote_rec(s’,v,j-1,c),
+banconote_rec(s’-v[j],v,j-1,c)+1 }
+else
+c[s’,j] = banconote_rec(s’,v,j-1,c)
+return c[s’,j]
+iii. Se vogliamo anche il dettaglio delle banconote
+banconote(s,v,n)
+for j = 0 to n
+b[j] = false // b[j] says whether the j-th note is chosen
+for s’ = 0 to s
+c[s’,j] = -1 // valore non utilizzato
+banconote_rec(s,v,n,c)
+return b, c
+banconote_rec(s’,v,j,c)
+if c[s’,j] = -1
+if s’=0
+c[s’,j] = 0
+elseif j=0
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 41 ---
+41 Algoritmi e Strutture Dati - 2018/2019
+c[s’,j] = infty
+elseif v[j] <= s’
+q_no = banconote_rec(s’,v,j-1,b,c)
+q_yes = banconote_rec(s’-v[j],v,j-1,b,c) + 1
+if q_no <= q_yes
+c[s’,j] = q_no
+else
+c[s’,j] = q_yes
+b[j] = true
+else
+c[s’,j] = banconote_rec(s’,v,j-1,b,c)
+return c[s’,j]
+// valore di ritorno:
+c[s,n] = infty significa che la somma ’s’ non puo’ essere ottenuta
+c[s,n] = value da il minimo numero di banconote
+iv. La complessit` a ` e Θ( sn).
+Esercizio 22 Si supponga di avere una scacchiera n×n. Si vuole spostare un pezzo dall’angolo
+in basso a sinistra (1,1) a quello in alto a destra (n,n) .
+123 n1233n
+….….
+ji
+Il pezzo pu` o muoversi di una casella verso l’alto ( ↑) o verso destra
+(→). Un passo dalla casella (i,j) ha un costo u(i,j) se verso l’alto
+er(i,j) se verso destra. Realizzare un algorimo MinPath(u,r,n) che
+dati in input gli array u[1..n,1..n] er[1..n,1..n] dei costi dei
+singoli passi fornisce il cammino minimo. Pi` u in dettaglio:
+i. fornire una caratterizzazione ricorsiva del costo minimo di un
+cammino C(i,j) per andare dalla casella (i,j) alla casella (n,n)
+ii. tradurre tale definizione in un algoritmo MinPath(u,r,n) (bot-
+tom up o top down con memoization) che determina il costo di un
+cammino minimo da (1,1) a(n,n)
+iii. trasformare l’algoritmo in modo che stampi la sequenza di passi di
+costo minimo;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva del costo ` e:
+C(i, j) =
+
+0 se x=ney=n
+r(i, j) +C(i, j+ 1) se i=nej < n
+u(i, j) +C(i+ 1, j) se i < n ej=n
+min{r(i, j) +C(i, j+ 1), u(i, j) +C(i+ 1, j)}altrimenti
+ii. Ne segue l’algoritmo che riceve in input gli array u(1..n,1..n) er(1..n,1..n) dei costi e
+calcola il costo minimo di un cammino da (1,1) a(n,n)
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 42 ---
+42 Algoritmi e Strutture Dati - 2018/2019
+// u[1..n,1..n], r[1..n,1..n] costi per andare in alto
+// e a destra, rispettivamente
+MinPath(u,l,n)
+C[n,n] = 0
+for j = n-1 downto 1
+C[n,j] = C[n,j+1] + r[n,j]
+for i = n-1 downto 1
+C[i,n] = C[i+1,n] + u[i,n]
+for i=n-1 downto 1
+for j = n-1 downto 1
+C[i,j] = min { C[i+1,j] + u[i,j], C[i,j+1] + r[i,j] }
+return C[1,1]
+iii. Se vogliamo anche una soluzione ottima
+// u[1..n,1..n], r[1..n,1..n] costi per andare in alto
+// e a destra, rispettivamente
+MinPath(u,l,n)
+C[n,n] = 0
+for j = n-1 downto 1
+C[n,j] = C[n,j+1] + r[n,j]
+D[n,j] = ’right’
+for i = n-1 downto 1
+C[i,n] = C[i+1,n} + u[i,n]
+D[i,n] = ’up’
+for i=n-1 downto 1
+for j = n-1 downto 1
+up = C[i+1,j] + u[i,j]
+right = C[i,j+1] + r[i,j]
+if up <= right
+C[i,j] = up
+// memorizza anche la dirazione ottima
+D[i,j] = ’up’
+else
+C[i,j] = right
+D[i,j] = ’right’
+i = j =1
+while (i < n) or (j < n)
+print (i,j)
+if D[i,j] = up
+i=i+1
+else
+j=j+1
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 43 ---
+43 Algoritmi e Strutture Dati - 2018/2019
+iv. La complessit` a ` e O(n2).
+Esercizio 23 Sia data una sequenza di citt` a c1c2...cncollegate da un percorso ferroviario.
+Da ciascuna citt` a ci` e possibile raggiungere cj, con i < j con un treno diretto. Sapendo che per
+i, j∈ {1, . . . , n },i < j il costo del biglietto del treno diretto da ciacjrisulta essere b[i,j] ,
+determinare il costo minimo di un tragitto, con possibili cambi intermedi, da c1acn. Pi` u in
+dettaglio:
+i. fornire una caratterizzazione ricorsiva del costo minimo min[i] di un di un tragitto dalla citt` a
+cialla citt` a cn;
+ii. tradurre tale definizione in un algoritmo MinTrain(b,n) (bottom up o top down con me-
+moization) che determina il costo di un tragitto di costo minimo dalla citt` a c1alla citt` a
+cn;
+iii. trasformare l’algoritmo di modo che determini anche la sequenza dei cambi necessari per otte-
+nere il tragitto di costo minimo, privilegiando – a parit` a di costo – soluzioni che minimizzano
+il numero dei cambi;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva del costo ` e:
+min[i] =
+0 se i=n
+min{b[i, j] +min[j]|j∈ {i+ 1, n}}altrimenti
+ii. Ne segue l’algoritmo che riceve in input gli array u(1..n,1..n) er(1..n,1..n) dei costi e
+calcola il costo minimo di un cammino da (1,1) a(n,n)
+// b[1..n,1..n] con b[i,j] costo per andare da Ci a Cj
+MinTrain(b,n)
+for i = n downto 1
+min[i] = b[i,n] // costo minimo per andare da Ci a Cn
+for j = i+1 to n-1
+q = b[i,j] + min[j]
+if (q < min[i])
+min[i] = q
+return b[1]
+iii. Se vogliamo anche una soluzione ottima
+// b[1..n,1..n] con b[i,j] costo per andare da Ci a Cj
+MinTrain(b,n)
+for i = n downto 1
+min[i] = b[i,n] // costo minimo per andare da Ci a Cn
+next[i] = n // prossima stazione a cui fermarsi in una sol. ottima
+size[i] = 0 // num. di stazioni per raggiungere Cn in una sol. ottima
+for j = i+1 to n-1
+q = b[i,j] + min[j]
+if (q < min[i] or (q = min[i] and (size[i] > size[j]+1))
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 44 ---
+44 Algoritmi e Strutture Dati - 2018/2019
+min[i] = q
+next[i] =j
+size[i] = size[j] + 1
+// stampa la sequenza delle citta’
+i = 1
+while (i<n) {
+print i
+i = next[i]
+iv. La complessit` a ` e O(n2).
+Esercizio 24 Si supponga che il mondo consista di nstati S1. . . , S ne che spostarsi dallo stato
+Siallo stato Sjimponga l’ottenimento di un visto di ingresso che ha un costo vi,j, maggiore di 0.
+Realizzare un algoritmo che determini una sequenza di stati che conviene percorrere per andare
+dallo stato S1allo stato Sn, minimizzando il costo complessivo dei visti. Pi` u precisamente:
+i. Dare una caratterizzazione ricorsiva del costo complessivo minimo videi visti per andare dallo
+stato Siallo stato Sn;
+ii. Usare la caratterizzazione al punto precedente per ottenere un algoritmo ESP (v, n) che dato
+l’array dei costi dei visti v[1..n,1..n] determina il costo minimo dei visti per andare da S1a
+Sn;
+iii. trasformare l’algoritmo in modo che determini oltre al costo minimo anche la sequenza degli
+stati da attraversare per ottenerlo;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva del costo si basa sull’osservazione che il costo vidi un cammino
+minimo da SiaSngode della propriet` a che
+vi= min {vi,j+vj|i̸=j}
+Cos` ı per` o non riduco il problema originario a sottoproblemi pi` u piccoli, ma a problemi della
+stessa dimensione. Una osservazione a questo punto ` e che il cammino minimo (dato che i costi
+sono positivi) non passa mai due volte per uno stato (non contiene cicli). Dunque la scelta
+del primo nodo del cammino, riduce l’insieme di stati nodi del grafo. Pi` u precisamente, se
+indichiamo con vi,Nil cammino minimo che conduce da SiaSn, usando solo i nodi in N
+abbiamo che
+vi,N= min {vi,j+vj,N\{i}|j∈N}
+Si osservi che i sottoproblemi distinti sono dell’ordine dei sottoinsiemi di {1, . . . , n }pertanto
+in numero esponenziale!
+Si potrebbe continuare ed ottenere una soluzione molto inefficiente.
+// v[1..n,1..n] con v[i,j] costo per andare da Si a Sj, assumendo v[i,i] =0
+// calcola
+// cost[i,l]: costo per andare da i a n con un percorso di lunghezza <= l
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 45 ---
+45 Algoritmi e Strutture Dati - 2018/2019
+Min(v,n)
+for i=1 to n-1
+cost[i,0] = infty
+cost[n,0] = 0
+for l=1 to n-1
+min = infty
+for j=1 to n
+if v[i,j] + cost[i,N] < min
+min = v[i,j] + cost[i,N]
+cost[i,l] = min
+return cost[1,n-1]
+Un modo per rendere l’approccio pi` u efficiente ` e osservare che, invece che escludere un unico
+nodo dal percorso, posso escludere i percorsi di lunghezza superiore ad una certa soglia, ovvero
+posso considerare
+vi,ℓ: percorso minimo da SiaSn, di lunghezza ≤ℓ.
+In questo caso i sottoproblemi distinti, dato che il fatto che i percorsi minimi siano aciclici ci
+permette di limitarci a percorsi di lunghezza ℓ≤n−1 sono n2.
+La caratterizzazione ricorsiva:
+vi,ℓ=
+
+0 se i=n
+∞ ℓ= 0 e i̸=n
+min{vi,j+vj,ℓ−1|j∈ {1, . . . , n }}altrimenti
+dove si assume che vi,i= 0 e quindi la minimizzazione include anche vi,i+vi,ℓ−1ovvero il
+percorso di lunghezza ℓ−1.
+ii. Ne segue l’algoritmo che riceve in input l’array v(1..n,1..n) e calcola il costo minimo di un
+cammino da S1aSn
+// v[1..n,1..n] con v[i,j] costo per andare da Si a Sj, assumendo v[i,i] =0
+// calcola
+// cost[i,l]: costo per andare da i a n con un percorso di lunghezza <= l
+Min(v,n)
+for i=1 to n-1
+cost[i,0] = infty
+cost[n,0] = 0
+for l=1 to n-1
+min = infty
+for j=1 to n
+if v[i,j] + cost[i,N] < min
+min = v[i,j] + cost[i,N]
+cost[i,l] = min
+return cost[1,n-1]
+iii. Se vogliamo anche una soluzione ottima
+iv. La complessit` a ` e O(n2).
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 46 ---
+46 Algoritmi e Strutture Dati - 2018/2019
+Esercizio 25 Un marinaio ha npezzi di corda di lunghezze intere l1, . . . , l n(li≥2) e deve
+annodarli per ottenere una corda di lunghezza esattamente d. Tenendo conto che fare un nodo
+richiede una lunghezza pari ad 1 (ad es. se annodo due pezzi lunghi 5 e 7 la corda che ottengo ` e
+lunga 11), individuare, se esiste, un insieme minimo di pezzi che annodati producano una corda
+della lunghezza ddesiderata.
+Pi` u precisamente:
+i. Dare una caratterizzazione ricorsiva del numero minimo m(i, d′) di pezzi di corda scelti in
+l1, . . . , l iche possono essere annodati per produrre la lughezza d′(+∞se non ` e possibile
+ottenere d′con nessuna combinazione);
+ii. Usare la caratterizzazione al punto precedente per ottenere un algoritmo Rope (l, n, d ) che dato
+l’array delle lunghezze l[1..n] determina il numero minimo di pezzi da annodare per ottenere
+d(se esiste);
+iii. trasformare l’algoritmo in modo che restituisca oltre al numero anche l’indicazione di quali
+pezzi usare;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva, assumendo d′>0 pu` o essere:
+m(i, d′) =
+
++∞ sei= 0
+1 se li=d′
+m(i−1, d′) se d′>0 eli> d′
+min{m(i−1, d′), m(i−1, d′−li+ 1) + 1 }altrimenti (se d′>0 eli< d′)
+ii. Ne segue l’algoritmo che riceve in input l’array l[1..n] e calcola il numero minimo di pezzi
+di corda da usare se esiste
+Rope(l,n,d)
+for d’ = 1 to d
+m[0, d’] = +infy
+for i = 1 to n
+for d’ = 1 to d
+if (l[i] = d’)
+m[i,d’] = 1
+else if (l[i] > d’)
+m[i,d] = m[i-1,d’]
+else
+m_in = m[i-1, d’-l[i]+1] + 1
+m_out = m[i-1, d’]
+if m_in <= m_out
+m[i,d’] = m_in
+else
+m[i,d’] = m_out
+return m[n,d]
+iii. Se vogliamo anche una soluzione ottima
+Rope(l,n,d)
+for d’ = 1 to d
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 47 ---
+47 Algoritmi e Strutture Dati - 2018/2019
+m[0, d’] = +infy
+for i = 1 to n
+for d’ = 1 to d
+sol[i,d’] = false // mantiene an array sol[i,d’] che
+// dice se l_i e’ usato nella
+// soluzione ottima per i, d’ (per
+// default non lo e’)
+if (l[i] = d’)
+m[i,d’] = 1
+sol[i,d’] = true
+else if (l[i] > d’)
+m[i,d] = m[i-1,d’]
+else
+m_out = m[i-1, d’]
+m_in = m[i-1, d’-l[i]+1] + 1
+if m_out <= m_int
+m[i,d’] = m_out
+else
+m[i,d’] = m_in
+sol[i,d’] = true
+return sol
+iv. La complessit` a ` e O(nd).
+Alternativamente, possiamo avere come caso base d′= 0
+m(i, d′) =
+
+0 se d′= 0
++∞ sed′>0 ei= 0
+m(i−1, d′) se d′>0 eli−1> d′
+min{m(i−1, d′), m(i−1, d′−li+ 1) + 1 }altrimenti (se d′>0 eli−1<=d′)
+in questo modo per` o non si tiene conto che il primo pezzo di corda non richiede di fare il nodo,
+per cui il valore di interesse sar` a m(d−1, n).
+Gli algoritmi sono quindi: solo valore:
+Rope(l,n,d)
+for i=1 to n
+m[i,0] = 0
+for d’ = 1 to d
+m[0, d’] = +infy
+for i = 1 to n
+for d’ = 1 to d
+if (l[i]-1 > d’)
+m[i,d] = m[i-1,d’]
+else
+m_in = m[i-1, d’-l[i]+1] + 1
+m_out = m[i-1, d’]
+if m_in <= m_out
+m[i,d’] = m_in
+else
+m[i,d’] = m_out
+return m[n,d-1]
+Con soluzione:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 48 ---
+48 Algoritmi e Strutture Dati - 2018/2019
+Rope(l,n,d)
+for i=0 to n
+m[i,0] = 0
+for d’ = 1 to d
+m[0, d’] = +infy
+for i = 1 to n
+for d’ = 1 to d
+sol[i,d’] = false // mantiene an array sol[i,d’] che
+// dice se l_i e’ usato nella
+// soluzione ottima per i, d’ (per
+// default non lo e’)
+if (l[i]-1 > d’)
+m[i,d] = m[i-1,d’]
+else
+m_out = m[i-1, d’]
+m_in = m[i-1, d’-l[i]+1] + 1
+if m_out <= m_int
+m[i,d’] = m_out
+else
+m[i,d’] = m_in
+sol[i,d’] = yes
+return sol
+Esercizio 26 Siano date nattivit` a a1, . . . , a n, che devono essere svolte in un’aula. Ogni attivit` a
+ha tempo di inizio sie tempo di fine fi, con si< fi. Si vuole trovare un sottoinsieme di attivit` a che
+possano essere svolte nell’aula, quindi senza sovrapposizioni, e che massimizzi il tempo di utilizzo
+dell’aula.
+Pi` u precisamente, assumendo che le attivit` a siano ordinate in modo crescente per tempo di
+fine:
+i. dare una caratterizzazione ricorsiva del tempo massimo u(i, f) di utilizzo dell’aula, quan-
+do le attivit` a da allocare siano a1, . . . , a ie l’aula sia disponibile fino al tempo f(ovvero
+nell’intervallo [0 , f));
+ii. usare la caratterizzazione al punto precedente per ottenere un algoritmo allocate (s, f, n ) che
+dati gli array dei tempi di inizio e fine delle attivit` a s[1..n] ef[1..n] determini il tempo di
+utilizzo massimo;
+Sugg.: ` e utile osservare che nel calcolo di u(i, f) i valori significativi di fsono i tempi di inizio
+delle varie attivit` a e quindi ` e possibile limitarsi a u(i, j), ovvero tempo massimo di utilizzo
+dell’aula, con attivit` a a1, . . . , a i, quando l’aula sia disponibile fino al tempo sj;
+iii. trasformare l’algoritmo in modo che restituisca oltre al tempo anche anche l’indicazione di
+quali attivit` a allocare;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva pu` o essere:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 49 ---
+49 Algoritmi e Strutture Dati - 2018/2019
+u(i, f) =
+
+0 se i= 0
+u(i−1, f) se i >0 efi> f
+max{u(i−1, f), u(i−1, si) +fi−si}altrimenti (se i >0 efi≤f)
+con l’osservazione che i valori significativi di fsono i tempi di inizio delle varie attivit` a e ci si
+pu` o focalizzare su u(i, j), ovvero tempo massimo di utilizzo dell’aula, con attivit` a a1, . . . , a i,
+quando l’aula sia disponibile fino al tempo sj;
+u(i, j) =
+
+0 se i= 0
+u(i−1, j) se i >0 efi> sj
+max{u(i−1, j), u(i−1, i) +fi−si}altrimenti (se i >0 efi≤sj)
+ii. Ne segue l’algoritmo allocate (s, f, n ) che dati gli array dei tempi di inizio e fine delle attivit` a
+s[1..n] ef[1..n] determina il tempo di utilizzo massimo. Per semplificare il codice assumiamo
+s[n+ 1] = f[n], cos` ı il valore ottimo complessivo sar` a u[n, n+ 1]
+Allocate(s,f,n)
+for j = 1 to n+1
+u[0, j] = 0
+for j = 1 to n+1
+for i = 1 to j-1
+if (f[i] > s[j])
+u[i,j] = u[i-1,j]
+else
+in = u[i-1, i] + f[i]-s[i]
+out = u[i-1, j]
+if in <= out
+u[i,j] = in
+else
+u[i,j] = out
+return u[n,n+1]
+iii. Se vogliamo anche una soluzione ottima
+Allocate(s,f,n)
+for j = 1 to n+1
+u[0, j] = 0
+for j = 1 to n+1
+for i = 1 to j-1
+if (f[i] > s[j])
+u[i,j] = u[i-1,j]
+else
+in = u[i-1, i] + f[i]-s[i]
+out = u[i-1, j]
+if in <= out
+u[i,j] = in
+// s[i,j] = attivita’ i prsente nella soluzione ottima del
+// sottoproblema con attivita’ 1, .., i,
+// intervallo [0,s_j]
+s[i,j] = true
+else
+u[i,j] = out
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 50 ---
+50 Algoritmi e Strutture Dati - 2018/2019
+s[i,j] = false
+j=n+1
+for i = n downto 1
+if s[i,j]
+print "attivita’ " + i
+j = i
+iv. La complessit` a ` e O(n2).
+Esercizio 27 Mario deve attraversare una griglia come in figura, dall’alto
+verso il basso e per farlo, ad ogni passo salta verso il basso
+di una riga, spostarsi contestualmente a destra di quanto vuo-
+le. Un esempio di attraversamento ` e indicato in figura. Ogni
+casella contiene una moneta di un certo valore (possibilmen-
+te negativo) per cui nell’attraversamento Mario totalizzer` a un
+certo guadagno.
+Supponendo che la griglia abbia dimensione m×ne che
+peri∈ {1, . . . , m },j∈ {1, . . . , n }la casella ( i, j) contenga una
+moneta di valore V[i, j] realizzare un algoritmo che identifica
+un attraversamento di valore massimo.
+Pi` u precisamente:
+i. dare una caratterizzazione ricorsiva del guadagno massimo G[i, j] di un attraversamento della
+sottogriglia [ i..m, j..n ];
+ii. usare la caratterizzazione al punto precedente per ottenere un algoritmo mario(V,m,n) che
+dato l’array Vcon il valore delle monete determini il guadagno massimo di un attraversamento;
+iii. trasformare l’algoritmo in modo che restituisca oltre al guadagno anche anche l’indicazione
+dell’attraversamento da seguire;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva pu` o essere:
+G[i, j] =
+
+0 se i=m+ 1
+−∞ sej=n+ 1
+max{V[i, j] +G[i+ 1, j], G[i, j+ 1]}altrimenti
+ovvero posso decidere di saltare attraverso la casella ( i, j) e passare alla riga successiva oppure
+non usare la casella ( i, j), che significher` a attraversare la sottogriglia [ i..m, j + 1..n].
+ii. Ne segue l’algoritmo che riceve in input l’array V[1..m,1..n] e calcola il guadagno massimo
+Mario(V,m,m)
+allocate G[1..m+1,1..n]
+for j = 1 to n
+G[m+1,j] = 0
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 51 ---
+51 Algoritmi e Strutture Dati - 2018/2019
+for i = 1 to m
+G[i,n+1] = -infty
+for i = m to 1
+for j = n to 1
+if V[i,j] + G[i+1,j] > G[i,j+1]
+G[i,j] = V[i,j] + G[i+1,j]
+else
+G[i,j] = G[i,j+1]
+return G[1,1]
+iii. Se vogliamo anche una soluzione ottima
+Mario(V,m,m)
+allocate G[1..m+1,1..n]
+allocate S[1..m,1..n]
+for j = 1 to n
+G[m+1,j] = 0
+for i = 1 to m
+G[i,n+1] = -infty
+for i = m to 1
+for j = n to 1
+if V[i,j] + G[i+1,j] > G[i,j+1]
+G[i,j] = V[i,j] + G[i+1,j]
+S[i,j] = j
+else
+G[i,j] = G[i,j+1]
+S[i,j] = S[i,j+1]
+stampa_sol(S,m,n)
+stampa_sol (S,m,n)
+j=1
+for i = 1 to m
+print i, S[i,j]
+j = S[i,j]
+iv. La complessit` a ` e O(mn).
+Esercizio 28 Data una sequenza di numeri X=x1x2. . . x nsi vuole determinare una sottose-
+quenza xi1xi2. . . x ikdiX, crescente, ovvero tale che xi1≤xi2≤. . .≤xik, di lunghezza massima.
+Ad esempio, se X= 77 69 70 19 71 25 52 26 28 64, una sottosequenza crescente di lunghezza
+massima ` e 19 25 26 28 64
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 52 ---
+52 Algoritmi e Strutture Dati - 2018/2019
+i. fornire una caratterizzazione ricorsiva della lunghezza lidi una sottosequenza crescente di
+lunghezza massima che abbia come primo carattere xi;
+ii. tradurre tale definizione in un algoritmo LIS(X,n) (bottom up o top down con memoiza-
+tion) che determina la lunghezza di una sottosequenza crescente di lunghezza massima della
+sequenza X[1..n];
+iii. trasformare l’algoritmo in modo individui anche la sottosequenza, non solo la sua lunghezza;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione:
+i. La caratterizzazione ricorsiva della lunghezza della LIS che inizia xi` e:
+li=0 if i > n
+1 + max {lj|j∈[i+ 1, n]∧xi≤xj}ifi < n
+Si noti che il secondo caso fornisce li= 1 per i=n.
+Inoltre, se convenzionalmente fissiamo x0=−∞, avremo che la sottosequenza crescente pi` u
+lunga di X` e la sottosequenza pi` u lunga di x0Xche inizia in x0.
+ii. Ne segue l’algoritmo che riceve in input la sequenza Xe la lunghezza ne calcola la lunghezza
+della pi` u lunga sottosequenza crescente
+LIS(X,n) // X[1..n] sequenza da elaborare
+X[0] = -INFTY
+for i = 0 to n
+L[i] = -1 // L[i] lunghezza LIS piu’ lunga di X[i..n] che
+// inizi in X[i]
+// -1 valore non usato
+return LIS_rec(X,n,0,L)-1
+LIS_rec(X,n,i,L)
+if L[i] = -1
+max = 0
+for j = i+1 to n // se i > n, max = 0
+if X[i] <= X[j]:
+q = LIS_rec(X,n,j,L)
+if q > max
+max = q
+L[i] = max+1
+return L[i]
+iii. Se vogliamo anche una soluzione ottima
+LIS(X,n) // X[1..n] sequenza da elaborare
+X[0] = -INFTY
+for i = 0 to n
+L[i] = -1 // L[i] lunghezza LIS piu’ lunga di X[i..n] che
+// inizi in X[i]
+// N[i] caratterere successivo di una
+sottosequenza otima che inizia in X[i]
+// -1 valore non usato
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 53 ---
+53 Algoritmi e Strutture Dati - 2018/2019
+LIS_rec(X,n,0,L,N)
+i = 0
+while N[i] <= n
+print X[N[i]]
+i = N[i]
+LIS_rec(X,n,i,L,N)
+if L[i] = -1
+max = 0
+N[i] = INFTY
+for j = i+1 to n // se i > n, max = 0
+if X[i] <= X[j]:
+q = LIS_rec(X,n,j,L,N)
+if q > max
+max = q
+N[i] = j
+L[i] = max+1
+return L[i]
+iv. La complessit` a ` e O(n2).
+Esercizio 29 Date due sequenze X=x1. . . x meY=y1. . . y msu di un alfabeto Σ = {a1, . . . , a ℓ}
+si definisce edit distance il costo minimo di un insieme di operazioni che trasforma la sequenza X
+nella sequenza Y. Le operazioni possibili sono
+•insert , ovvero l’inserimento di un simbolo in qualche posizione in X(costo 1);
+•delete , ovvero la cancellazione di un simbolo in qualche posizione in X(costo 1);
+•replace , ovvero la sostituzione di un simbolo in qualche posizione in X, con costo che dipende
+dai simboli coinvolti: sostituire il simbolo acon il simbolo b, con a̸=bha un costo c(a, b)>0.
+Ad esempio per trasformare gesto ingelo posso fare una replace s→le una delete di tcon
+costo c(s,l) + 1, oppure una delete se una replace t→lcon costo 1 + c(t,l), ecc.
+Fornire un algoritmo di programmazione dinamica che dati X,Ye la funzione cdei costi di
+replace (per a, b∈Σ,c(a, b) ` e il costo dell’operazione a→b) calcola la edit distance tra XeY.
+In dettaglio,
+i. indicata con e(i, j) la edit distance tra Xi=x1. . . x ieYj=y1. . . y j, con i∈ {0, . . . , m }e
+j∈ {0, . . . , n }, darne una caratterizzazione ricorsiva;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina l’edit distance;
+iii. trasformare l’algoritmo in modo che fornisca anche le operazioni di edit che trasformano Xin
+Ycon costo minimo;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione: La caratterizzazione ricorsiva della edit distance e(i, j) tra Xi=x1. . . x ieYj=
+y1. . . y j, si ottiene osservando che se la prima stringa ` e vuota , se la seconda ` e vuota devo fare la
+delete della prima, altrimenti, se sono entrambe non vuote,
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 54 ---
+54 Algoritmi e Strutture Dati - 2018/2019
+•sei= 0, ovvero la prima stringa ` e vuota, non posso fare altro che fare l’insert della seconda;
+•sej= 0, ovvero la seconda stringa ` e vuota, non posso fare altro che fare la delete della
+prima;
+•altrimenti, se i, j > 0, posso
+–sexi=yj, senza alcun costo, ridurmi Xi−1, Yj−1, altrimenti questo richiede di pagare
+il costo della sostituzione;
+–fare la delete di xi
+–fare l’insert di yj
+alla fine, terr` o la meno costosa tra le tre.
+In sintesi:
+e[i, j] =
+
+j sei= 0 e j >0
+i sej= 0 e i >0
+min
+
+e[i−1, j] + 1,
+e[i, j−1] + 1
+e[i−1, j−1]
+
+sei, j > 0 exi=yj
+min
+
+e[i−1, j] + 1,
+e[i, j−1] + 1
+e[i−1, j−1] +c(xi, yj)
+
+altrimenti
+che, assumendo che c(a, a) = 0 posso semplificare:
+e[i, j] =
+
+max( i, j) se i= 0 o j= 0
+min
+
+e[i−1, j] + 1,
+e[i, j−1] + 1
+e[i−1, j−1] +c(xi, yj)
+
+altrimenti
+Un ulteriore semplificazione deriva dall’osservazione che se xi=yjil match ` e sempre la scelta
+pi` u conveniente, ovvero,
+e[i−1, j−1]≤min(e[i, j−1], e[i−1, j]) + 1
+infatti, una qualunque edit sequence che transforma Xi−1inYjpu` o trasformare Xi−1inYj−1
+con al massimo una delete in pi` u. E similmente, una qualunque edit sequence che transforma Xi
+inYj−1pu` o trasformare Xi−1inYj−1con al massimo una insert in pi` u.
+Quindi:
+e[i, j] =
+
+max( i, j) se i= 0 o j= 0
+e[i−1, j−1] se i, j > 0 exi=yj
+min
+
+e[i−1, j] + 1,
+e[i, j−1] + 1
+e[i−1, j−1] +c(xi, yj)
+
+altrimenti
+Ne segue l’algoritmo che riceve in input X,m,Y,ne la funzione ce calcola l’edit distance.
+edit (X, m, Y, n, c)
+for i=0 to m
+e[i,0] = i
+for j=1 to n
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 55 ---
+55 Algoritmi e Strutture Dati - 2018/2019
+e[0,j] = j
+for i=1 to m
+for j=1 to n
+if X[i] = Y[j]
+e[i,j] = e[i-1,j-1]
+else
+e[i,j] = min { e[i-1,j]+1, e[i,j-1]+1, e[i-1,j-1]+c(X[i],X[j])
+return e[m,n]
+Se vogliamo anche la sequenza di edit ottima, occorre ricordare come il minimo viene raggiunto.
+Questo viene fatto tramite un array s[i,j] che ricorda l’operazione (insert, delete, replace, match)
+che ha portato all’ottimo.
+edit (X, m, Y, n, c)
+e[0,0] = 0
+/* keep also s[i,j] = prossima operazione da fare per trasf. X^i in Y^j
+’i’ -> insert
+’d’ -> delete
+’r’ -> replace
+’-’ -> no op (match)
+*/
+for i=1 to m
+e[i,0] = i
+s[i,0] = ’d’
+for j=1 to n
+e[0,j] = j
+s[0,j] = ’i’
+for i=1 to m
+for j=1 to n
+if X[i] = Y[j]
+e[i,j] = e[i-1,j-1]
+s[i,j] = ’-’
+else
+if e[i-1,j] <= e[i,j-1]
+min = e[i-1,j] + 1
+s[i,j] = ’d’
+else
+min = e[i,j-1] + 1
+s[i,j] = ’i’
+if e[i-1,j-1] + c(X[i],X[j]) < min
+min = e[i-1,j-1] + c(X[i],X[j])
+s[i,j] = ’r’
+i=n; j=m
+while (i>0) or (j>0)
+case s[i,j]:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 56 ---
+56 Algoritmi e Strutture Dati - 2018/2019
+’i’: insert Y[j]
+j--
+’d’: delete X[i]
+i--
+’r’: replace X[i] by Y[j]
+i--; j--
+’-’: i--; j--
+La complessit` a ` e Θ( mn).
+Esercizio 30 Nello stato di Frattalia, si ` e appena insediato il nuovo governo, sostenuto da due
+partiti, Arancio e Cobalto. La coalizione Arancio-Cobalto ha sottoscritto un contratto di governo
+che prevede diversi punti, alcuni proposti dagli Arancio altri dai Cobalto. Tuttavia ogni punto ha
+un costo economico, cos` ı che non ` e possibile realizzarli tutti: il debito pubblico non pu` o oltrepassare
+una certa soglia. Occorre quindi scegliere un sottoinsieme di punti da realizzare e tale insieme deve
+essere bilanciato , ovvero devono essere scelti in egual numero punti degli Arancio e dei Cobalto.
+Si supponga che i punti proposti dal partito Arancio siano ncon costi a1, . . . , a ne analogamente
+i punti proposti dai Cobalto siano mcon costi c1, . . . , c m. Fornire un algoritmo di programmazione
+dinamica che individui un sottoinsieme bilanciato dei punti del contratto, di dimensione massima
+e tale che la somma dei costi non oltrepassi un limite fissato d. Pi` u precisamente:
+i. dare una caratterizzazione ricorsiva della cardinalit` a massima pi,j,ddi un insieme bilanciato
+di punti di programma scelti in a1, . . . , a i,c1, . . . , c jcon costo ≤d;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina il numero massimo;
+iii. trasformare l’algoritmo in modo che fornisca anche i punti del contratto scelti, non solo il loro
+numero;
+iv. valutare la complessit` a dell’algoritmo.
+Esiste la possibilit` a di applicare un algoritmo greedy?
+Soluzione: La caratterizzazione ricorsiva della cardinalit` a massima p[i, j, m ] di un insieme bilan-
+ciato di punti di programma scelti in a1, . . . , a n,c1, . . . , c mcon costo ≤dderiva dall’osservazione
+che
+•sei= 0 oppure j= 0, l’unico insieme bilanciato ` e vuoto e quindi il numero totale sar` a 0.;
+•altrimenti, se i, j > 0, possiamo escludere il punto ai, oppure escludere il punto cj, oppure,
+se il budget lo consente, includere sia aichecj
+In sintesi:
+p[i, j, m ] =
+
+0 if i= 0 oppure j= 0
+max{p[i−1, j, d], p[i, j−1, d]} ifi, j > 0 eai+cj> d
+maxp[i−1, j, d], p[i, j−1, d],
+p[i−1, j−1, d−ai−cj] + 2
+ifi, j > 0 eai+cj≤m
+Ne segue l’algoritmo che riceve in input gli array di punti a[1, n] ec[1, m], il costo massimo d
+e usa una matrice P[1..n,1..m,0..d] dove P[i, j, d′] rappresenta il numero massimo bilanciato di
+punti scelti in a1, . . . , a i,c1, . . . , c mcon costo ≤d′.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 57 ---
+57 Algoritmi e Strutture Dati - 2018/2019
+governo (a, c, n, m, d)
+for i=1 to n
+for d’ = 0 to d
+p[i,0, d’] = 0
+for j=0 to m
+for d’ = 0 to d
+p[0,j, d’] = 0
+for i=1 to n
+for j = 1 to m
+for d’=1 to to d
+if p[i-1,j,d’] >= p[i,j-1,d’]
+max = p[i-1,j,d’]
+else
+max = p[i,j-1,d’]
+if a[i]+c[j] <= d’ and p[i-1,j-1,d’-a[i]-c[j]] + 2 > max
+max = p[i-1,j-1,d’-a[i]-c[j]] + 2
+p[i,j,d’]=max
+return p[n,m,d]
+Se vogliamo anche i punti scelti, occorre ricordare dove il massimo viene raggiunto. Dato che i
+punti sono scelti a coppie usiamo un array S[i,j,d’] = (i’,j’) che da’ la prima coppia di punti scelta
+in una soluzione ottima (o (0,0) se non ne viene scelto nessuno)
+governo (a, c, n, m, d)
+# i punti sono scelti a coppie
+# usa quindi S[i,j,d’] = (i’,j’) prima coppia di punti scelta
+# in una soluzione ottima, (0,0) se non e’ possibile nessuna scelta
+for i=1 to n
+for d’ = 0 to d
+p[i,0, d’] = 0
+S[i,0, d’] = (0,0)
+for j=0 to m
+for d’ = 0 to d
+p[0,j, d’] = 0
+S[0,j, d’] = (0,0)
+for i=1 to n
+for j = 1 to m
+for d’=1 to to d
+if p[i-1,j,d’] >= p[i,j-1,d’]
+max = p[i-1,j,d’]
+S[i,j,d’] = S[i-1,j,d’]
+else
+max = p[i,j-1,d’]
+S[i,j,d’] = S[i,j-1,d’]
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 58 ---
+58 Algoritmi e Strutture Dati - 2018/2019
+if a[i]+c[j] <= d’ and p[i-1,j-1,d’-a[i]-c[j]] + 2 > max
+max = p[i-1,j-1,d’-a[i]-c[j]] + 2
+S[i,j,d’] = (i,j)
+p[i,j,d’]=max
+i=n, j=m, d’=d
+while (i>0 and j>0)
+i, j = S[i,j,d’]
+if (i>0)
+print "a[", i, "], "c[", j, "]"
+d’ = d’ - a[i] - c[j]
+i--; j--
+La complessit` a ` e Θ( nmd).
+`E facile vedere che si pu` o utilizzare un algoritmo greedy che sceglie ad ogni passo coppie di
+punti di costo minimo. In primo luogo, si osserva, come fatto sopra, che vale la propriet` a della
+sosttruttura ottima, ovvero una soluzione ottima per il problema consiste in una scelta di una
+coppia di punti, uno Arancio e uno Cobalto, diciamo aiecje un ottimo del sottoproblema con
+punti a1, . . . , a i−1, ai+1, . . . , a neb1, . . . , b j−1, aj+1, . . . , b mcon limite di spesa d−ai−bj.
+Inoltre, vale la scelta greedy che cosiste nello scegliere i punti Arancio e Cobalto di costo
+minimo (se la somma ` e inferiore a d), altrimenti, nessun punto.
+Ovvero, assumendo che gli array siano ordinati in modo decrescente
+p[i, j, m ] =(
+0 if i= 0 oppure j= 0 oppure ai+cj> d
+p[i−1, j−1, d−ai−cj] + 2 altrimenti
+Questo permette di usare l’algoritmo che ordina le gli array dei punti per costo crescente, con
+complessit` a nlogn+mlogm. Quindi si costruisce la soluzione prendendo, ad ogni iterazione, i punti
+di costo minimo, finch` e possibile, in tempo O(min( m, n)). La complessit` a ` e dunque Θ( nlogn+
+mlogm), quasi invariabilmente preferibile a Θ( nmd).
+Esercizio 31 Dare un algoritmo per individuare, all’interno di una stringa a1. . . a nuna sottose-
+quenza (quindi una sequenza di caratteri possibilmente non consecutivi) palindroma di lunghezza
+massima. Ad esempio, nella stringa “ corollario ” la sottosequenza palindroma di lunghezza massima
+` e “orllro ”. Pi` u precisamente:
+i. dare una caratterizzazione ricorsiva della lunghezza massima li,jdi una sottosequenza
+palindroma di ai. . . a j;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina la lunghezza massima;
+iii. trasformare l’algoritmo in modo che fornisca anche la sottosequenza, non solo la sua lunghezza;
+iv. valutare la complessit` a dell’algoritmo.
+Soluzione: La caratterizzazione ricorsiva della lunghezza massima li,jdi una sottosequenza
+palindroma di ai,j=ai. . . a jderiva dall’osservazione che
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 59 ---
+59 Algoritmi e Strutture Dati - 2018/2019
+•sei > j , quindi ai,j=ε` e la stringa vuota, dato che la stringa vuota ` e palindroma li,j= 0;
+•sei=jquindi ai,j` e la stringa di un solo carattere, che ` e palindroma, vale li,j= 1;
+•altrimenti, se i < j quindi ai,jconsta di almeno due caratteri, distinguiamo due sottocasi:
+–seai=aj, necessariamente aieajfanno parte di una sottosequenza palindroma massi-
+ma di ai. . . a j. Infatti, supponiamo che una sottosequenza palindroma massima ωnon
+comprenda aieaj. Si osserva che necessariamente inizia per aioppure termina per aj,
+altrimenti, se cos` ı non fosse, aiωajsarebbe una sottosequenza palindroma di lunghezza
+superiore. La seconda osservazione ` e che la lunghezza |ω| ≥2, altrimenti aiajsarebbe
+una sottosequenza palindroma pi` u lunga di ω. Supponiamo dunque, senza perdita di
+generalit` a (l’altro caso ` e simmetrico) che ω=aiω′ak. Dato che ai=ak, possiamo ot-
+tenere una sottosequenza della stessa lunghezza di ω(dunque ottima), sostituendo ak
+conaj, ovvero aiω′aj. Questo conclude la prova.
+Abbiamo dunque che li,j= 2 + li+1,j−1.
+–se invece ai̸=aj, una sottosequenza palindroma non pu` o comprendere entrambi gli
+estremi e quindi ci si riduce ai sottoproblemi ai+1,jeai,j−1e si prende il massimo.
+In sintesi:
+li,j=
+
+0 if i > j
+1 if i=j
+li+1,j−1+ 2 if ai=aj
+max{li,j−1, li+1,j}ifai̸=aj
+Ne segue l’algoritmo che riceve in input la stringa, nella forma di un array di caratteri A[1, n] e
+usa una matrice L[1..n,0..n] dove L[i, j] rappresenta la lunghezza di una sottostringa palindroma
+inA[i, j]
+palindromeSeq (A, n)
+for i = 1 to n
+L[i,i-1] = 0
+L[i,i] = 1
+for len = 2 to n
+for i = 1 to n-len+1
+j = i + len - 1
+if (A[i] = A[j])
+L[i,j] = L[i+1,j-1] + 2
+else
+L[i,j] = max (L[i,j-1], L[i+1,j])
+return L[1,n]
+Se vogliamo anche la sottosequenza, occorre ricordare il massimo e dove viene raggiunto, lo
+facciamo mediante un array P[1..n,1..n] tale che P[i, j] contenga un’indicazione di come si ottiene
+la sottosequenza palindroma pi` u lunga di ai,j:
+palindrome(A, n)
+for i = 1 to n
+L[i,i-1] = 0
+L[i,i] = 1
+# P[i,j] = r if P[i,j] = P[i+1,j]
+# = l if P[i,j] = P[i,j-1]
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 60 ---
+60 Algoritmi e Strutture Dati - 2018/2019
+# = c if i<j and A[i], A[j] chosen and P[i,j] = P[i+1,j-1]
+# when i=j we know that A[i] is chosen
+for len = 2 to n
+for i = 1 to n-len+1
+j = i + len - 1
+if (A[i] = A[j])
+L[i,j] = L[i+1,j-1] + 2
+P[i,j] = ’c’
+else
+if L[i,j-1] >= L[i+1,j]
+L[i,j] = L[i,j-1]
+P[i,j] = ’l’
+else
+L[i,j] = L[i+1,j]
+P[i,j] = ’r’
+return getPal(A,1,n,L,P) # massima sottosequenza palindroma di A[1,n]
+# massima sottosequenza palindroma di A[i,j]
+getPal(A,i,j L,P)
+if (i < j)
+if P[i][j] == ’c’
+return A[i] + getPal(A,i+1,j-1, L,P) + A[j]
+elif P[i][j] == ’l’
+return getPal(A,i,j-1, L,P)
+else # P[i][j] == ’r’
+return getPal(A,i+1,j, L,P)
+elif i==j:
+return A[i]
+else # i> j
+return ’’
+In realt` a si pu` o fare a meno di utilizzare una struttura ausiliaria per memorizzare le scelte
+ottime, dato che sono determinate dalla forma di L:
+palindrome(A, n)
+for i = 1 to n
+L[i,i-1] = 0
+L[i,i] = 1
+for len = 2 to n
+for i = 1 to n-len+1
+j = i + len - 1
+if (A[i] = A[j])
+L[i,j] = L[i+1,j-1] + 2
+else
+if L[i,j-1] >= L[i+1,j]
+L[i,j] = L[i,j-1]
+else
+L[i,j] = L[i+1,j]
+return getPal(A,1,n,L) # massima sottosequenza palindroma di A[1,n]
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 61 ---
+61 Algoritmi e Strutture Dati - 2018/2019
+# massima sottosequenza palindroma di A[i,j]
+getPal(A,i,j L)
+if L[i][j] == 1
+return A[i]
+elif L[i][j] > 1
+if L[i][j] == L[i+1][j]:
+return getPal(A,i+1,j,L)
+elif L[i][j] == L[i][j-1]:
+return getPal(A,i,j-1,L)
+else # L[i][j] == L[i+1][j-1]+2 and necessarily the two chars have been chosen
+return A[i] + getPal(A,i+1,j-1,L) + A[j]
+else # when L[i][j]=0
+return ’’
+La complessit` a ` e Θ( n2).
+Esercizio 32 Realizzare, con tecniche di programmazione dinamica, un algoritmo che dato un
+array A[1..n], non vuoto, trova un sottoarray non vuoto di somma massima, ovvero due indici i, j
+con 1≤i≤j≤ntali che A[i] +A[i+ 1] + . . .+A[j] sia massima. Ad esempio per [-10, 4, 1, -1,
+2, -1] il sottoarray di somma massima ` e [4, 1, -1, 2]. Pi` u precisamente:
+i. indicato con ljla somma massima di una sottoarray di A[1..n] che termini con A[j] (quindi
+del tipo A[i..j]), darne una caratterizzazione ricorsiva;
+ii. tradurre tale definizione in un algoritmo (bottom up o top down con memoization) che
+determina la somma massima;
+iii. trasformare l’algoritmo in modo che fornisca anche la sottosstringa, non solo la sua somma;
+iv. valutare la complessit` a dell’algoritmo.
+Nota: La soluzione proposta deve articolarsi nei passi sopra descritti.
+Soluzione: L’osservazione fondamentale ` e che un sottoarray con somma massima di A[1..n] che
+termini in A[j] sar` a, un sottoarray di somma massima che termina in A[j−1], concatenato con
+A[j], se il primo ha somma positiva, altrimenti semplicemente A[j..j]. In simboli, per j= 1, . . . , n
+lj=
+1 se j= 1 o lj−1≤0
+lj−1+ 1 altrimenti, ovvero se j >1 elj−1>0
+Il sottoarray con somma massima terminer` a in qualche je quindi sar` a poi sufficiente
+massimizzare i valori trovati.
+Ne segue l’algoritmo che riceve in input l’array A[1, n] e usa una matrice L[1..n] dove L[j]
+rappresenta la somma di una sottoarray di lunghezza massima che termina in A[j].
+maxsum (A, n)
+L[1] = A[1]
+for j=2 to n
+if (L[j-1] > 0)
+L[j] = L[j-1] + A[j]
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 62 ---
+62 Algoritmi e Strutture Dati - 2018/2019
+else
+L[j] = A[j]
+max = A[1]
+for j=2 to n
+if L[j]>max
+max = L[j]
+return max
+Se vogliamo anche il sottoarray, occorre ricordare il massimo e dove viene raggiunto, lo facciamo
+mediante un array S[1..n] tale che S[j] contenga l’indice dal quale inizia il sottoarray massima che
+termina con A[j].
+maxsum (A, n)
+L[1] = A[1]
+S[1] = 1
+for j=2 to n
+if (L[j-1] > 0)
+L[j] = L[j-1] + A[j]
+S[j] = S[j-1]
+else
+L[j] = A[j]
+S[j] = j
+max = 1
+for j=2 to n
+if L[j]>max
+max = j
+# returns the first and last index of the substring
+return S[max], max
+La complessit` a ` e Θ( n).
+9 Greedy
+Esercizio 33 Si supponga di voler viaggiare dalla citt` a Aalla citt` a Bcon un’auto che ha
+un’autonomia pari a dkm. Lungo il percorso si trovano n−1 distributori D1, . . . , Dn−1, a
+distanze di d1, . . . , dnkm (di≤d) come indicato in figura
+D0=A D1 D2 Dn−1 Dn=Bd1 d2 dn
+L’auto ha inizialmente il serbatoio pieno e l’obiettivo ` e quello di percorrere il viaggio da A a B,
+minimizzando il numero di soste ai distributori per il rifornimento.
+i. Introdurre la nozione di soluzione per il problema e di costo della una soluzione. Mostrare che
+vale la propriet` a della sottostruttura ottima e individuare una scelta che gode della propriet` a
+della scelta greedy.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 63 ---
+63 Algoritmi e Strutture Dati - 2018/2019
+ii. Sulla base della scelta greedy individuata al passo precedente, fornire un algoritmo greedy
+stop(d,n) che dato in input l’array delle distanze d[1..n] restituisce una soluzione ottima.
+iii. Valutare la complessit` a dell’algoritmo.
+Soluzione:
+Soluzione. In generale, la specifica del problema consiste in una sequenza di soste possibili
+D0(=A), D1, . . . , D n(=B). Per una coppia di soste Di, Djconi≤jponiamo di,j=Pj
+h=i+1dh.
+Quindi una soluzione del problema ` e una sottosequenza di soste che porta dal punto iniziale al
+punto finale, senza percorrere tratti di lungheza maggiore di dovvero:
+S=Di0. . . D ik
+(con i0< i1< . . . < i k) tali che Di0=AeDik=B, per ogni j∈ {0, . . . , k −1}valedijij+1≤d.
+Il costo c(S) ` e il numero k−1 di soste.
+Sottostruttura ottima. SiaS=Di0. . . D ikuna soluzione ottima per il problema
+D0, D1, . . . , D n. Se consideriamo il sottoproblema di andare da Di1aDn, ovvero Di1, Di1+1. . . D n,
+allora S1=Di1, . . . , D ik` e una soluzione ottima. Infatti, ` e chiaramente una soluzione. Inoltre, se
+ci fosse una soluzione migliore S′
+1, con un numero inferiore di soste per il sottoproblema, ovvero
+c(S′
+1)< c(S1), aggiungendo la sosta Di0otterremmo una soluzione S′migliore di Sper il problema
+originale dato che c(S′) =c(S′
+1) + 1 < c(S1) + 1 = c(S).
+Scelta greedy. Per il problema D0, D1, . . . , D n, si fissa necessariamente i0= 0, e la scelta
+greedy consiste nel raggiungere la sosta pi` u lontana a distanza minore o uguale di d, ovvero
+definire i1= max {j|d0,j≤d}.
+Data una soluzione ottima per il problema S=Dj0. . . D jk, certamente j0= 0 = i0ej1≤i1.
+Quindi ` e immediato verificare che anche S′=Dj0Di1Dj2. . . D jk` e una soluzione per il problema
+D0, D1, . . . , D n, ed ` e ottima, dato che c(S′) =c(S). (Si noti che, pi` u precisamente, in prima istanza
+si potrebbe pensare che Di1potesse essere anche oltre Dj2, ma questo darebbe una soluzione
+migliore di quella ottima, portando ad un assurdo).
+Algoritmo. Ne segue l’algoritmo che riceve in la sequenza di distanze nella forma di un array
+d[1, n] e restituisce un array S[1..n−1] con le soste scelte (la prima e l’ultima sono scelte sempre,
+non serve indicarlo).
+stop(d, n)
+dist = d[1] // distanza percorsa
+for i=2 to n
+if dist + d[i] > d
+S[i-1]=1
+dist=d[i]
+else
+S[i-1] = 0
+return S
+La complessit` a ` e Θ( n).
+Esercizio 34 L’ufficio postale offre un servizio di ritiro pacchi in sede su prenotazione. Il desti-
+natario, avvisato della presenza del pacco, deve comunicare l’orario preciso al quale si recher` a allo
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 64 ---
+64 Algoritmi e Strutture Dati - 2018/2019
+sportello. Sapendo che gli impiegati dedicano a questa mansione turni di un’ora, con inizio in un
+momento qualsiasi, si chiede di scrivere un algoritmo che individui l’insieme minimo di turni di
+un’ora sufficienti a soddisfare tutte le richieste. Pi` u in dettaglio, data una sequenza ⃗ r=r1, . . . , r n
+di richieste, dove ri` e l’orario della i-ma prenotazione, si vuole determinare una sequenza di turni
+⃗t=t1, . . . , t k, con tjorario di inizio del j-mo turno, che abbia dimensione minima e tale che i
+turni coprano tutte le richieste.
+i. Formalizzare la nozione di soluzione per il problema e il relativo costo. Mostrare che vale la
+propriet` a della sottostruttura ottima e individuare una scelta che gode della propriet` a della
+scelta greedy.
+ii. Sulla base della scelta greedy individuata al passo precedente, fornire un algoritmo greedy
+time(R,n) che dato in input l’array delle richieste r[1..n] restituisce una soluzione ottima.
+iii. Valutare la complessit` a dell’algoritmo.
+Soluzione: Una soluzione ` e una sequenza ⃗t=t1, . . . , t ktale che per ogni i= 1, . . . , n l’istante
+ri∈I(tj) per qualche j= 1, . . . , k , dove I(tj) indica l’intervallo di un’ora con inizio in tj, Il costo
+` ek.
+Sottostruttura ottima Vale la sottostruttura ottima. Infatti se ⃗t=t1q . . . , t k` e ottima per le
+richieste ⃗ r=r1, . . . , r nallora t2, . . . , t k` e ottima per il sottoproblema ⃗r′che comprende le richieste
+ritali che ri̸∈I(t1). Infatti, se ci fosse un insieme di turni di dimensione minore di k−1 per servire
+le richieste in ⃗r′, aggiungendo t1otterremmo una soluzione del problema originale ⃗ rmigliore di ⃗t
+Scelta greedy Assumiamo che la lista di richieste ⃗ r=r1, . . . , r nsia ordinata in modo crescente.
+La scelta greedy consiste nel considerare come primo turno t1=r1.
+Esiste sempre una soluzione ottima che la contiene. Infatti se ⃗t′=t′
+1. . . t′
+k` e una qualsiasi
+soluzione ottima e supponiamo che i turni siano ordinati anch’essi in senso crescente, allora cer-
+tamente t′
+1≤r1, dato che la prima richiesta deve essere servita. Quindi se sostituiamo t′
+1con
+t1=r1, otteniamo una nuova soluzione (tutte le richieste servite da t′
+1sono anche servite da t1!),
+anch’essa ottima.
+Ne segue l’algoritmo che riceve in input l’array delle richieste r[1..n] (che si assume non vuoto),
+e fornisce in uscita t[1, k].
+time(r,n)
+t[1] = r[1]
+turni=1
+for i = 2 to n
+if t[turni] < r[i]
+turni++
+t[turni] = r[i]
+return t
+La complessit` a ` e Θ( n).
+Domanda 40 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+a bcdefg
+16 12 28396
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 65 ---
+65 Algoritmi e Strutture Dati - 2018/2019
+Spiegare il processo di costruzione del codice.
+Soluzione:
+56
+23
+11
+g:6
+5
+c:2 e:3b:1233
+17
+d:8 f:9a:16
+Domanda 41 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+abcdefg
+5933116
+Spiegare il processo di costruzione del codice.
+Soluzione:
+28
+17
+8
+5
+2
+e:1 f:1c:3d:3b:911
+a:5 g:6
+Domanda 42 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+ab cdefg
+621 12 8323 8
+Spiegare il processo di costruzione del codice.
+Soluzione:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 66 ---
+66 Algoritmi e Strutture Dati - 2018/2019
+81
+44
+21
+9
+e:3 a:6c:12f:2337
+15
+c:7 b:8b:21
+Domanda 43 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+abcdefg
+37 412 6917 8
+Spiegare il processo di costruzione del codice.
+Soluzione:
+93
+56
+22
+10
+b:4 d:c:1234
+17
+e:8 g:9f:17a:37
+Domanda 44 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+abcde fg
+10 62819 31 15
+Spiegare il processo di costruzione del codice.
+Soluzione:
+91
+35
+16
+8
+c:2 b:6d:8e:1956
+25
+a:10 g:15f:31
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 67 ---
+67 Algoritmi e Strutture Dati - 2018/2019
+Domanda 45 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+abcdefg
+38712 623 21
+Spiegare il processo di costruzione del codice.
+Soluzione:
+80
+36
+15
+c:7 b:8b:2144
+21
+9
+e:3 a:6c:12f:23
+Domanda 46 Indicare il codice prefisso ottenuto utilizzando l’algoritmo di Huffmann per
+l’alfabeto {a, b, c, d, e, f, g }, supponendo che ogni simbolo appaia con le seguenti frequenze.
+ab cdefg
+212 16 8693
+Spiegare il processo di costruzione del codice.
+Soluzione:
+56
+23
+11
+5
+a:2 g:3e:6b:1233
+c:16
+17
+d:8 f:9
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 68 ---
+68 Algoritmi e Strutture Dati - 2018/2019
+10 Analisi Ammortizzata
+Esercizio 35 Progettare una struttura dati per la gestione di un insieme dinamico di interi, con
+operazioni
+•New(S) crea un insieme vuoto;
+•Ins(S, x) inserisce l’elemento xnell’insieme S;
+•Half(S) cancella da Si⌈|S|/2⌉elementi pi` u piccoli.
+Si richiede che una qualsiasi sequenza di noperazioni venga eseguita in tempo O(nlogn).
+i. Specificare le strutture dati di supporto utilite e lo pseudo-codice delle operazioni suddette
+(questo pu` o ridursi ad una chiamata di un’operazione della struttura scelta).
+ii. Dimostrare, mediante un’analisi ammortizzata della complessit` a, che una sequenza di n
+operazioni costa O(nlogn).
+Soluzione: La struttura Spu` o essere semplicemente un min-heap, con operazioni
+New(S)
+crea un min-heap S
+S.size = 0
+Ins(S,x)
+Heap-Insert(S,x)
+Half(S,x)
+k = S.heapsize
+for i = 1 to k/2
+Heap-Extract-Min(S)
+L’idea ` e che ogni operazione di inserimento paga in anticipo il costo dell’estrazione dell’elemento
+(log|S|). Questo da’ una complessit` a ammortizzata di 2 log |S|per l’inserimento e complessit` a
+costante per Half, dato che le estrazioni sono gi` a pagate. Si noti che in realt` a un elemento non
+paga esattamente per la sua estrazione, ma per quella di un qualche altro elemento, a seconda
+dell’ordine relativo. Si pu` o formalizzare con una funzione potenziale che pu` o essere
+Φ(S) = Σ|S|
+j=1logj= log|S|!.
+In questo modo, il costo delle operazioni ` e
+c ∆Φ ˆc
+New 1 0 1
+Ins 1+ log |S| log|S| 1+ 2 log |S|
+Extract 1+ log |S| −log|S| 1
+Half 1 + Σ|S|/2
+j=1logj −Σ|S|/2
+j=1logj 1
+Quando la struttura ` e vuota, Φ( S) = 0 e, per ogni S, vale Φ( S)≥0. Pertanto per una
+sequenza di noperazioni, certamente Φ( Sn)−Φ(S0)≥0, per cui i costi ammortizzati forniscono
+un upperbound per i costi reali. Una sequenza di noperazioni costa al pi` u Σn
+j=1logj≤nlogn,
+come desiderato.
+Esercizio 36 Si consideri una struttura che chiamiamo OderedStack con le seguenti operazioni:
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 69 ---
+69 Algoritmi e Strutture Dati - 2018/2019
+•OEmpty(S) : Ritorna un booleano che dice se la struttura ` e vuota
+•OPop(S) : Estrae l’ultimo elemento inserito
+•OTop(S) : Ritorna il valore dell’ultimo elemento inserito
+•OPush(S,x) : Inserisce nello stack x, eliminando prima ogni elemento che sia maggiore di x.
+Utilizzando una struttura dati stack, fornire una implementazione della suddetta struttura
+ovvero
+i. Specificare come ` e definita la struttura dati e fornire lo pseudocodice dei metodi elencati.
+ii. Mostrare che una sequenza di noperazioni, a partire da struttura vuota, ha costo
+ammortizzato O(n) (e quindi ogni singola operazione ha costo ammortizzato O(1)).
+Soluzione:
+i. L’implementazione ` e la seguente:
+OStack = Stack
+OEmpty(S)
+return Empty(S)
+OPop(S)
+return Pop(S)
+OTop(S)
+return Top(S)
+OPush(S,x)
+while not Empty(S) and (x < Top(S))
+Pop(S)
+Push(S)
+ii. Per l’analisi ammortizzata si pu` o usare il metodo del potenziale con funzione Φ( S) =|S|.
+In questo modo, il costo delle operazioni ` e
+c ∆Φ ˆc
+Empty 1 0 1
+Top 1 0 1
+Pop 1 -1 0
+Push 1 +k−k+ 1 2
+Quando la struttura ` e vuota, Φ( S) = 0 e, per ogni S, vale Φ( S)≥0. Pertanto per una sequenza
+dinoperazioni, certamente Φ( Sn)−Φ(S0)≥0, per cui i costi ammortizzati forniscono un
+upperbound per i costi reali. Una sequenza di noperazioni costa al pi` u n, come desiderato.
+Esercizio 37 Progettare una struttura dati per la gestione di un insieme dinamico di interi, con
+operazioni
+•New(S) crea un insieme vuoto;
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 70 ---
+70 Algoritmi e Strutture Dati - 2018/2019
+•Ins(S, x) inserisce l’elemento xnell’insieme S;
+•Half(S) cancella da Si⌈|S|/2⌉elementi pi` u grandi.
+Si richiede che una qualsiasi sequenza di noperazioni venga eseguita in tempo O(nlogn).
+i. Specificare le strutture dati di supporto utilite e lo pseudo-codice delle operazioni suddette
+(questo pu` o ridursi ad una chiamata di un’operazione della struttura scelta).
+ii. Dimostrare, mediante un’analisi ammortizzata della complessit` a, che una sequenza di n
+operazioni costa O(nlogn).
+Soluzione: La struttura Spu` o essere semplicemente un min-heap, con operazioni
+New(S)
+crea un min-heap S
+S.size = 0
+Ins(S,x)
+Heap-Insert(S,x)
+Half(S,x)
+k = S.heapsize
+for i = 1 to k/2
+Heap-Extract-Min(S)
+L’idea ` e che ogni operazione di inserimento paga in anticipo il costo dell’estrazione dell’elemento
+(log|S|). Questo da’ una complessit` a ammortizzata di 2 log |S|per l’inserimento e complessit` a
+costante per Half, dato che le estrazioni sono gi` a pagate. Si noti che in realt` a un elemento non
+paga esattamente per la sua estrazione, ma per quella di un qualche altro elemento, a seconda
+dell’ordine relativo. Si pu` o formalizzare con una funzione potenziale che pu` o essere
+Φ(S) = Σ|S|
+j=1logj= log( |S|!).
+In questo modo, il costo delle operazioni ` e
+c ∆Φ ˆc
+New 1 0 1
+Ins 1+ log |S| log|S| 1+ 2 log |S|
+Extract 1+ log |S| −log|S| 1
+Half 1 + Σ|S|/2
+j=1logj −Σ|S|/2
+j=1logj 1
+Quando la struttura ` e vuota, Φ( S) = 0 e, per ogni S, vale Φ( S)≥0. Pertanto per una
+sequenza di noperazioni, certamente Φ( Sn)−Φ(S0)≥0, per cui i costi ammortizzati forniscono
+un upperbound per i costi reali. Una sequenza di noperazioni costa al pi` u Σn
+j=1logj≤nlogn,
+come desiderato.
+Laurea Informatica - Universit` a di Padova Paolo Baldan
+--- Page 71 ---
+71 Algoritmi e Strutture Dati - 2018/2019
+11 B-Alberi
+Domanda 47 Dare la definizione di B-albero. Qual ` e la minima altezza di un B-albero con grado
+minimo tcontenente nchiavi? Motivare le risposte.
+Soluzione: Un B-albero di grado minimo t` e un albero T, con radice T.root ,tale che:
+1. ogni nodo xha attributi x.n(numero di chiavi in x),x.key 1≤. . . x.key x.n(lex.nchiavi
+ordinate), x.leaf (boleano che dice se il nodo ` e foglia)
+2. se xnon ` e foglia ha x.n+ 1 figli, puntati da x.c1, . . . , x.cx.n+1
+3. le chiavi x.key 1≤. . . x.key x.ndi un nodo interno separano le chiavi dei sottoalberi, ovvero
+sekii` e una chiave qualsiasi del sottoalbero di radice x.ciallora
+k1≤x.key 1≤k2≤. . .≤kx.n≤x.key x.n≤kx.n+1
+4. le foglie sono tutte alla stessa profondit` a h, detta altezza del B-albero
+5. Vi sono limiti inferiori e superiori al numero di chiavi in un nodo
+•ogni nodo non radice, ha almeno t−1 chiavi (quindi, se interno, ha almeno tfigli)
+•se l’albero non ` e vuoto la radice contiene almeno una chiave (quindi se non foglia, ha
+almeno due figli)
+•ogni nodo ha al pi` u 2 t−1 chiavi (quindi al pi` u 2 tfigli, se non foglia)
+L’altezza minimima del B-albero si ha quando ogni nodo ha grado massimo. Vale:
+n= 2 t−1 + 2 t(2t−1) + (2 t)2(2t−1) +. . .(2t)h(2t−1)
+= (2 t−1)Pn
+i=0(2t)i
+= (2 t−1)(2t)h+1−1
+2t−1
+= (2 t)h+1−1
+quindi, h= (log2t(n+ 1))−1
+Laurea Informatica - Universit` a di Padova Paolo Baldan
