@@ -8,19 +8,18 @@ Sono il tuo tutor accademico esperto, specializzato nella preparazione dell'esam
 ## 🎯 Stato dello Studente & Obiettivo
 * **Stato di partenza**: Lo studente Simone riparte da zero, avendo ripreso lo studio della materia dopo 1 mese di pausa completa.
 * **Metodo di lavoro**: 
-  1. Suddivisione del materiale in **5 Gruppi tematici** di 10 esercizi ciascuno (estratti dagli appelli passati).
+  1. Suddivisione del materiale in **4 Gruppi** corrispondenti alle parti dello scritto d'esame, ciascuno composto da 10 esercizi estratti dagli appelli passati.
   2. Per ogni gruppo:
      * **I primi 2-3 esercizi** vengono svolti con il supporto attivo e la guida passo-passo del tutor.
      * **I restanti 7-8 esercizi** devono essere risolti in modo autonomo dallo studente, che fornirà il risultato completo per la valutazione.
 
 ---
 
-## I 4 Pilastri dello Scritto
-Dai priorità assoluta a:
-1. **Equazioni di Ricorrenza** (Master Theorem e Sostituzione)
-2. **Ricorsione su Alberi**
-3. **Divide et Impera**
-4. **Programmazione Dinamica**
+## I 4 Pilastri dello Scritto (Struttura Gruppi)
+* **Gruppo A**: Domande A (Teoria, Limiti asintotici e Equazioni di ricorrenza)
+* **Gruppo B**: Domande B (Heap, BST di base, Hash tables, Codifica di Huffman)
+* **Gruppo C**: Esercizi 1 (Algoritmi su BST avanzati/arricchiti e Divide et Impera)
+* **Gruppo D**: Esercizi 2 (Programmazione Dinamica e Algoritmi Greedy con dimostrazioni)
 
 ---
 
@@ -43,67 +42,55 @@ Dai priorità assoluta a:
 
 ---
 
-## 📅 Classificazione degli Esercizi (5 Gruppi da 10)
+## 📅 Classificazione degli Esercizi (4 Gruppi da 10)
 
-### Gruppo 1: Equazioni di Ricorrenza e Asintotici
-1. **Es 1.1**: Ord(A,p,r) ricorrenza & MT (Appello 31/01/2024)
-2. **Es 1.2**: Limite asintotico stretto per T(n) = 2T(n/5) + T(n/2) + n (Appello 14/02/2024)
-3. **Es 1.3**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
-4. **Es 1.4**: Ordinamento asintotico di funzioni (Appello 02/07/2024)
-5. **Es 1.5**: Risoluzione T(n) = T(n-1) + 3n + 1 (Appello 19/09/2024)
-6. **Es 1.6**: Risoluzione T(n) = 3T(n/3) + n^2 + 1 (Appello 07/02/2025)
-7. **Es 1.7**: Relazioni asintotiche O e Omega (Appello 18/06/2025)
-8. **Es 1.8**: Dimostrazione proprietà Omega(n^2) (Appello 10/09/2025)
-9. **Es 1.9**: Ordinamento asintotico di funzioni (Appello 20/01/2026)
-10. **Es 1.10**: Risoluzione T(n) = 2/3 T(n-1) + 2n (Appello 04/07/2025)
+### Gruppo A: Domande A (Ricorrenze e Teoria Asintotica)
+1. **Es A.1**: Ord(A,p,r) ricorrenza & MT (Appello 31/01/2024) [COMPLETATO]
+2. **Es A.2**: Limite asintotico stretto per T(n) = 2T(n/5) + T(n/2) + n (Appello 14/02/2024) [IN CORSO]
+3. **Es A.3**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
+4. **Es A.4**: Ordinamento asintotico di funzioni (Appello 02/07/2024)
+5. **Es A.5**: Risoluzione T(n) = T(n-1) + 3n + 1 (Appello 19/09/2024)
+6. **Es A.6**: Definizione max-heap & Min(A,B) (Appello 24/01/2025)
+7. **Es A.7**: Risoluzione T(n) = 3T(n/3) + n^2 + 1 (Appello 07/02/2025)
+8. **Es A.8**: Relazioni asintotiche O e Omega (Appello 18/06/2025)
+9. **Es A.9**: Dimostrazione proprietà Omega(n^2) (Appello 10/09/2025)
+10. **Es A.10**: Ordinamento asintotico di funzioni (Appello 20/01/2026)
 
-### Gruppo 2: Strutture Dati (Heap e Alberi/BST)
-1. **Es 2.1**: BuildMaxHeap su array [7, 1, 17, 0, 5, 4, 22] (Appello 18/06/2024)
-2. **Es 2.2**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
-3. **Es 2.3**: Inserimenti successivi in max-heap e rimozione (Appello 19/09/2024)
-4. **Es 2.4**: Minimo min(A,B) tra min-heap e max-heap (Appello 24/01/2025)
-5. **Es 2.5**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
-6. **Es 2.6**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
-7. **Es 2.7**: Arricchimento BST per conteggio foglie leaves(x) e insert (Appello 18/06/2025)
-8. **Es 2.8**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
-9. **Es 2.9**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
-10. **Es 2.10**: Inserimento BST (10, 5, 3, 15, 7, 12) e cancellazione del 5 (Appello 04/07/2025)
+### Gruppo B: Domande B (Heap, BST base, Huffman, Hash)
+1. **Es B.1**: Tabella hash chaining m=8 (Appello 31/01/2024)
+2. **Es B.2**: Codice Huffman alfabeto e frequenze (Appello 14/02/2024)
+3. **Es B.3**: BuildMaxHeap su array [7, 1, 17, 0, 5, 4, 22] (Appello 18/06/2024)
+4. **Es B.4**: Ricorrenza lunghezze LCS (Appello 02/07/2024)
+5. **Es B.5**: Inserimenti successivi in max-heap e rimozione (Appello 19/09/2024)
+6. **Es B.6**: Algoritmo ottimo GREEDY-SEL teoria (Appello 24/01/2025)
+7. **Es B.7**: Tabella hash indirizzamento aperto doppio hash (Appello 07/02/2025)
+8. **Es B.8**: Codice Huffman alfabeto e frequenze (Appello 18/06/2025)
+9. **Es B.9**: Codice Huffman alfabeto e frequenze (Appello 10/09/2025)
+10. **Es B.10**: Max-heap BuildMaxHeap passi intermedi (Appello 20/01/2026)
 
-### Gruppo 3: Divide et Impera e Array
-1. **Es 3.1**: Algoritmo Ord(A,p,r) per verifica ordinamento (Appello 31/01/2024)
-2. **Es 3.2**: Algoritmo Prod(A,k) per A[i]*A[j] = k (Appello 31/01/2024)
-3. **Es 3.3**: Algoritmo Split(A,n) partizionamento eredità (Appello 14/02/2024)
-4. **Es 3.4**: Algoritmo triplet(A) per A[i]+A[j]=A[k] (Appello 18/06/2024)
-5. **Es 3.5**: Algoritmo Split(V) giorno stabilità titolo (Appello 24/01/2025)
-6. **Es 3.6**: Algoritmo stab(A,n) per indice stabile (Appello 04/07/2025)
-7. **Es 3.7**: Ricerca binaria standard e varianti (da Guida Ricorrenze)
-8. **Es 3.8**: Algoritmo Magic Index (da note Tracking)
-9. **Es 3.9**: Ricerca in array ruotato (variante classica)
-10. **Es 3.10**: Scansione con due indici (due puntatori) per somme target
+### Gruppo C: Esercizi 1 (Algoritmi: Divide et Impera, Alberi/BST)
+1. **Es C.1**: Prod(A,k) per A[i]*A[j] = k (Appello 31/01/2024)
+2. **Es C.2**: Split(A,n) partizionamento eredità (Appello 14/02/2024)
+3. **Es C.3**: Algoritmo triplet(A) per A[i]+A[j]=A[k] (Appello 18/06/2024)
+4. **Es C.4**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
+5. **Es C.5**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
+6. **Es C.6**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
+7. **Es C.7**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
+8. **Es C.8**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
+9. **Es C.9**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
+10. **Es C.10**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
 
-### Gruppo 4: Programmazione Dinamica
-1. **Es 4.1**: Ricorrenza LCS (Longest Common Subsequence) (Appello 02/07/2024)
-2. **Es 4.2**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
-3. **Es 4.3**: Longest Common Substring (Appello 18/06/2024)
-4. **Es 4.4**: Algoritmo bottom-up per tabella c(i,j) (Appello 19/09/2024)
-5. **Es 4.5**: Algoritmo bottom-up per ricorrenza ℓ(i, j) (Appello 24/01/2025)
-6. **Es 4.6**: Algoritmo memoizzato per ricorrenza matriciale M(i,j) (Appello 10/09/2025)
-7. **Es 4.7**: Algoritmo memoizzato per ricorrenza stringhe ℓ(i, j) (Appello 04/07/2025)
-8. **Es 4.8**: LIS (Longest Increasing Subsequence) standard
-9. **Es 4.9**: Edit Distance standard
-10. **Es 4.10**: Matrix Chain Multiplication standard
-
-### Gruppo 5: Algoritmi Greedy, Hash e Huffman
-1. **Es 5.1**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
-2. **Es 5.2**: Selezione attività greedy con inizio per ultimo (Appello 02/07/2024)
-3. **Es 5.3**: Attività greedy teoria e controesempio (Appello 24/01/2025)
-4. **Es 5.4**: Ottimizzazione tempo completamento programmi (Appello 18/06/2025)
-5. **Es 5.5**: Caricamento file in cloud con capacità limitata c (Appello 20/01/2026)
-6. **Es 5.6**: Tabella hash chaining m=8 (Appello 31/01/2024)
-7. **Es 5.7**: Codice Huffman alfabeto e frequenze (Appello 14/02/2024)
-8. **Es 5.8**: Tabella hash indirizzamento aperto doppio hash (Appello 07/02/2025)
-9. **Es 5.9**: Codice Huffman alfabeto e frequenze (Appello 18/06/2025)
-10. **Es 5.10**: Codice Huffman alfabeto e frequenze (Appello 10/09/2025)
+### Gruppo D: Esercizi 2 (Programmazione Dinamica e Greedy)
+1. **Es D.1**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
+2. **Es D.2**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
+3. **Es D.3**: Longest Common Substring (Appello 18/06/2024)
+4. **Es D.4**: Selezione attività greedy con inizio per ultimo (Appello 02/07/2024)
+5. **Es D.5**: Algoritmo bottom-up per tabella c(i,j) (Appello 19/09/2024)
+6. **Es D.6**: Algoritmo bottom-up per ricorrenza ℓ(i, j) (Appello 24/01/2025)
+7. **Es D.7**: Selezione attività greedy con inizio per ultimo (Appello 07/02/2025)
+8. **Es D.8**: Ottimizzazione tempo completamento programmi (Appello 18/06/2025)
+9. **Es D.9**: Algoritmo memoizzato per ricorrenza matriciale M(i,j) (Appello 10/09/2025)
+10. **Es D.10**: Caricamento file in cloud con capacità limitata c (Appello 20/01/2026)
 
 ---
 
