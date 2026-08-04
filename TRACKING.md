@@ -30,7 +30,7 @@
 
 | Gruppo | Descrizione | Stato / Esercizi Guidati (G) e Autonomi (A) | Progresso |
 |---|---|---|---|
-| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | 🔄 In corso (Es A.2 guidato) | 1 / 10 |
+| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | 🔄 In corso (Es A.4 autonomo) | 3 / 10 |
 | **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | ⬜ Da iniziare | 0 / 10 |
 | **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.2 guidato) | 2 / 10 |
 | **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | ⬜ Da iniziare | 0 / 10 |
@@ -39,8 +39,8 @@
 
 #### Gruppo A: Domande A (Ricorrenze e Asintotici)
 - [x] **Es A.1 (G)**: Ord(A,p,r) ricorrenza & MT (Appello 31/01/2024)
-- [ ] **Es A.2 (G)**: Limite asintotico stretto per T(n) = 2T(n/5) + T(n/2) + n (Appello 14/02/2024)
-- [ ] **Es A.3 (G)**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
+- [x] **Es A.2 (G)**: Limite asintotico stretto per T(n) = 2T(n/5) + T(n/2) + n (Appello 14/02/2024)
+- [x] **Es A.3 (G)**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
 - [ ] **Es A.4 (A)**: Ordinamento asintotico di funzioni (Appello 02/07/2024)
 - [ ] **Es A.5 (A)**: Risoluzione T(n) = T(n-1) + 3n + 1 (Appello 19/09/2024)
 - [ ] **Es A.6 (A)**: Definizione max-heap & Min(A,B) (Appello 24/01/2025)
@@ -95,7 +95,7 @@
 | 2026-05-08 | **Pillar 2**: Successore e Cancellazione BST (Completi). <br> Proprietà RBT/Heap. | Logica Successore e Transplant. | Casi 2 e 3 della Cancellazione (subtilités). | RBT Fixup, Heap Build O(n). |
 | 2026-05-11 | **Pillar 4**: Divide et Impera (Ricerca Binaria). | Condizioni per array ordinati. | Gestione indici e rami ricorsivi asimmetrici. | Merge/Quick Sort, Inversioni. |
 | 2026-05-18 | **Pillars 4, 2, 6**: D&C, BST Arricchiti, Greedy. | Logica scarto D&C; routing BST; Proprietà scelta Greedy. | Gestione ritorni BST; casi limite Greedy. | Programmazione Dinamica (Blocco B). |
-| 2026-07-15 | **Ripresa Studio da 0** dopo 1 mese. Setup nuovo piano a 5 Gruppi. Avvio Gruppo 1. | Riavvio e setup del piano. | Riconnessione ai concetti dopo la pausa. | Continuare Gruppo 1 (Es 1.1). |
+| 2026-08-04 | **Ripresa Studio**: Risolto Es A.2 (Ricorrenza a più termini). | Albero di ricorrenza e sostituzione per T(n) = 2T(n/5) + T(n/2) + n. | Nessuna, concetto del 9/10 n assimilato. | Prossimo in scaletta: Es A.3 (Ricorrenza MT) o Es C.3 (Algoritmo Triplet). |
 | 2026-07-16 | **Riorganizzazione Piano**: Passaggio a 4 Gruppi strutturati come lo scritto (Domanda A, Domanda B, Es 1, Es 2). | Struttura dello scritto d'esame. | Adattamento dello studio agli appelli reali. | Continuare Gruppo A (Es A.2). |
 
 ---

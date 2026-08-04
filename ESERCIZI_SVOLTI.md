@@ -42,7 +42,84 @@ Ord(A, p, r):
   * `f(n) = Theta(1)` (costo per dividere e combinare, che consiste solo in calcoli di indici e un confronto)
   * Confronto: `n^(log_b(a)) = n^(log_2(2)) = n^1 = n`.
   * Poiché `f(n) = Theta(1) = O(n^(1-epsilon))` per `epsilon = 1`, ricadiamo nel **Caso 1** del Master Theorem.
-  * Pertanto, `T(n) = Theta(n^(log_b(a))) = Theta(n)`.
+  * Pertanto, T(n) = Theta(n^(log_b(a))) = Theta(n).
+
+---
+
+### 📝 Es A.2: Limite Asintotico Stretto per Ricorrenza a Più Termini
+* **Fonte**: Appello 14 Febbraio 2024, Domanda A
+* **Problema**: Determinare il limite asintotico stretto per l'equazione di ricorrenza:
+  T(n) = 2 T(n/5) + T(n/2) + n
+  Dimostrarne la correttezza con il metodo di sostituzione.
+
+#### 1. Intuizione tramite Albero di Ricorrenza
+* **Livello 0**: Costo = n
+* **Livello 1**: 2 * (n/5) + (n/2) = (2/5 + 1/2) n = (9/10) n
+* **Livello 2**: (9/10)^2 n
+* **Livello k**: (9/10)^k n
+* **Somma dei Livelli**: 
+  La somma di tutti i livelli è una serie geometrica di ragione q = 9/10 < 1:
+  Sum_{k=0}^{h} (9/10)^k n <= n * Sum_{k=0}^{\infty} (9/10)^k = n * (1 / (1 - 9/10)) = 10 n = O(n).
+* Poiché già la radice al livello 0 costa n, vale anche T(n) = Omega(n). Ipotizziamo quindi T(n) = Theta(n).
+
+#### 2. Dimostrazione Formale (Metodo di Sostituzione)
+
+##### A. Limite Superiore: T(n) = O(n)
+* **Tesi**: Esistono costanti c > 0 e n_0 >= 1 tali che T(n) <= c * n per ogni n >= n_0.
+* **Ipotesi Induttiva**: Assumiamo che T(k) <= c * k valga per tutti i k < n.
+* **Passo Induttivo**:
+  T(n) = 2 T(n/5) + T(n/2) + n
+       <= 2 (c * n / 5) + (c * n / 2) + n      [per ipotesi induttiva]
+       = c n (2/5 + 1/2) + n
+       = (9/10) c n + n
+       = n ((9/10) c + 1)
+* **Verifica Disuguaglianza**:
+  Vogliamo n ((9/10) c + 1) <= c n, ossia:
+  (9/10) c + 1 <= c  =>  1 <= (1/10) c  =>  c >= 10.
+  La disuguaglianza è soddisfatta scegliendo c = 10 (o qualunque c >= 10).
+
+##### B. Limite Inferiore: T(n) = Omega(n)
+* **Tesi**: Esistono costanti d > 0 e n_0 >= 1 tali che T(n) >= d * n per ogni n >= n_0.
+* **Dimostrazione**:
+  Poiché i tempi di esecuzione delle chiamate ricorsive T(n/5) e T(n/2) sono >= 0:
+  T(n) = 2 T(n/5) + T(n/2) + n >= 0 + 0 + n = 1 * n.
+  Quindi il limite inferiore T(n) = Omega(n) è verificato direttamente con d = 1.
+
+#### 3. Conclusione
+Essendo T(n) = O(n) e T(n) = Omega(n), concludiamo che **T(n) = Theta(n)**.
+
+---
+
+### 📝 Es A.3: Risoluzione Ricorrenza Master Theorem (Caso 3 con Regolarità)
+* **Fonte**: Appello 18 Giugno 2024, Domanda A
+* **Problema**: Determinare il limite asintotico stretto per l'equazione di ricorrenza:
+  T(n) = 4 T(n/2) + n^3 + 1
+
+#### 1. Analisi dei Parametri del Master Theorem
+* `a = 4` (numero di chiamate ricorsive, a >= 1)
+* `b = 2` (fattore di riduzione, b > 1)
+* `f(n) = n^3 + 1 = Theta(n^3)`
+* Termine di confronto: `n^(log_b(a)) = n^(log_2(4)) = n^2`
+
+#### 2. Confronto e Selezione Caso
+* Poiché `f(n) = n^3 + 1 = Omega(n^(2 + epsilon))` per `epsilon = 1 > 0`, l'equazione ricade nel **Caso 3** del Master Theorem.
+
+#### 3. Dimostrazione della Condizione di Regolarità
+* **Condizione**: `a * f(n/b) <= k * f(n)` per qualche `k < 1` e `n >= n_0`.
+* **Calcolo lato sinistro**:
+  `4 * f(n/2) = 4 * ((n/2)^3 + 1) = 4 * (n^3 / 8 + 1) = (1/2) n^3 + 4`
+* **Verifica disuguaglianza**:
+  Vogliamo `(1/2) n^3 + 4 <= k * (n^3 + 1)`.
+  Poiché il coefficiente di `n^3` a sinistra è `1/2`, scegliamo un `k` compreso tra `1/2` e `1`, ad esempio **`k = 3/4`**:
+  `(1/2) n^3 + 4 <= (3/4) n^3 + 3/4`
+  `4 - 3/4 <= (3/4 - 1/2) n^3`
+  `13/4 <= (1/4) n^3`
+  `13 <= n^3`
+  La disuguaglianza `13 <= n^3` è vera per ogni **`n >= 3`**.
+* La condizione di regolarità è dunque verificata con `k = 3/4 < 1` e `n_0 = 3`.
+
+#### 4. Conclusione
+Essendo verificate le condizioni del Caso 3, concludiamo che **T(n) = Theta(f(n)) = Theta(n^3)**.
 
 ---
 
