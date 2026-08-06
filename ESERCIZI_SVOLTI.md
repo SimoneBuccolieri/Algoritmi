@@ -123,6 +123,66 @@ Essendo verificate le condizioni del Caso 3, concludiamo che **T(n) = Theta(f(n)
 
 ---
 
+### 📝 Es A.4: Ordinamento Asintotico di Funzioni e Definizione Omega
+* **Fonte**: Appello 2 Luglio 2024, Domanda A
+* **Problema**: 
+  1. Dare la definizione della notazione Omega, cioè: date due funzioni f(n) e g(n), definire il significato di f(n) = Omega(g(n)).
+  2. Ordinare le seguenti 8 funzioni per ordine di grandezza decrescente:
+     `2^(2/3 * n)`, `10`, `(1.1)^n`, `n^2`, `sqrt(n)`, `2^n`, `2^(log n)`, `log n`
+
+#### 1. Definizione Formale Notazione Omega
+Date due funzioni `f(n)` e `g(n)`, diciamo che `f(n) = Omega(g(n))` se esistono due costanti positive `c > 0` e `n_0 >= 1` tali che:
+`f(n) >= c * g(n)` per ogni `n >= n_0`.
+
+#### 2. Ordinamento Decrescente delle Funzioni
+Semplificando `2^(log n) = n^1` e confrontando le famiglie di funzioni:
+1. `f1(n) = 2^n`  (Esponenziale con base 2)
+2. `f2(n) = 2^(2/3 * n) = (2^(2/3))^n ≈ (1.58)^n`  (Esponenziale con base ≈ 1.58)
+3. `f3(n) = (1.1)^n`  (Esponenziale con base 1.1)
+4. `f4(n) = n^2`  (Polinomiale di grado 2)
+5. `f5(n) = 2^(log n) = n`  (Polinomiale di grado 1)
+6. `f6(n) = sqrt(n) = n^(1/2)`  (Polinomiale di grado 0.5)
+7. `f7(n) = log n`  (Logaritmica)
+8. `f8(n) = 10`  (Costante)
+
+Pertanto l'ordinamento decrescente `f1 = Omega(f2), f2 = Omega(f3), ..., f7 = Omega(f8)` è:
+`2^n  >  2^(2/3 * n)  >  (1.1)^n  >  n^2  >  2^(log n)  >  sqrt(n)  >  log n  >  10`.
+
+---
+
+### 📝 Es A.5: Definizione O-Grande e Dimostrazione per Sostituzione
+* **Fonte**: Appello 19 Settembre 2024, Domanda A
+* **Problema**: 
+  1. Definire formalmente la classe `O(f(n))`.
+  2. Dimostrare con il metodo di sostituzione che l'equazione di ricorrenza `T(n) = T(n-1) + 3n + 1` ha soluzione `T(n) = O(n^2)`.
+
+#### 1. Definizione Formale Notazione O-Grande
+Date due funzioni `f(n)` e `g(n)`, diciamo che `f(n) = O(g(n))` se esistono due costanti positive `c > 0` e `n_0 >= 1` tali che:
+`f(n) <= c * g(n)` per ogni `n >= n_0`.
+
+#### 2. Dimostrazione per Sostituzione: T(n) = O(n^2)
+* **Tesi**: Esistono costanti `c > 0` e `n_0 >= 1` tali che `T(n) <= c * n^2` per ogni `n >= n_0`.
+* **Ipotesi Induttiva**: Assumiamo `T(n-1) <= c * (n-1)^2` per tutti i valori minori di `n`.
+* **Passo Induttivo**:
+  `T(n) = T(n-1) + 3n + 1`
+       `<= c * (n-1)^2 + 3n + 1`  [per ipotesi induttiva]
+       `= c * (n^2 - 2n + 1) + 3n + 1`
+       `= c * n^2 - 2c * n + c + 3n + 1`
+       `= c * n^2 - n * (2c - 3) + (c + 1)`
+* **Verifica Disuguaglianza**:
+  Vogliamo `c * n^2 - n * (2c - 3) + (c + 1) <= c * n^2`, ossia:
+  `-n * (2c - 3) + (c + 1) <= 0`  =>  `c + 1 <= n * (2c - 3)`.
+  Scegliamo `c = 2`. La disuguaglianza diventa:
+  `2 + 1 <= n * (4 - 3)`  =>  `3 <= n`.
+  La disuguaglianza è soddisfatta per ogni `n >= 3`.
+
+#### 3. Conclusione
+La proprietà `T(n) = O(n^2)` è verificata per induzione con `c = 2` e `n_0 = 3`.
+
+---
+
+
+
 ## 📂 Gruppo C: Esercizi 1 (Divide et Impera e Alberi/BST)
 
 ### 📝 Es C.1: Ricerca Prodotto Target (Two Pointers)
