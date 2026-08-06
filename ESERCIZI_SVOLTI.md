@@ -181,6 +181,74 @@ La proprietà `T(n) = O(n^2)` è verificata per induzione con `c = 2` e `n_0 = 3
 
 ---
 
+### 📝 Es A.6: Definizione Max-Heap e Ricerca Minimo
+* **Fonte**: Appello 24 Gennaio 2025, Domanda A
+* **Problema**: 
+  1. Dare la definizione di max-heap.
+  2. Dato un insieme S memorizzato in un min-heap A e in un max-heap B, scrivere un algoritmo `min(A,B)` per trovare il minimo nelle due situazioni:
+     (a) ogni elemento di A è <= a ogni elemento di B;
+     (b) ogni elemento di B è <= a ogni elemento di A.
+  3. Valutarne la complessità nei due casi.
+
+#### 1. Definizione Formale Max-Heap
+Un **Max-Heap** è un albero binario quasi completo rappresentato tramite array `A[1..n]` che soddisfa la proprietà di max-heap:
+`A[PARENT(i)] >= A[i]` per ogni `i > 1`, dove `PARENT(i) = floor(i/2)`.
+Di conseguenza, l'elemento massimo risiede sempre nella radice `A[1]`.
+
+#### 2. Risoluzione dei due casi
+
+##### Caso (a): Ogni elemento di A è <= ad ogni elemento di B
+Poiché tutti gli elementi di A sono minori o uguali a quelli di B, il minimo globale risiede in `A`. Trattandosi di un **min-heap**, il minimo risiede nella radice `A[1]`.
+* **Pseudocodice**:
+  ```plaintext
+  min(A, B):
+      return A[1]
+  ```
+* **Complessità**: **Theta(1)** (tempo costante).
+
+##### Caso (b): Ogni elemento di B è <= ad ogni elemento di A
+Poiché tutti gli elementi di B sono minori o uguali a quelli di A, il minimo globale risiede in `B`. In un **max-heap**, i valori minori (e quindi il minimo assoluto) risiedono necessariamente nelle foglie, ossia negli indici da `floor(n/2) + 1` a `n`. L'algoritmo deve effettuare una scansione lineare di tali foglie.
+* **Pseudocodice**:
+  ```plaintext
+  min(A, B):
+      min_val = B[floor(B.length / 2) + 1]
+      for i = floor(B.length / 2) + 2 to B.length:
+          if B[i] < min_val:
+              min_val = B[i]
+      return min_val
+  ```
+* **Complessità**: Essendoci circa `n/2` foglie da esaminare, la complessità temporale è **Theta(n)** (lineare, dove `n` è il numero di elementi in `B`).
+
+---
+
+### 📝 Es A.7: Risoluzione Ricorrenza Master Theorem (Caso 3)
+* **Fonte**: Appello 7 Febbraio 2025, Domanda A
+* **Problema**: Determinare la soluzione asintotica dell'equazione di ricorrenza `T(n) = 3 T(n/3) + n^2 + 1`.
+
+#### 1. Parametri del Master Theorem
+* `a = 3` (numero di chiamate ricorsive)
+* `b = 3` (fattore di riduzione)
+* `f(n) = n^2 + 1 = Theta(n^2)`
+* Termine di confronto: `n^(log_b a) = n^(log_3 3) = n^1 = n`
+
+#### 2. Selezione del Caso
+Poiché `f(n) = n^2 + 1 = Omega(n^(1 + epsilon))` per `epsilon = 1 > 0`, l'equazione ricade nel **Caso 3** del Master Theorem.
+
+#### 3. Dimostrazione della Condizione di Regolarità
+* **Condizione**: `a * f(n/b) <= k * f(n)` per qualche `k < 1` e `n >= n_0`.
+* **Lato sinistro**: `3 * f(n/3) = 3 * ((n/3)^2 + 1) = 3 * (n^2 / 9 + 1) = (1/3) n^2 + 3`.
+* **Verifica disuguaglianza**: Scegliamo `k = 1/2` (compreso tra il coefficiente `1/3` e `1`):
+  `(1/3) n^2 + 3 <= (1/2) n^2 + 1/2`  =>  `5/2 <= (1/6) n^2`  =>  `15 <= n^2`.
+  La disuguaglianza è soddisfatta per ogni `n >= 4`.
+* La condizione di regolarità è verificata con `k = 1/2 < 1` e `n_0 = 4`.
+
+#### 4. Conclusione
+Essendo verificate le condizioni del Caso 3, concludiamo che **T(n) = Theta(f(n)) = Theta(n^2)**.
+
+---
+
+
+
 
 
 ## 📂 Gruppo C: Esercizi 1 (Divide et Impera e Alberi/BST)

@@ -30,7 +30,7 @@
 
 | Gruppo | Descrizione | Stato / Esercizi Guidati (G) e Autonomi (A) | Progresso |
 |---|---|---|---|
-| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | 🔄 In corso (Es A.6 autonomo) | 5 / 10 |
+| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | 🔄 In corso (Es A.8 autonomo) | 7 / 10 |
 | **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | ⬜ Da iniziare | 0 / 10 |
 | **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.2 guidato) | 2 / 10 |
 | **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | ⬜ Da iniziare | 0 / 10 |
@@ -43,8 +43,8 @@
 - [x] **Es A.3 (G)**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
 - [x] **Es A.4 (A)**: Ordinamento asintotico di funzioni (Appello 02/07/2024)
 - [x] **Es A.5 (A)**: Risoluzione T(n) = T(n-1) + 3n + 1 (Appello 19/09/2024)
-- [ ] **Es A.6 (A)**: Definizione max-heap & Min(A,B) (Appello 24/01/2025)
-- [ ] **Es A.7 (A)**: Risoluzione T(n) = 3T(n/3) + n^2 + 1 (Appello 07/02/2025)
+- [x] **Es A.6 (A)**: Definizione max-heap & Min(A,B) (Appello 24/01/2025)
+- [x] **Es A.7 (A)**: Risoluzione T(n) = 3T(n/3) + n^2 + 1 (Appello 07/02/2025)
 - [ ] **Es A.8 (A)**: Relazioni asintotiche O e Omega (Appello 18/06/2025)
 - [ ] **Es A.9 (A)**: Dimostrazione proprietà Omega(n^2) (Appello 10/09/2025)
 - [ ] **Es A.10 (A)**: Ordinamento asintotico di funzioni (Appello 20/01/2026)
