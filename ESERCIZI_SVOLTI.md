@@ -438,3 +438,102 @@ Check(A, p, n):
   * La complessità temporale complessiva è dominata dal passo di ordinamento: **Theta(n log n)**.
 * **Spazio**:
   * Lo spazio ausiliario è **Theta(1)** (se si usa HeapSort per ordinare) o **Theta(n)** (se si usa MergeSort).
+
+---
+
+### 📝 Es C.3: Ricerca Tripletta Target A[i] + A[j] = A[k] (Two Pointers)
+* **Fonte**: Appello 18 Giugno 2024, Esercizio 1
+* **Problema**: Realizzare una procedura `triplet(A)` che dato un array `A[1..n]` di interi verifica se esistono tre indici `i, j, k` tali che `A[i] + A[j] = A[k]`. Fornire lo pseudocodice, motivare la correttezza della soluzione e valutarne la complessità.
+
+#### 1. Pseudocodice
+```plaintext
+triplet(A):
+    n = A.length
+    Sort(A)  // Ordina A[1..n] in ordine crescente in tempo O(n log n)
+
+    foreach a in A:
+        if check(A, a, 1, n) == True:
+            return True
+    return False
+
+check(A, target, left, right):
+    if left > right:
+        return False
+
+    sum = A[left] + A[right]
+    if sum == target:
+        return True
+    else if sum < target:
+        return check(A, target, left + 1, right)
+    else:
+        return check(A, target, left, right - 1)
+```
+
+#### 2. Correttezza
+* **Tesi**: Se una tripletta `A[i] + A[j] = target` esiste, la procedura `check` a due puntatori su array ordinato la individua senza scartare erroneamente alcuna coppia valida.
+* **Mantenimento dell'Invariante**: Poiché l'array `A` è ordinato in senso crescente:
+  - Se `A[left] + A[right] < target`, qualsiasi somma con `A[left]` ed elementi a sinistra di `right` sarà strettamente minore di `target`. Di conseguenza l'elemento `A[left]` non può formare alcuna coppia valida con somma `target` nel sottoarray corrente `A[left..right]`, ed è corretto scartarlo incrementando `left`.
+  - Analogamente, se `A[left] + A[right] > target`, l'elemento `A[right]` non può formare alcuna coppia valida ed è corretto scartarlo decrementando `right`.
+* **Completezza**: Il ciclo `foreach` esamina tutti i possibili elementi `target` di `A`. Per ogni target, la procedura `check` restringe lo spazio di ricerca di uno ad ogni passo senza scartare soluzioni valide. Se `left > right`, la coppia non esiste per quel target. Se la funzione ritorna `False`, non esiste alcuna tripletta nell'array.
+
+#### 3. Complessità
+* **Tempo**:
+  * L'ordinamento `Sort(A)` richiede tempo **Theta(n log n)**.
+  * La funzione `check` esegue al massimo `n` chiamate ricorsive per ciascun valore di `target` (tempo `O(n)`).
+  * Il ciclo `foreach` esegue `check` per ciascuno dei `n` elementi dell'array: `n * O(n) = Theta(n^2)`.
+  * La complessità temporale complessiva è **Theta(n^2)**.
+* **Spazio**:
+  * Lo spazio ausiliario è **Theta(n)** per la ricorsione di `check` (o **Theta(1)** se `check` viene scritta in formato iterativo con un ciclo `while`).
+
+---
+
+### 📝 Es C.4: Unione Insiemistica di due Max-Heap senza Duplicati
+* **Fonte**: Appello 2 Luglio 2024, Esercizio 1
+* **Problema**: 
+  1. Realizzare una funzione `union(A1, A2, n)` che dati due max-heap `A1` e `A2` di dimensione `n` senza duplicati interni, restituisce un nuovo max-heap `A` contenente l'unione insiemistica senza duplicati. Valutarne la complessità.
+  2. Domanda extra: Qualora il risultato potesse contenere duplicati, ci sarebbero soluzioni più efficienti?
+
+#### 1. Pseudocodice (Soluzione Ottima con Tabella Hash)
+```plaintext
+union(A1, A2, n):
+    A = nuovo array vuoto
+    H = nuova Tabella Hash
+
+    // Inserimento degli elementi di A1 (tempo O(n))
+    foreach x in A1:
+        A.append(x)
+        H.insert(x)
+
+    // Inserimento degli elementi di A2 non ancora presenti (tempo O(n))
+    foreach y in A2:
+        if NOT H.contains(y):
+            A.append(y)
+            H.insert(y)
+
+    // Riorganizzazione in Max-Heap (tempo O(n))
+    BuildMaxHeap(A)
+
+    return A
+```
+
+#### 2. Correttezza
+* **Unicità**: Poiché `A1` non contiene duplicati per ipotesi, tutti i suoi elementi vengono inseriti nel nuovo array `A`. L'uso della tabella Hash `H` garantisce che un elemento di `A2` venga aggiunto ad `A` se e solo se non è già presente in `A1`. Pertanto `A` conterrà unicamente elementi distinti dell'unione `A1 U A2`.
+* **Completezza**: Tutti gli elementi di `A1` sono copiati nel primo ciclo, e tutti gli elementi distinti di `A2` nel secondo. Nessun elemento dell'unione insiemistica viene omesso.
+* **Proprietà di Heap**: La chiamata finale `BuildMaxHeap(A)` riorganizza l'array `A` in modo che soddisfi la proprietà di max-heap (`A[PARENT(i)] >= A[i]` per ogni `i > 1`).
+
+#### 3. Complessità
+* **Tempo**:
+  * Inserimento di `n` elementi di `A1`: `n * O(1) = Theta(n)`.
+  * Controllo e inserimento di `n` elementi di `A2`: `n * O(1) = Theta(n)`.
+  * Chiamata a `BuildMaxHeap(A)` su al massimo `2n` elementi: **Theta(n)**.
+  * La complessità temporale complessiva è **Theta(n)** (lineare).
+* **Spazio**:
+  * Lo spazio ausiliario è **Theta(n)** per memorizzare la tabella Hash `H` e il nuovo array `A`.
+
+#### 4. Risposta alla Domanda Extra (Con Duplicati)
+Se il risultato `A` potesse contenere duplicati, l'algoritmo sarebbe ancora più semplice ed efficiente:
+Basterebbe concatenare direttamente `A1` e `A2` in un unico array di dimensione `2n` in tempo `Theta(n)` e applicare `BuildMaxHeap(A)` in tempo `Theta(n)`. La complessità rimarrebbe **Theta(n)** con costante nascosta inferiore e senza bisogno dello spazio ausiliario della tabella Hash!
+
+---
+
+
