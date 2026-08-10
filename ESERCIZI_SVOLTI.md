@@ -247,6 +247,96 @@ Essendo verificate le condizioni del Caso 3, concludiamo che **T(n) = Theta(f(n)
 
 ---
 
+### 📝 Es A.8: Definizioni Formali O, Omega e Dimostrazione Proprietà
+* **Fonte**: Appello 18 Giugno 2025, Domanda A
+* **Problema**: 
+  1. Dare la definizione formale delle classi `O(f(n))` e `Omega(f(n))` per una funzione `f(n)`.
+  2. Dimostrare che se `f(n) = O(n)` e `g(n) = n^2 - f(n)`, allora `g(n) = Omega(n^2)`.
+
+#### 1. Definizioni Formali
+* **Classe `O(f(n))`** (Limite superiore asintotico):
+  Date due funzioni `g(n)` e `f(n)`, diciamo che `g(n) = O(f(n))` se esistono due costanti positive `c > 0` e `n_0 >= 1` tali che:
+  `g(n) <= c * f(n)` per ogni `n >= n_0`.
+
+* **Classe `Omega(f(n))`** (Limite inferiore asintotico):
+  Date due funzioni `g(n)` e `f(n)`, diciamo che `g(n) = Omega(f(n))` se esistono due costanti positive `c > 0` e `n_0 >= 1` tali che:
+  `g(n) >= c * f(n)` per ogni `n >= n_0`.
+
+#### 2. Dimostrazione Formale: g(n) = Omega(n^2)
+* **Ipotesi**: Poiché `f(n) = O(n)`, per definizione esiste una costante `c_1 > 0` e una soglia `n_1 >= 1` tali che `f(n) <= c_1 * n` per ogni `n >= n_1`.
+* **Sostituzione in g(n)**:
+  `g(n) = n^2 - f(n) >= n^2 - c_1 * n`
+* **Verifica della Condizione di Omega**:
+  Vogliamo dimostrare che esiste una costante `c > 0` tale che `g(n) >= c * n^2`.
+  Scegliamo `c = 1/2`:
+  `n^2 - c_1 * n >= (1/2) * n^2`
+  `(1/2) * n^2 >= c_1 * n`
+  `(1/2) * n >= c_1`  =>  `n >= 2 * c_1`.
+* **Esibizione delle Costanti**:
+  Scegliendo `c = 1/2` e `n_0 = max(n_1, 2 * c_1)`, la disuguaglianza `g(n) >= (1/2) * n^2` è soddisfatta per ogni `n >= n_0`.
+
+#### 3. Conclusione
+Pertanto, per definizione, la proprietà `g(n) = Omega(n^2)` è formalmente dimostrata.
+
+---
+
+### 📝 Es A.9: Proprietà della Notazione Omega per Somma e Differenza
+* **Fonte**: Appello 10 Settembre 2025, Domanda A
+* **Problema**: 
+  1. Dare la definizione formale della classe `Omega(f(n))`.
+  2. Mostrare che se `f(n) = Omega(n^2)` allora `f(n) + g(n) = Omega(n^2 + g(n))` per qualsiasi `g(n) > 0`.
+  3. Determinare se vale `f(n) - g(n) = Omega(n^2 - g(n))` oppure fornire un controesempio.
+
+#### 1. Definizione Formale Notazione Omega
+Date due funzioni `g(n)` e `f(n)`, diciamo che `g(n) = Omega(f(n))` se esistono due costanti positive `c > 0` e `n_0 >= 1` tali che:
+`g(n) >= c * f(n)` per ogni `n >= n_0`.
+
+#### 2. Dimostrazione della Somma: f(n) + g(n) = Omega(n^2 + g(n))
+Poiché `f(n) = Omega(n^2)`, esiste una costante `c_1 > 0` tale che `f(n) >= c_1 * n^2` per `n` sufficientemente grande.
+Sommando `g(n) > 0` ad entrambi i lati:
+`f(n) + g(n) >= c_1 * n^2 + g(n) >= min(c_1, 1) * (n^2 + g(n))`.
+Scegliendo la costante `c = min(c_1, 1) > 0`, la proprietà `f(n) + g(n) = Omega(n^2 + g(n))` è formalmente dimostrata.
+
+#### 3. Falsità della Differenza e Controesempio
+La proprietà per la differenza è **FALSA**.
+* **Controesempio**: 
+  Scegliamo `f(n) = (1/2) * n^2` (che è `Omega(n^2)`) e `g(n) = (1/2) * n^2 - 1` (positiva per `n >= 2`).
+  - Il termine a sinistra è: `f(n) - g(n) = (1/2) * n^2 - ((1/2) * n^2 - 1) = 1` (costante).
+  - Il termine a destra è: `n^2 - g(n) = n^2 - ((1/2) * n^2 - 1) = (1/2) * n^2 + 1` (quadratica).
+  Siccome una costante `1` non può essere `Omega((1/2) * n^2 + 1)`, la disuguaglianza non è soddisfatta.
+
+---
+
+### 📝 Es A.10: Ordinamento Asintotico Crescente di Funzioni
+* **Fonte**: Appello 20 Gennaio 2026, Domanda A
+* **Problema**: 
+  1. Dare la definizione formale della notazione `O(f(n))`.
+  2. Ordinare le seguenti 8 funzioni per ordine di grandezza crescente:
+     `n^(3/2)`, `2^n`, `n * (log n)^2`, `log n`, `0.9^n`, `(log n)^3`, `(1.05)^n`, `n^2 / log n`
+
+#### 1. Definizione Formale Notazione O-Grande
+Date due funzioni `g(n)` e `f(n)`, diciamo che `g(n) = O(f(n))` se esistono due costanti positive `c > 0` e `n_0 >= 1` tali che:
+`g(n) <= c * f(n)` per ogni `n >= n_0`.
+
+#### 2. Ordinamento Crescente delle Funzioni
+Raggruppando le funzioni secondo la gerarchia di crescita asintotica:
+1. `f1(n) = 0.9^n`  (Esponenziale con base < 1, tende a 0 per n -> infty)
+2. `f2(n) = log n`  (Logaritmica di grado 1)
+3. `f3(n) = (log n)^3`  (Logaritmica di grado 3)
+4. `f4(n) = n * (log n)^2`  (Polilogaritmica di grado 1)
+5. `f5(n) = n^(3/2)`  (Polinomiale di grado 1.5)
+6. `f6(n) = n^2 / log n`  (Polinomiale di grado quasi 2)
+7. `f7(n) = (1.05)^n`  (Esponenziale con base 1.05)
+8. `f8(n) = 2^n`  (Esponenziale con base 2)
+
+Pertanto l'ordinamento crescente `f1 = O(f2), f2 = O(f3), ..., f7 = O(f8)` è:
+`0.9^n  <  log n  <  (log n)^3  <  n * (log n)^2  <  n^(3/2)  <  n^2 / log n  <  (1.05)^n  <  2^n`.
+
+---
+
+
+
+
 
 
 
