@@ -626,6 +626,43 @@ fun(A, p, r):
 
 ---
 
+### 📝 Es C.7: Fusione e Ordinamento in In-Place di due Max-Heap SortJoin(A, B, n)
+* **Fonte**: Appello 7 Febbraio 2025, Esercizio 1
+* **Problema**: Realizzare una procedura `SortJoin(A, B, n)` che dati due array `A[1..2n]` e `B[1..n]` organizzati a max-heap (ciascuno contenente `n` elementi), restituisce in `A` un array completamente ordinato in senso crescente contenente tutti i `2n` elementi in spazio costante `Theta(1)`.
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```plaintext
+SortJoin(A, B, n):
+    // 1. Copia degli n elementi di B nella seconda metà di A (da n+1 a 2n)
+    for i = 1 to n:
+        A[n + i] = B[i]
+
+    // 2. Costruzione di un unico Max-Heap di 2n elementi in tempo O(n)
+    BuildMaxHeap(A, 2 * n)
+
+    // 3. Ordinamento in loco dell'array A in tempo O(n log n) e spazio O(1)
+    HeapSort(A, 2 * n)
+
+    return A
+```
+
+#### 2. Correttezza
+* **Unione e Compattezza dell'Array**: Il ciclo `for` copia gli `n` elementi di `B` nei restanti `n` slot liberi di `A` (da `n+1` a `2n`). Al termine della copia, `A` contiene tutti ed unicamente i `2n` elementi originari di `A` e `B`.
+* **Riorganizzazione in Heap**: La chiamata a `BuildMaxHeap(A, 2n)` ripristina la proprietà di max-heap sull'intero vettore `A`, garantendo che l'elemento massimo risieda in cima alla radice `A[1]`.
+* **Ordinamento in Loco**: La procedura `HeapSort(A, 2n)` estrae ciclicamente il massimo in `A[1]`, lo scambia con l'ultima foglia corrente in posizione `i` (con `i` da `2n` a 2) e ripristina il max-heap con `MaxHeapify`. Al termine del ciclo, l'array `A` risulta ordinato in senso crescente.
+
+#### 3. Complessità
+* **Tempo**:
+  * La copia degli elementi del vettore `B` richiede tempo **Theta(n)**.
+  * La chiamata `BuildMaxHeap(A, 2n)` richiede tempo **Theta(n)**.
+  * La procedura `HeapSort(A, 2n)` richiede tempo **Theta(n log n)**.
+  * La complessità temporale complessiva è dominata dal termine dell'ordinamento: **Theta(n log n)**.
+* **Spazio**:
+  * L'algoritmo opera esclusivamente sul vettore `A` preallocato senza istanziare alcuna struttura ausiliaria. Lo spazio ausiliario è **Theta(1)** (spazio costante).
+
+---
+
+
 
 
 
