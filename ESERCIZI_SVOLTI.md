@@ -585,5 +585,47 @@ merge(T1, T2, k):
 
 ---
 
+### 📝 Es C.6: Ricerca Binaria Stabilizzazione Titolo Azionario Split(V)
+* **Fonte**: Appello 24 Gennaio 2025, Esercizio 1
+* **Problema**: Realizzare un algoritmo Divide et Impera `Split(V)` che dato un array `V[1..n]` trova il minimo indice `i` a partire dal quale il titolo azionario è sempre positivo (`V[j] > 0` per ogni `j >= i`). Se non si stabilizza su valori positivi, restituire `0`. Fornire pseudocodice, correttezza e complessità.
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```plaintext
+split(V):
+    n = V.length
+    if V[n] <= 0:
+        return 0  // Impossibile stabilizzarsi se l'ultimo giorno è <= 0
+    return fun(V, 1, n)
+
+fun(A, p, r):
+    if p > r:
+        return 0
+
+    q = floor((p + r) / 2)
+
+    if A[q-1] <= 0 and A[q] > 0 and A[q+1] > 0:
+        return q
+    if A[q] > 0 and A[q+1] == nil:
+        return q
+    if A[q] > 0:
+        return fun(A, p, q)
+
+    return fun(A, q + 1, r)
+```
+
+#### 2. Correttezza
+* **Unicità dell'Indice**: Per la proprietà d'andamento del titolo, i valori negativi/oscillanti precedono l'unica sequenza finale di valori strettamente positivi. Se `A[q] > 0` e `A[q-1] <= 0`, l'indice `q` rappresenta esattamente la prima giornata della stabilizzazione positiva.
+* **Correttezza della Ricerca Binaria**: 
+  - Se `A[q] > 0`, l'eventuale primo giorno di stabilizzazione si trova a sinistra di `q` o coincide con `q`, dunque la chiamata su `[p, q]` mantiene la correttezza.
+  - Se `A[q] <= 0`, il titolo non è ancora stabilizzato a `q`, dunque la stabilizzazione può iniziare solo a destra (`[q+1, r]`).
+* **Completezza**: Se `V[n] <= 0`, l'algoritmo termina immediatamente restituendo `0`, poiché una sequenza che termina in negativo non soddisfa la condizione di stabilizzazione.
+
+#### 3. Complessità
+* **Tempo**: Ad ogni chiamata ricorsiva l'intervallo di ricerca si dimezza (`n/2`). L'equazione di ricorrenza è `T(n) = T(n/2) + Theta(1)`, che per il Master Theorem fornisce tempo **Theta(log n)**.
+* **Spazio**: Spazio ausiliario **Theta(log n)** nello stack delle chiamate ricorsive (riducibile a `Theta(1)` mediante versione iterativa).
+
+---
+
+
 
 

@@ -151,7 +151,7 @@
   </header>
 
   <nav>
-    <button class="tab-btn active" id="tab-heap" onclick="switchTab('heap')">🌳 MAX-HEAP (Passo-Passo col Tasto Step)</button>
+    <button class="tab-btn active" id="tab-heap" onclick="switchTab('heap')">🌳 MAX-HEAP & HEAPSORT (Passo-Passo)</button>
     <button class="tab-btn" id="tab-bst" onclick="switchTab('bst')">🌴 BST (Inserimento Guidato)</button>
   </nav>
 
@@ -162,7 +162,7 @@
       <div class="grid-layout">
         <div class="card">
           <div class="card-header">
-            <h2 class="card-title">🌳 MAX-HEAP: Esecuzione Guidata a Singoli Step</h2>
+            <h2 class="card-title">🌳 MAX-HEAP & HEAPSORT</h2>
             <span class="badge-tag">Padre >= Figli</span>
           </div>
 
@@ -170,6 +170,7 @@
             <input type="text" class="heap-input" id="heap-array-input" value="7, 1, 17, 0, 5, 4, 22">
             <button class="action-btn" onclick="initHeapArray()">Reset Array</button>
             <button class="action-btn" style="background: linear-gradient(135deg, #059669, #10b981);" onclick="prepareBuildMaxHeap()">Prepara BuildMaxHeap()</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);" onclick="prepareHeapSort()">Prepara HeapSort()</button>
             <button class="action-btn" style="background: linear-gradient(135deg, #2563eb, #4f46e5);" onclick="prepareHeapInsert()">Prepara HeapInsert(x)</button>
             <button class="action-btn" style="background: linear-gradient(135deg, #dc2626, #ef4444);" onclick="prepareExtractMax()">Prepara ExtractMax()</button>
           </div>
@@ -390,6 +391,97 @@
 
       heapQueue.push({
         msg: `✅ BuildMaxHeap Completato con successo!`,
+        type: 'success',
+        arr: [...arr],
+        highlights: []
+      });
+
+      document.getElementById('heap-next-step-btn').disabled = false;
+      document.getElementById('heap-step-counter').innerText = `Passi rimanenti: ${heapQueue.length}`;
+    }
+
+    function prepareHeapSort() {
+      initHeapArray();
+      clearLog('heap-log-list');
+      heapQueue = [];
+
+      let arr = [...currentHeapArr];
+
+      heapQueue.push({
+        msg: `🔹 INIZIO HeapSort(A): 1. Prima si chiama BuildMaxHeap(A)`,
+        type: 'func',
+        arr: [...arr],
+        highlights: []
+      });
+
+      // BuildMaxHeap internal logic
+      function maxHeapify(a, heapSize, i) {
+        let largest = i, l = 2 * i + 1, r = 2 * i + 2;
+        if (l < heapSize && a[l] > a[largest]) largest = l;
+        if (r < heapSize && a[r] > a[largest]) largest = r;
+        if (largest !== i) {
+          let temp = a[i]; a[i] = a[largest]; a[largest] = temp;
+          maxHeapify(a, heapSize, largest);
+        }
+      }
+
+      for (let i = Math.floor(arr.length / 2) - 1; i >= 0; i--) {
+        maxHeapify(arr, arr.length, i);
+      }
+
+      heapQueue.push({
+        msg: `✓ BuildMaxHeap completato: Array trasformato in Max-Heap [${arr.join(', ')}]`,
+        type: 'success',
+        arr: [...arr],
+        highlights: [0]
+      });
+
+      heapQueue.push({
+        msg: `🔹 2. Ciclo di Estrazione: da i=n down to 2 scambia la radice A[1] con l'elemento A[i] e riduci l'heap`,
+        type: 'func',
+        arr: [...arr],
+        highlights: []
+      });
+
+      let heapSize = arr.length;
+      for (let i = arr.length - 1; i > 0; i--) {
+        heapQueue.push({
+          msg: `🔄 Estrazione Massimo A[1]=${arr[0]}: scambia con elemento in fondo A[${i+1}]=${arr[i]}`,
+          type: 'swap',
+          arr: [...arr],
+          swaps: [0, i]
+        });
+
+        let temp = arr[0]; arr[0] = arr[i]; arr[i] = temp;
+        heapSize--;
+
+        heapQueue.push({
+          msg: `➡️ Ridotto HeapSize a ${heapSize}. Chiamata a MaxHeapify(A, 1) per far scendere A[1]=${arr[0]}`,
+          type: 'normal',
+          arr: [...arr],
+          highlights: [0]
+        });
+
+        function heapifySteps(a, sz, idx) {
+          let largest = idx, l = 2 * idx + 1, r = 2 * idx + 2;
+          if (l < sz && a[l] > a[largest]) largest = l;
+          if (r < sz && a[r] > a[largest]) largest = r;
+          if (largest !== idx) {
+            heapQueue.push({
+              msg: `🔄 SCAMBIO: A[${idx+1}] (${a[idx]}) scende al posto di A[${largest+1}] (${a[largest]})`,
+              type: 'swap',
+              arr: [...a],
+              swaps: [idx, largest]
+            });
+            let t = a[idx]; a[idx] = a[largest]; a[largest] = t;
+            heapifySteps(a, sz, largest);
+          }
+        }
+        heapifySteps(arr, heapSize, 0);
+      }
+
+      heapQueue.push({
+        msg: `✅ HeapSort Completato! Array finale ORDINATO: [${arr.join(', ')}]`,
         type: 'success',
         arr: [...arr],
         highlights: []
