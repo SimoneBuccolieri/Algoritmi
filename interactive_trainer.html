@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baldan Algoritmi Exam Suite — Visualizzatore Passo-Passo Interattivo</title>
+  <meta name="description" content="Visualizzatore interattivo a step singoli con tasto Passo Successivo per operazioni su Max-Heap e BST per l'esame di Algoritmi del Prof. Baldan.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070a12;
+      --bg-card: #101726;
+      --bg-card-hover: #172036;
+      --border-color: #1e2d4a;
+      --border-glow: #38bdf840;
+      
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      
+      --accent-blue: #38bdf8;
+      --accent-indigo: #818cf8;
+      --accent-emerald: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-rose: #fb7185;
+
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex; flex-direction: column; line-height: 1.5;
+    }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(180deg, #0f172a 0%, #070a12 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-icon {
+      width: 44px; height: 44px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 22px; color: #fff; box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    }
+    .brand-text h1 { font-size: 20px; font-weight: 600; }
+    .brand-text p { font-size: 13px; color: var(--text-muted); }
+
+    /* NAV TABS */
+    nav {
+      background: var(--bg-dark); border-bottom: 1px solid var(--border-color);
+      padding: 0 32px; display: flex; gap: 4px; overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent; border: none; color: var(--text-muted);
+      padding: 16px 18px; font-size: 14px; font-weight: 500; font-family: inherit; cursor: pointer;
+      border-bottom: 2px solid transparent; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px; white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.02); }
+    .tab-btn.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); background: rgba(56, 189, 248, 0.06); }
+
+    /* MAIN CONTAINER */
+    main { flex: 1; max-width: 1240px; width: 100%; margin: 0 auto; padding: 32px; }
+    .tab-content { display: none; animation: fadeIn 0.3s ease-in-out; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* CARDS */
+    .grid-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
+    @media (max-width: 900px) { .grid-layout { grid-template-columns: 1fr; } }
+    
+    .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 28px; transition: all 0.2s ease; }
+    .card:hover { border-color: var(--border-glow); }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .card-title { font-size: 18px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+    .badge-tag { font-size: 12px; padding: 4px 10px; border-radius: 20px; background: rgba(129, 140, 248, 0.15); color: var(--accent-indigo); border: 1px solid rgba(129, 140, 248, 0.3); }
+
+    .action-btn {
+      background: linear-gradient(135deg, #2563eb, #4f46e5); color: #fff; border: none;
+      padding: 10px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600;
+      font-family: inherit; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .action-btn:hover { opacity: 0.92; transform: translateY(-1px); }
+    .action-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .step-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff; font-size: 14px; padding: 12px 22px;
+      border-radius: var(--radius-md); font-weight: 700; border: none; cursor: pointer; transition: all 0.2s ease;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); display: inline-flex; align-items: center; gap: 8px;
+    }
+    .step-btn:hover:not(:disabled) { transform: scale(1.03); opacity: 0.95; }
+
+    .heap-controls { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+    .heap-input {
+      background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border-color);
+      color: var(--text-main); padding: 10px 14px; border-radius: var(--radius-md);
+      font-family: 'JetBrains Mono', monospace; font-size: 14px; flex: 1; min-width: 180px;
+    }
+
+    /* TREE CANVAS */
+    .tree-canvas-container {
+      background: rgba(9, 13, 22, 0.8); border: 1px solid var(--border-color);
+      border-radius: var(--radius-md); padding: 20px; min-height: 320px;
+      display: flex; align-items: center; justify-content: center; overflow-x: auto;
+    }
+    svg.tree-svg { width: 100%; height: 300px; }
+    .node-circle { fill: var(--bg-card); stroke: var(--accent-blue); stroke-width: 2px; transition: all 0.3s ease; }
+    .node-circle.leaf { stroke: var(--accent-indigo); }
+    .node-circle.bst-node { stroke: var(--accent-emerald); }
+    .node-circle.active-highlight { fill: rgba(251, 191, 36, 0.35); stroke: var(--accent-amber); stroke-width: 4px; }
+    .node-circle.swap-highlight { fill: rgba(239, 68, 68, 0.35); stroke: var(--accent-rose); stroke-width: 4px; }
+    .node-text { fill: var(--text-main); font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; text-anchor: middle; dominant-baseline: central; }
+    .tree-edge { stroke: var(--border-color); stroke-width: 2px; }
+
+    /* LOG PANEL */
+    .log-panel {
+      background: #090d16; border: 1px solid var(--border-color); border-radius: var(--radius-lg);
+      padding: 20px; display: flex; flex-direction: column; max-height: 520px;
+    }
+    .log-title { font-size: 15px; font-weight: 600; color: var(--accent-amber); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .log-list { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+    .log-item { padding: 8px 12px; border-radius: 6px; background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent-blue); line-height: 1.4; }
+    .log-item.func { border-left-color: var(--accent-indigo); font-weight: 600; color: var(--accent-blue); }
+    .log-item.swap { border-left-color: var(--accent-rose); color: var(--accent-rose); font-weight: 600; }
+    .log-item.success { border-left-color: var(--accent-emerald); color: var(--accent-emerald); font-weight: 600; }
+    .log-item.current { background: rgba(251, 191, 36, 0.15); border-left-color: var(--accent-amber); color: var(--accent-amber); font-weight: 700; }
+
+    footer { border-top: 1px solid var(--border-color); padding: 20px 32px; text-align: center; color: var(--text-dim); font-size: 13px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-icon">A</div>
+      <div class="brand-text">
+        <h1>Visualizzatore Passo-Passo Interattivo (Tasto Step)</h1>
+        <p>Strumento Grafico d'Esame — Prof. Baldan (UniPD)</p>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <button class="tab-btn active" id="tab-heap" onclick="switchTab('heap')">🌳 MAX-HEAP (Passo-Passo col Tasto Step)</button>
+    <button class="tab-btn" id="tab-bst" onclick="switchTab('bst')">🌴 BST (Inserimento Guidato)</button>
+  </nav>
+
+  <main>
+    
+    <!-- TAB MAX-HEAP -->
+    <div class="tab-content active" id="content-heap">
+      <div class="grid-layout">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🌳 MAX-HEAP: Esecuzione Guidata a Singoli Step</h2>
+            <span class="badge-tag">Padre >= Figli</span>
+          </div>
+
+          <div class="heap-controls">
+            <input type="text" class="heap-input" id="heap-array-input" value="7, 1, 17, 0, 5, 4, 22">
+            <button class="action-btn" onclick="initHeapArray()">Reset Array</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #059669, #10b981);" onclick="prepareBuildMaxHeap()">Prepara BuildMaxHeap()</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #2563eb, #4f46e5);" onclick="prepareHeapInsert()">Prepara HeapInsert(x)</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #dc2626, #ef4444);" onclick="prepareExtractMax()">Prepara ExtractMax()</button>
+          </div>
+
+          <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 16px;">
+            <button class="step-btn" id="heap-next-step-btn" onclick="executeNextHeapStep()" disabled>⏭️ PASSO SUCCESSIVO (Step)</button>
+            <span style="font-size: 14px; color: var(--text-muted);" id="heap-step-counter">Passi rimanenti: 0</span>
+          </div>
+
+          <div class="tree-canvas-container">
+            <svg class="tree-svg" id="heap-svg"></svg>
+          </div>
+
+          <div style="margin-top: 14px; font-size: 13px; color: var(--text-muted);" id="heap-info-text">
+            Stato dell'Array: <code id="heap-current-array" style="color:var(--accent-blue);">[7, 1, 17, 0, 5, 4, 22]</code>
+          </div>
+        </div>
+
+        <!-- PANEL REGISTRO PASSI -->
+        <div class="log-panel">
+          <div class="log-title">📋 Registro Esecuzione Funzioni</div>
+          <div class="log-list" id="heap-log-list">
+            <div class="log-item func">Premi un pulsante "Prepara ..." e poi clicca "PASSO SUCCESSIVO"!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB BST -->
+    <div class="tab-content" id="content-bst">
+      <div class="grid-layout">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🌴 BST: Inserimento Guidato Passo-Passo</h2>
+            <span class="badge-tag">Sinistra < Padre < Destra</span>
+          </div>
+
+          <div class="heap-controls">
+            <input type="number" class="heap-input" id="bst-val-input" placeholder="Numero (es. 15)" value="15">
+            <button class="action-btn" onclick="prepareBSTInsert()">Prepara Insert(x)</button>
+            <button class="action-btn" style="background: linear-gradient(135deg, #059669, #10b981);" onclick="buildDefaultBST()">Carica BST Esempio</button>
+            <button class="action-btn" style="background:rgba(255,255,255,0.1);" onclick="clearBST()">Svuota</button>
+          </div>
+
+          <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 16px;">
+            <button class="step-btn" id="bst-next-step-btn" onclick="executeNextBSTStep()" disabled>⏭️ PASSO SUCCESSIVO (Step)</button>
+            <span style="font-size: 14px; color: var(--text-muted);" id="bst-step-counter">Passi rimanenti: 0</span>
+          </div>
+
+          <div class="tree-canvas-container">
+            <svg class="tree-svg" id="bst-svg"></svg>
+          </div>
+
+          <div style="margin-top: 14px; font-size: 13px; color: var(--text-muted);" id="bst-info-text">
+            Visita In-Order (ordinata): <strong id="bst-inorder-text" style="color:var(--accent-amber);">[]</strong>
+          </div>
+        </div>
+
+        <div class="log-panel">
+          <div class="log-title">📋 Registro Passi BST</div>
+          <div class="log-list" id="bst-log-list">
+            <div class="log-item func">Premi "Prepara Insert(x)" e poi clicca "PASSO SUCCESSIVO"!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Tutor d'Esame Algoritmi — Simone Buccolieri | Università degli Studi di Padova
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(`tab-${tabId}`).classList.add('active');
+      document.getElementById(`content-${tabId}`).classList.add('active');
+
+      if (tabId === 'heap') initHeapArray();
+      if (tabId === 'bst') renderBST();
+    }
+
+    function addLog(panelId, msg, type = 'normal') {
+      const list = document.getElementById(panelId);
+      const div = document.createElement('div');
+      div.className = `log-item ${type}`;
+      div.innerText = msg;
+      list.appendChild(div);
+      list.scrollTop = list.scrollHeight;
+    }
+
+    function clearLog(panelId) {
+      document.getElementById(panelId).innerHTML = '';
+    }
+
+    // QUEUE FOR STEP-BY-STEP HEAP
+    let heapQueue = [];
+    let currentHeapArr = [];
+
+    function initHeapArray() {
+      const valStr = document.getElementById('heap-array-input').value;
+      currentHeapArr = valStr.split(',').map(x => x.trim()).filter(x => x !== '' && !isNaN(x)).map(Number);
+      heapQueue = [];
+      document.getElementById('heap-next-step-btn').disabled = true;
+      document.getElementById('heap-step-counter').innerText = 'Passi rimanenti: 0';
+      renderHeapSVG(currentHeapArr, []);
+    }
+
+    function renderHeapSVG(arr, highlightIndices = [], swapIndices = []) {
+      const svg = document.getElementById('heap-svg');
+      svg.innerHTML = '';
+      if (arr.length === 0) return;
+
+      document.getElementById('heap-current-array').innerText = JSON.stringify(arr);
+
+      const width = svg.clientWidth || 600, nodeRadius = 18, startY = 35, levelHeight = 55;
+      const positions = [];
+      for (let i = 0; i < arr.length; i++) {
+        const level = Math.floor(Math.log2(i + 1));
+        const indexInLevel = i - (Math.pow(2, level) - 1);
+        const numNodesInLevel = Math.pow(2, level);
+        const sectionWidth = width / numNodesInLevel;
+        const x = sectionWidth * indexInLevel + sectionWidth / 2;
+        const y = startY + level * levelHeight;
+        positions.push({ x, y, val: arr[i] });
+      }
+
+      for (let i = 0; i < arr.length; i++) {
+        [2*i+1, 2*i+2].forEach(childIdx => {
+          if (childIdx < arr.length) {
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("x1", positions[i].x); line.setAttribute("y1", positions[i].y);
+            line.setAttribute("x2", positions[childIdx].x); line.setAttribute("y2", positions[childIdx].y);
+            line.setAttribute("class", "tree-edge");
+            svg.appendChild(line);
+          }
+        });
+      }
+
+      positions.forEach((pos, idx) => {
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", pos.x); circle.setAttribute("cy", pos.y); circle.setAttribute("r", nodeRadius);
+        
+        let cls = (idx >= Math.floor(arr.length / 2)) ? "node-circle leaf" : "node-circle";
+        if (swapIndices.includes(idx)) cls += " swap-highlight";
+        else if (highlightIndices.includes(idx)) cls += " active-highlight";
+        
+        circle.setAttribute("class", cls);
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", pos.x); text.setAttribute("y", pos.y); text.setAttribute("class", "node-text");
+        text.textContent = pos.val;
+        g.appendChild(circle); g.appendChild(text); svg.appendChild(g);
+      });
+    }
+
+    function prepareBuildMaxHeap() {
+      initHeapArray();
+      clearLog('heap-log-list');
+      heapQueue = [];
+
+      let arr = [...currentHeapArr];
+      const n = arr.length;
+      const startIdx = Math.floor(n / 2) - 1;
+
+      heapQueue.push({
+        msg: `🔹 INIZIO BuildMaxHeap(A): Nodi interni da i=${startIdx+1} fino a 1`,
+        type: 'func',
+        arr: [...arr],
+        highlights: []
+      });
+
+      function generateHeapifySteps(a, heapSize, i) {
+        heapQueue.push({
+          msg: `➡️ Chiamata a MaxHeapify(A, i=${i+1}) per il valore ${a[i]}`,
+          type: 'normal',
+          arr: [...a],
+          highlights: [i]
+        });
+
+        let largest = i, l = 2 * i + 1, r = 2 * i + 2;
+        if (l < heapSize && a[l] > a[largest]) largest = l;
+        if (r < heapSize && a[r] > a[largest]) largest = r;
+
+        if (largest !== i) {
+          heapQueue.push({
+            msg: `🔄 SCAMBIO: A[${i+1}] (${a[i]}) scompare in basso al posto di A[${largest+1}] (${a[largest]})`,
+            type: 'swap',
+            arr: [...a],
+            swaps: [i, largest]
+          });
+
+          let temp = a[i]; a[i] = a[largest]; a[largest] = temp;
+
+          heapQueue.push({
+            msg: `✓ Scambio effettuato. Nuovo valore in A[${i+1}] è ${a[i]}. Continuo la discesa su i=${largest+1}`,
+            type: 'normal',
+            arr: [...a],
+            highlights: [largest]
+          });
+
+          generateHeapifySteps(a, heapSize, largest);
+        } else {
+          heapQueue.push({
+            msg: `✓ Il nodo i=${i+1} (${a[i]}) è già maggiore o uguale ai suoi figli.`,
+            type: 'normal',
+            arr: [...a],
+            highlights: [i]
+          });
+        }
+      }
+
+      for (let i = startIdx; i >= 0; i--) {
+        generateHeapifySteps(arr, arr.length, i);
+      }
+
+      heapQueue.push({
+        msg: `✅ BuildMaxHeap Completato con successo!`,
+        type: 'success',
+        arr: [...arr],
+        highlights: []
+      });
+
+      document.getElementById('heap-next-step-btn').disabled = false;
+      document.getElementById('heap-step-counter').innerText = `Passi rimanenti: ${heapQueue.length}`;
+    }
+
+    function prepareHeapInsert() {
+      initHeapArray();
+      clearLog('heap-log-list');
+      heapQueue = [];
+
+      let arr = [...currentHeapArr];
+      const newKey = Math.floor(Math.random() * 50) + 1;
+
+      heapQueue.push({
+        msg: `🔹 INIZIO HeapInsert(A, key=${newKey})`,
+        type: 'func',
+        arr: [...arr],
+        highlights: []
+      });
+
+      arr.push(newKey);
+      let i = arr.length - 1;
+
+      heapQueue.push({
+        msg: `1. Inserita la nuova chiave ${newKey} in fondo all'array in posizione A[${i+1}]`,
+        type: 'normal',
+        arr: [...arr],
+        highlights: [i]
+      });
+
+      while (i > 0) {
+        let parent = Math.floor((i - 1) / 2);
+        heapQueue.push({
+          msg: `Confronto Nodo A[${i+1}] (${arr[i]}) con il Padre A[${parent+1}] (${arr[parent]})`,
+          type: 'normal',
+          arr: [...arr],
+          highlights: [i, parent]
+        });
+
+        if (arr[parent] < arr[i]) {
+          heapQueue.push({
+            msg: `🔄 RISALITA: Scambio A[${i+1}] con il Padre A[${parent+1}]`,
+            type: 'swap',
+            arr: [...arr],
+            swaps: [i, parent]
+          });
+
+          let temp = arr[parent]; arr[parent] = arr[i]; arr[i] = temp;
+          i = parent;
+        } else {
+          heapQueue.push({
+            msg: `✓ Il padre A[${parent+1}] (${arr[parent]}) è maggiore: risalita terminata!`,
+            type: 'normal',
+            arr: [...arr],
+            highlights: [i]
+          });
+          break;
+        }
+      }
+
+      heapQueue.push({
+        msg: `✅ HeapInsert completato con successo!`,
+        type: 'success',
+        arr: [...arr],
+        highlights: []
+      });
+
+      document.getElementById('heap-next-step-btn').disabled = false;
+      document.getElementById('heap-step-counter').innerText = `Passi rimanenti: ${heapQueue.length}`;
+    }
+
+    function prepareExtractMax() {
+      initHeapArray();
+      clearLog('heap-log-list');
+      heapQueue = [];
+
+      let arr = [...currentHeapArr];
+      if (arr.length <= 1) return;
+
+      const maxVal = arr[0];
+      heapQueue.push({
+        msg: `🔹 INIZIO ExtractMax(A): Massimo in radice A[1] = ${maxVal}`,
+        type: 'func',
+        arr: [...arr],
+        highlights: [0]
+      });
+
+      const lastVal = arr.pop();
+      arr[0] = lastVal;
+
+      heapQueue.push({
+        msg: `1. Rimossa la radice ${maxVal} e sostituita con l'ultima foglia A[n] = ${lastVal}`,
+        type: 'swap',
+        arr: [...arr],
+        swaps: [0]
+      });
+
+      function generateHeapifySteps(a, heapSize, i) {
+        let largest = i, l = 2 * i + 1, r = 2 * i + 2;
+        if (l < heapSize && a[l] > a[largest]) largest = l;
+        if (r < heapSize && a[r] > a[largest]) largest = r;
+
+        if (largest !== i) {
+          heapQueue.push({
+            msg: `🔄 DISCESA: Scambio radice/nodo A[${i+1}] (${a[i]}) col figlio maggiore A[${largest+1}] (${a[largest]})`,
+            type: 'swap',
+            arr: [...a],
+            swaps: [i, largest]
+          });
+
+          let temp = a[i]; a[i] = a[largest]; a[largest] = temp;
+          generateHeapifySteps(a, heapSize, largest);
+        }
+      }
+
+      generateHeapifySteps(arr, arr.length, 0);
+
+      heapQueue.push({
+        msg: `✅ Estratto con successo il Massimo ${maxVal}!`,
+        type: 'success',
+        arr: [...arr],
+        highlights: []
+      });
+
+      document.getElementById('heap-next-step-btn').disabled = false;
+      document.getElementById('heap-step-counter').innerText = `Passi rimanenti: ${heapQueue.length}`;
+    }
+
+    function executeNextHeapStep() {
+      if (heapQueue.length === 0) return;
+
+      const step = heapQueue.shift();
+      addLog('heap-log-list', step.msg, step.type || 'normal');
+      currentHeapArr = step.arr;
+      renderHeapSVG(step.arr, step.highlights || [], step.swaps || []);
+
+      document.getElementById('heap-array-input').value = step.arr.join(', ');
+      document.getElementById('heap-step-counter').innerText = `Passi rimanenti: ${heapQueue.length}`;
+
+      if (heapQueue.length === 0) {
+        document.getElementById('heap-next-step-btn').disabled = true;
+      }
+    }
+
+    // BST SIMULATOR STEP-BY-STEP
+    class BSTNode {
+      constructor(val) {
+        this.val = val;
+        this.left = null;
+        this.right = null;
+      }
+    }
+
+    let bstRoot = null;
+    let bstQueue = [];
+
+    function prepareBSTInsert() {
+      clearLog('bst-log-list');
+      bstQueue = [];
+      const val = parseInt(document.getElementById('bst-val-input').value);
+      if (isNaN(val)) return;
+
+      bstQueue.push({
+        msg: `🔹 INIZIO BST-Insert(T, z=${val})`,
+        type: 'func'
+      });
+
+      function insertSteps(node, v) {
+        if (!node) {
+          bstQueue.push({
+            msg: `✓ Spazio libero trovato! Inserisco il nuovo nodo con valore ${v}`,
+            type: 'success',
+            action: () => new BSTNode(v)
+          });
+          return new BSTNode(v);
+        }
+
+        if (v < node.val) {
+          bstQueue.push({
+            msg: `➡️ ${v} < ${node.val}: Navigo nel sottoalbero di SINISTRA`,
+            type: 'normal'
+          });
+          node.left = insertSteps(node.left, v);
+        } else if (v > node.val) {
+          bstQueue.push({
+            msg: `➡️ ${v} > ${node.val}: Navigo nel sottoalbero di DESTRA`,
+            type: 'normal'
+          });
+          node.right = insertSteps(node.right, v);
+        }
+        return node;
+      }
+
+      bstRoot = insertSteps(bstRoot, val);
+      document.getElementById('bst-next-step-btn').disabled = false;
+      document.getElementById('bst-step-counter').innerText = `Passi rimanenti: ${bstQueue.length}`;
+    }
+
+    function executeNextBSTStep() {
+      if (bstQueue.length === 0) return;
+
+      const step = bstQueue.shift();
+      addLog('bst-log-list', step.msg, step.type || 'normal');
+      renderBST();
+
+      document.getElementById('bst-step-counter').innerText = `Passi rimanenti: ${bstQueue.length}`;
+      if (bstQueue.length === 0) {
+        document.getElementById('bst-next-step-btn').disabled = true;
+      }
+    }
+
+    function buildDefaultBST() {
+      clearLog('bst-log-list');
+      bstRoot = null;
+      [10, 5, 20, 2, 8, 15, 30].forEach(v => {
+        function insert(node, val) {
+          if (!node) return new BSTNode(val);
+          if (val < node.val) node.left = insert(node.left, val);
+          else if (val > node.val) node.right = insert(node.right, val);
+          return node;
+        }
+        bstRoot = insert(bstRoot, v);
+      });
+      renderBST();
+    }
+
+    function clearBST() {
+      clearLog('bst-log-list');
+      bstRoot = null;
+      renderBST();
+    }
+
+    function renderBST() {
+      const svg = document.getElementById('bst-svg');
+      svg.innerHTML = '';
+      const inOrderVals = [];
+
+      function getInOrder(node) {
+        if (!node) return;
+        getInOrder(node.left);
+        inOrderVals.push(node.val);
+        getInOrder(node.right);
+      }
+      getInOrder(bstRoot);
+      document.getElementById('bst-inorder-text').innerText = JSON.stringify(inOrderVals);
+
+      if (!bstRoot) return;
+
+      const width = svg.clientWidth || 600;
+      const nodeRadius = 18, startY = 35, levelHeight = 55;
+
+      function drawNode(node, x, y, dx) {
+        if (!node) return;
+
+        if (node.left) {
+          const nextX = x - dx;
+          const nextY = y + levelHeight;
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", x); line.setAttribute("y1", y);
+          line.setAttribute("x2", nextX); line.setAttribute("y2", nextY);
+          line.setAttribute("class", "tree-edge");
+          svg.appendChild(line);
+          drawNode(node.left, nextX, nextY, dx / 2);
+        }
+
+        if (node.right) {
+          const nextX = x + dx;
+          const nextY = y + levelHeight;
+          const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+          line.setAttribute("x1", x); line.setAttribute("y1", y);
+          line.setAttribute("x2", nextX); line.setAttribute("y2", nextY);
+          line.setAttribute("class", "tree-edge");
+          svg.appendChild(line);
+          drawNode(node.right, nextX, nextY, dx / 2);
+        }
+
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        circle.setAttribute("cx", x); circle.setAttribute("cy", y); circle.setAttribute("r", nodeRadius);
+        circle.setAttribute("class", "node-circle bst-node");
+
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", x); text.setAttribute("y", y); text.setAttribute("class", "node-text");
+        text.textContent = node.val;
+
+        g.appendChild(circle); g.appendChild(text); svg.appendChild(g);
+      }
+
+      drawNode(bstRoot, width / 2, startY, width / 4);
+    }
+
+    window.onload = () => {
+      initHeapArray();
+      buildDefaultBST();
+    };
+  </script>
+</body>
+</html>

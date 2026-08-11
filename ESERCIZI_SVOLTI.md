@@ -536,4 +536,54 @@ Basterebbe concatenare direttamente `A1` e `A2` in un unico array di dimensione 
 
 ---
 
+### 📝 Es C.5: Massimo e Merge di BST Completi Memorizzati su Array
+* **Fonte**: Appello 19 Settembre 2024, Esercizio 1
+* **Problema**: 
+  1. Realizzare una funzione `max(T, n)` che determina il massimo di un array `T` di dimensione `n` che memorizza un BST completo.
+  2. Realizzare una funzione `merge(T1, T2, k)` che dati due array `T1` e `T2` di dimensione `n` che memorizzano BST completi e una chiave `k` (`T1 < k < T2`), restituisce un array di dimensione `2n + 1` che memorizza il BST completo unito.
+  3. Motivare la correttezza delle funzioni e valutarne la complessità.
+
+#### 1. Pseudocodice per `max(T, n)`
+```plaintext
+max(T, n):
+    if n <= 0:
+        return NIL
+
+    i = 1  // Si parte dalla radice T[1]
+    while (2 * i + 1) <= n:
+        i = 2 * i + 1  // Navigazione verso il figlio destro
+
+    return T[i]
+```
+
+#### 2. Pseudocodice per `merge(T1, T2, k)`
+```plaintext
+merge(T1, T2, k):
+    n = T1.length
+    T = nuovo Array di dimensione (2 * n + 1)
+    
+    T[1] = k  // k diventa la radice del nuovo BST completo
+    
+    for i = 1 to n:
+        T[2 * i] = T1[i]      // T1 forma il sottoalbero sinistro negli indici pari
+        T[2 * i + 1] = T2[i]  // T2 forma il sottoalbero destro negli indici dispari
+        
+    return T
+```
+
+#### 3. Correttezza
+* **Correttezza di `max(T, n)`**: Per la proprietà d'ordine dei BST, ogni nodo è strettamente minore di tutti gli elementi del suo sottoalbero destro. Partendo dalla radice `i = 1` e spostando l'indice nel figlio destro `2*i + 1`, la procedura raggiunge la foglia più a destra dell'albero quando `(2*i + 1) > n`. Poiché non esistono ulteriori figli destri, la chiave `T[i]` è il massimo valore contenuto nel BST.
+* **Correttezza di `merge(T1, T2, k)`**: Per ipotesi `T1 < k < T2`. Posizionando `T[1] = k`, tutti gli elementi del sottoalbero sinistro `T1` sono minori di `k` e tutti quelli del sottoalbero destro `T2` sono maggiori di `k`. Assegnando `T1[i]` a `T[2*i]` e `T2[i]` a `T[2*i + 1]`, le posizioni relative dei nodi nei rispettivi sottoalberi vengono preservate, producendo un BST completo valido di dimensione `2n + 1`.
+
+#### 4. Complessità
+* **Complessità di `max(T, n)`**:
+  * **Tempo**: Ad ogni passo la ricerca scende di un livello nell'albero. Poiché un BST completo di `n` elementi ha altezza `floor(log n)`, il ciclo esegue al più `log n` iterazioni. Tempo **Theta(log n)**.
+  * **Spazio**: Spazio ausiliario **Theta(1)**.
+* **Complessità di `merge(T1, T2, k)`**:
+  * **Tempo**: I cicli `for` eseguono una singola scansione di copia degli array `T1` e `T2`, effettuando `2n` operazioni trascurabili in tempo **Theta(n)** (lineare).
+  * **Spazio**: Spazio per il nuovo array restituito **Theta(n)**.
+
+---
+
+
 
