@@ -662,6 +662,108 @@ SortJoin(A, B, n):
 
 ---
 
+### 📝 Es C.8: Arricchimento BST per Conteggio Foglie leaves(x) e Inserimento
+* **Fonte**: Appello 18 Giugno 2025, Esercizio 1
+* **Problema**: Realizzare un arricchimento degli alberi binari di ricerca che permetta di ottenere per ogni nodo `x`, in tempo costante `O(1)`, il numero delle foglie nel sottoalbero radicato in `x`. Indicare i campi aggiuntivi, fornire `leaves(x)` e `insert(T, z)` e valutarne la complessità.
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```plaintext
+// 1. Campo aggiuntivo: x.leaves (memorizza il numero di foglie del sottoalbero radicato in x)
+
+// 2. Funzione leaves(x) in O(1)
+leaves(x):
+    if x == NIL:
+        return 0
+    return x.leaves
+
+// 3. Procedura insert(T, z)
+insert(T, z):
+    z.leaves = 1  // Ogni nuova foglia inserita contiene esattamente 1 foglia (se stessa)
+    z.left = NIL
+    z.right = NIL
+
+    y = NIL
+    x = T.root
+
+    // Scendiamo nell'albero incrementando x.leaves++ su tutti gli antenati
+    while x != NIL:
+        y = x
+        x.leaves = x.leaves + 1  // Incremento per l'aggiunta della nuova foglia z
+
+        if z.key < x.key:
+            x = x.left
+        else:
+            x = x.right
+
+    z.p = y
+    if y == NIL:
+        T.root = z  // Se l'albero era vuoto, z diventa la radice
+    else if z.key < y.key:
+        y.left = z
+    else:
+        y.right = z
+```
+
+#### 2. Correttezza
+* **Inizializzazione del Nuovo Nodo**: Il nodo `z` viene inserito come nuova foglia dell'albero. Poiché un sottoalbero formato da un singolo nodo foglia contiene esattamente 1 foglia (se stesso), l'assegnazione `z.leaves = 1` è corretta.
+* **Aggiornamento degli Antenati**: L'inserimento della foglia `z` modifica la conteggio delle foglie di tutti e soli gli antenati giacenti sul cammino dalla radice `T.root` al nodo `z`. Incrementando `x.leaves = x.leaves + 1` durante la discesa del ciclo `while`, l'invariante del numero di foglie risulta preservato per tutti i nodi dell'albero.
+* **Correttezza di `leaves(x)`**: L'accesso diretto al campo `x.leaves` restituisce istantaneamente il valore precalcolato.
+
+#### 3. Complessità
+* **Tempo**:
+  * `leaves(x)`: Tempo **Theta(1)** (accesso in tempo costante).
+  * `insert(T, z)`: Il ciclo `while` esegue una discesa lungo l'altezza dell'albero. Tempo **O(h)** dove `h` è l'altezza del BST (`O(log n)` se bilanciato).
+* **Spazio**:
+  * Spazio ausiliario **Theta(1)** per l'aggiunta del singolo campo `x.leaves`.
+
+---
+
+### 📝 Es C.9: Ricerca del Nodo a Distanza Minima mdist(T, v) in BST
+* **Fonte**: Appello 10 Settembre 2025, Esercizio 1
+* **Problema**: Realizzare una funzione `mdist(T, v)` che dato un albero binario di ricerca `T` ed una chiave `v`, restituisce il nodo `x` di `T` la cui chiave ha distanza minima da `v` (`|x.key - v|` minimo). Fornire pseudocodice, correttezza e complessità.
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```plaintext
+mdist(T, v):
+    x = T.root
+    if x == NIL:
+        return NIL
+
+    best_node = x
+    min_dist = abs(x.key - v)
+
+    // Navigazione lungo il cammino di ricerca di v
+    while x != NIL:
+        // Se troviamo una distanza inferiore, aggiorniamo il miglior candidato
+        if abs(x.key - v) < min_dist:
+            min_dist = abs(x.key - v)
+            best_node = x
+
+        // Se la distanza è 0, il nodo coincide esattamente con v
+        if x.key == v:
+            return x
+
+        // Navigazione BST
+        if v < x.key:
+            x = x.left
+        else:
+            x = x.right
+
+    return best_node
+```
+
+#### 2. Correttezza
+* **Localizzazione del Nodo più Vicino**: Per le proprietà d'ordine del BST, qualsiasi valore `x.key` a distanza minima da `v` deve necessariamente trovarsi sul cammino di ricerca dalla radice `T.root` al punto in cui verrebbe inserita la chiave `v`. Nessun nodo al di fuori di questo cammino può possedere una chiave più vicina a `v`.
+* **Invariante della Ricerca**: Ad ogni iterazione del ciclo `while`, la variabile `best_node` memorizza il nodo con minima distanza `abs(x.key - v)` tra tutti i nodi esaminati dalla radice fino al livello corrente. Al termine del ciclo (quando `x == NIL`), `best_node` è il nodo a distanza minima assoluta nell'intero albero.
+
+#### 3. Complessità
+* **Tempo**: Ad ogni passo la ricerca scende di un livello nell'albero. Il ciclo `while` viene eseguito al più `h` volte, dove `h` è l'altezza del BST. Tempo **O(h)** (ovvero **Theta(log n)** se il BST è bilanciato).
+* **Spazio**: L'algoritmo è iterativo e utilizza due variabili locali. Spazio ausiliario **Theta(1)** (spazio costante).
+
+---
+
+
+
 
 
 

@@ -32,7 +32,7 @@
 |---|---|---|---|
 | **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 10 / 10 |
 | **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.1 guidato) | 0 / 10 |
-| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.8 autonomo) | 7 / 10 |
+| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.10 autonomo) | 9 / 10 |
 | **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | ⬜ Da iniziare | 0 / 10 |
 
 ### Liste Dettagliate Esercizi
@@ -64,12 +64,12 @@
 #### Gruppo C: Esercizi 1 (Divide et Impera, Alberi/BST)
 - [x] **Es C.1 (G)**: Prod(A,k) per A[i]*A[j] = k (Appello 31/01/2024)
 - [x] **Es C.2 (G)**: Split(A,n) partizionamento eredità (Appello 14/02/2024)
-- [ ] **Es C.3 (G)**: Algoritmo triplet(A) per A[i]+A[j]=A[k] (Appello 18/06/2024)
-- [ ] **Es C.4 (A)**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
-- [ ] **Es C.5 (A)**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
-- [ ] **Es C.6 (A)**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
-- [ ] **Es C.7 (A)**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
-- [ ] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
+- [x] **Es C.3 (G)**: Algoritmo triplet(A) per A[i]+A[j]=A[k] (Appello 18/06/2024)
+- [x] **Es C.4 (A)**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
+- [x] **Es C.5 (A)**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
+- [x] **Es C.6 (A)**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
+- [x] **Es C.7 (A)**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
+- [x] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
 - [ ] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
 - [ ] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
 
