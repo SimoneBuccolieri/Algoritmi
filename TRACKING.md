@@ -32,8 +32,8 @@
 |---|---|---|---|
 | **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 10 / 10 |
 | **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.1 guidato) | 0 / 10 |
-| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.10 autonomo) | 9 / 10 |
-| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | ⬜ Da iniziare | 0 / 10 |
+| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | ✅ Completato | 10 / 10 |
+| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso (Es D.2 guidato) | 1 / 10 |
 
 ### Liste Dettagliate Esercizi
 
@@ -70,11 +70,11 @@
 - [x] **Es C.6 (A)**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
 - [x] **Es C.7 (A)**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
 - [x] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
-- [ ] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
-- [ ] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
+- [x] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
+- [x] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
 
 #### Gruppo D: Esercizi 2 (Programmazione Dinamica e Greedy)
-- [ ] **Es D.1 (G)**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
+- [x] **Es D.1 (G)**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
 - [ ] **Es D.2 (G)**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
 - [ ] **Es D.3 (G)**: Longest Common Substring (Appello 18/06/2024)
 - [ ] **Es D.4 (A)**: Selezione attività greedy con inizio per ultimo (Appello 02/07/2024)

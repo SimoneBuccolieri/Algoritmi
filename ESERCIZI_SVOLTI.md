@@ -762,6 +762,132 @@ mdist(T, v):
 
 ---
 
+### 📝 Es C.10: Arricchimento BST Massima Differenza diff(x) e Inserimento
+* **Fonte**: Appello 20 Gennaio 2026, Esercizio 1
+* **Problema**: Realizzare un arricchimento degli alberi binari di ricerca che consenta di ottenere per ogni nodo `x` dell'albero, in tempo costante `O(1)`, la massima differenza tra chiavi presenti nel sottoalbero radicato in `x`. Indicare i campi aggiuntivi, fornire `diff(x)` e `insert(T, z)` e valutarne la complessità.
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```plaintext
+// 1. Campi aggiuntivi: x.min, x.max, x.diff
+
+// 2. Funzione diff(x) in O(1)
+diff(x):
+    if x == NIL:
+        return 0
+    return x.diff
+
+// 3. Procedura insert(T, z)
+insert(T, z):
+    z.min = z.key
+    z.max = z.key
+    z.diff = 0
+    z.left = NIL
+    z.right = NIL
+
+    y = NIL
+    x = T.root
+
+    // Passo 1: Discesa per posizionare z
+    while x != NIL:
+        y = x
+        if z.key < x.key:
+            x = x.left
+        else:
+            x = x.right
+
+    z.p = y
+    if y == NIL:
+        T.root = z
+    else if z.key < y.key:
+        y.left = z
+    else:
+        y.right = z
+
+    // Passo 2: Risalita a ritroso su tutti gli antenati per aggiornare min, max e diff
+    curr = z.p
+    while curr != NIL:
+        if curr.left != NIL:
+            curr.min = curr.left.min
+        else:
+            curr.min = curr.key
+
+        if curr.right != NIL:
+            curr.max = curr.right.max
+        else:
+            curr.max = curr.key
+
+        curr.diff = curr.max - curr.min
+        curr = curr.p  // Risale al padre
+```
+
+#### 2. Correttezza
+* **Insieme delle Differenze**: In un sottoalbero, la differenza massima tra una coppia di chiavi è data unicamente dalla differenza tra il valore massimo assoluto ed il valore minimo assoluto presenti nel sottoalbero `(Max - Min)`.
+* **Mantenimento degli Estremi e Risalita**: Memorizzando `x.min` e `x.max` per ciascun nodo `x`, la procedura `insert` aggiorna `min`, `max` e `diff` su tutti e soli gli antenati dal nodo appena inserito `z` alla radice `T.root`. Poiché il nodo inserito `z` modifica unicamente gli estremi degli antenati giacenti sul suo cammino di discesa, la risalita garantisce la correttezza globale dell'invariante in tutto l'albero.
+* **Correttezza di `diff(x)`**: L'accesso diretto al campo `x.diff` restituisce in tempo costante il valore precalcolato.
+
+#### 3. Complessità
+* **Tempo**:
+  * `diff(x)`: Tempo **Theta(1)**.
+  * `insert(T, z)`: Discesa di altezza `h` + Risalita di altezza `h` (`2*h` passi). Tempo **O(h)** (ovvero **Theta(log n)** se il BST è bilanciato).
+* **Spazio**:
+  * Spazio ausiliario **Theta(1)** per memorizzare i 3 campi ausiliari `x.min`, `x.max`, `x.diff`.
+
+---
+
+## 📂 Gruppo D: Esercizi 2 (Programmazione Dinamica e Algoritmi Greedy)
+
+### 📝 Es D.1: Selezione Attività Greedy con Inizio per Ultimo
+* **Fonte**: Appello 31 Gennaio 2024, Esercizio 2
+* **Problema**: 
+  1. Scrivere un algoritmo greedy iterativo che implementa la scelta greedy di selezionare l'attività che INIZIA PER ULTIMA.
+  2. Eseguire l'algoritmo sulle 6 attività con tempi `s = (1,2,3,5,7,10)` e `f = (3,9,10,7,11,12)`.
+  3. Dimostrare la proprietà di scelta greedy (dimostrazione per scambio).
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```plaintext
+GreedyActivitySelectorInizio(s, f, n):
+    A = { a_n }  // Selezioniamo l'attività che inizia per ultima
+    lastact = s[n]
+
+    for i = n - 1 down to 1:
+        // Se l'attività a_i finisce prima o quando inizia l'ultima attività scelta
+        if f[i] <= lastact:
+            A = A U { a_i }
+            lastact = s[i]
+
+    return A
+```
+
+#### 2. Risultato Esecuzione a Mano
+Sulle 6 attività date:
+- `a_6: [10, 12]` ➔ Selezionata! Insieme `{ a_6 }`, `lastact = 10`.
+- `a_5: [7, 11]` ➔ `f_5 = 11 > 10` (Sovrapposta) ➔ Scartata.
+- `a_4: [5, 7]` ➔ `f_4 = 7 <= 10` (Compatibile) ➔ Selezionata! Insieme `{ a_6, a_4 }`, `lastact = 5`.
+- `a_3: [3, 10]` ➔ `f_3 = 10 > 5` (Sovrapposta) ➔ Scartata.
+- `a_2: [2, 9]` ➔ `f_2 = 9 > 5` (Sovrapposta) ➔ Scartata.
+- `a_1: [1, 3]` ➔ `f_1 = 3 <= 5` (Compatibile) ➔ Selezionata! Insieme `{ a_6, a_4, a_1 }`.
+
+L'insieme di attività restituito è **`{ a_1, a_4, a_6 }`** (attività con inizi `1, 5, 10`).
+
+#### 3. Dimostrazione della Scelta Greedy (Per Scambio)
+* **Tesi**: Esiste una soluzione ottima per il problema di selezione attività che contiene l’attività `a_n` (quella con tempo di inizio massimo).
+* **Dimostrazione**:
+  - Sia `X` una soluzione ottima qualsiasi per il problema.
+  - Se `a_n` appartiene a `X`, la tesi è banalmente verificata.
+  - Se `a_n` non appartiene a `X`, sia `a_k` l'attività in `X` che ha il tempo di inizio massimo tra quelle selezionate in `X`.
+  - Poiché `a_n` è l'attività con il tempo di inizio massimo assoluto tra tutte le `n` attività, vale `s_n >= s_k`.
+  - Sostituendo `a_k` con `a_n` in `X`, otteniamo un nuovo insieme `X' = (X \ {a_k}) U {a_n}`.
+  - Poiché `s_n >= s_k`, l'attività `a_n` inizia contemporaneamente o dopo `a_k`, dunque non può sovrapporsi a nessuna attività precedente in `X` che finisce prima di `s_k`.
+  - Pertanto `X'` è un insieme di attività tutte compatibili con cardinalità `|X'| = |X|`. Di conseguenza anche `X'` è una soluzione ottima contenente la scelta greedy `a_n`. Q.E.D.
+
+#### 4. Complessità
+* **Tempo**: Poiché i tempi di inizio sono già ordinati, il ciclo `for` esegue `n-1` iterazioni di costo costante. Tempo **Theta(n)** (lineare).
+* **Spazio**: Spazio ausiliario **Theta(1)** (o `Theta(n)` per memorizzare l'insieme di output).
+
+---
+
+
+
 
 
 
