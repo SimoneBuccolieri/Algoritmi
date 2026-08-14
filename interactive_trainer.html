@@ -136,6 +136,83 @@
     .log-item.current { background: rgba(251, 191, 36, 0.15); border-left-color: var(--accent-amber); color: var(--accent-amber); font-weight: 700; }
 
     footer { border-top: 1px solid var(--border-color); padding: 20px 32px; text-align: center; color: var(--text-dim); font-size: 13px; }
+
+    /* ESERCIZIO 2 STYLES */
+    .module-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .mod-btn {
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
+      color: var(--text-muted); padding: 9px 16px; border-radius: var(--radius-md);
+      font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s;
+    }
+    .mod-btn.active { background: rgba(56,189,248,0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
+    .module-panel { display: none; }
+    .module-panel.active { display: block; animation: fadeIn 0.3s ease; }
+
+    /* GANTT */
+    .gantt-wrap { background: #090d16; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; overflow-x: auto; }
+    .gantt-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .gantt-label { width: 50px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+    .gantt-track { flex: 1; height: 32px; background: rgba(255,255,255,0.03); border-radius: 6px; position: relative; }
+    .gantt-bar {
+      position: absolute; height: 100%; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace;
+      transition: all 0.3s ease; opacity: 0.7;
+    }
+    .gantt-bar.pending { background: rgba(100,116,139,0.4); border: 1px solid #475569; color: #94a3b8; }
+    .gantt-bar.checking { background: rgba(251,191,36,0.35); border: 2px solid var(--accent-amber); color: var(--accent-amber); opacity: 1; }
+    .gantt-bar.selected { background: rgba(52,211,153,0.35); border: 2px solid var(--accent-emerald); color: var(--accent-emerald); opacity: 1; }
+    .gantt-bar.rejected { background: rgba(251,113,133,0.2); border: 1px solid var(--accent-rose); color: var(--accent-rose); opacity: 0.5; }
+    .gantt-axis { height: 24px; position: relative; margin-left: 60px; border-top: 1px solid var(--border-color); margin-top: 4px; }
+    .gantt-tick { position: absolute; transform: translateX(-50%); font-size: 10px; color: var(--text-dim); }
+
+    /* DP MATRIX */
+    .dp-matrix-wrap { background: #090d16; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; overflow: auto; }
+    .dp-table { border-collapse: collapse; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+    .dp-table th { background: rgba(56,189,248,0.1); color: var(--accent-blue); padding: 8px 12px; border: 1px solid var(--border-color); font-size: 12px; }
+    .dp-table td { padding: 8px 12px; border: 1px solid var(--border-color); text-align: center; color: var(--text-muted); min-width: 50px; transition: all 0.3s; }
+    .dp-table td.nil { color: #475569; }
+    .dp-table td.computing { background: rgba(251,191,36,0.25); color: var(--accent-amber); font-weight: 700; border-color: var(--accent-amber); }
+    .dp-table td.hit { background: rgba(52,211,153,0.2); color: var(--accent-emerald); font-weight: 700; }
+    .dp-table td.done { background: rgba(52,211,153,0.12); color: var(--accent-emerald); font-weight: 600; }
+    .dp-table td.base { background: rgba(56,189,248,0.1); color: var(--accent-blue); font-weight: 600; }
+    .dp-table td.dep-above { background: rgba(251,113,133,0.2); color: var(--accent-rose); font-weight: 700; border-color: var(--accent-rose); }
+    .dp-table td.dep-right { background: rgba(129,140,248,0.2); color: var(--accent-indigo); font-weight: 700; border-color: var(--accent-indigo); }
+
+    /* CODE VIEWER STYLES */
+    .code-box {
+      background: #060911; border: 1px solid var(--border-color); border-radius: var(--radius-md);
+      padding: 12px 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px;
+      color: #94a3b8; overflow-x: auto; max-height: 240px; min-height: 180px;
+    }
+    .code-line-row { display: flex; gap: 12px; padding: 3px 8px; border-radius: 4px; transition: all 0.2s ease; }
+    .code-line-num { color: #475569; width: 22px; text-align: right; flex-shrink: 0; user-select: none; }
+    .code-line-text { flex: 1; white-space: pre; }
+    .code-line-row.active { background: rgba(251, 191, 36, 0.2); color: var(--accent-amber); font-weight: 700; border-left: 3px solid var(--accent-amber); }
+    .code-line-row.hit { background: rgba(52, 211, 153, 0.2); color: var(--accent-emerald); font-weight: 700; border-left: 3px solid var(--accent-emerald); }
+    .code-line-row.func { background: rgba(129, 140, 248, 0.18); color: var(--accent-indigo); font-weight: 600; border-left: 3px solid var(--accent-indigo); }
+
+    /* EXAM TEXT CALLOUT STYLES */
+    .exam-text-box {
+      background: rgba(251, 191, 36, 0.04);
+      border: 1px solid rgba(251, 191, 36, 0.22);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .exam-text-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-amber);
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
   </style>
 </head>
 <body>
@@ -153,6 +230,7 @@
   <nav>
     <button class="tab-btn active" id="tab-heap" onclick="switchTab('heap')">🌳 MAX-HEAP & HEAPSORT (Passo-Passo)</button>
     <button class="tab-btn" id="tab-bst" onclick="switchTab('bst')">🌴 BST (Inserimento Guidato)</button>
+    <button class="tab-btn" id="tab-es2" onclick="switchTab('es2')">⚡ ESERCIZIO 2: GREEDY & DP</button>
   </nav>
 
   <main>
@@ -233,6 +311,408 @@
           <div class="log-title">📋 Registro Passi BST</div>
           <div class="log-list" id="bst-log-list">
             <div class="log-item func">Premi "Prepara Insert(x)" e poi clicca "PASSO SUCCESSIVO"!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB ESERCIZIO 2: GREEDY & DP -->
+    <div class="tab-content" id="content-es2">
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <h2 class="card-title">⚡ ESERCIZIO 2 — Greedy & Programmazione Dinamica</h2>
+          <span class="badge-tag">Appelli Baldan 2024–2026</span>
+        </div>
+
+        <!-- MODULE SELECTOR -->
+        <div class="module-tabs">
+          <button class="mod-btn active" id="mod-btn-fib" onclick="switchModule('fib')">🌱 MOD 0: Intro DP — Fibonacci (Memo vs Bottom-Up)</button>
+          <button class="mod-btn" id="mod-btn-greedy" onclick="switchModule('greedy')">🎯 MOD 1: Greedy (3 Strategie)</button>
+          <button class="mod-btn" id="mod-btn-dp" onclick="switchModule('dp')">🗃️ MOD 2: DP Bottom-Up Matrice 2D</button>
+          <button class="mod-btn" id="mod-btn-memo" onclick="switchModule('memo')">🧩 MOD 3: DP Memoizzata Stringa</button>
+          <button class="mod-btn" id="mod-btn-lcs" onclick="switchModule('lcs')">🔤 MOD 4: LCS (Memo vs Bottom-Up)</button>
+          <button class="mod-btn" id="mod-btn-lis" onclick="switchModule('lis')">📈 MOD 5: LIS (Memo vs Bottom-Up)</button>
+        </div>
+
+        <!-- ===== MODULO 0: INTRO DP FIBONACCI ===== -->
+        <div class="module-panel active" id="mod-fib">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO DIDATTICO — CONCETTI CHIAVE E CONFRONTO PARADIGMI</div>
+            <div>Si vuole calcolare il valore del n-esimo numero di Fibonacci <code>F(n)</code>, definito dalla ricorrenza: 
+            <code>F(0) = 0</code>, <code>F(1) = 1</code>, <code>F(n) = F(n-1) + F(n-2)</code> per n ≥ 2. 
+            Confrontare l'esecuzione Naive (senza DP, O(2^n)), la Memoizzazione Top-Down con tabella <code>memo[]</code> (O(n)) e la Tabulazione Bottom-Up iterativa con ciclo <code>for</code> (O(n)).</div>
+          </div>
+
+          <div style="background:rgba(129,140,248,0.06);border:1px solid rgba(129,140,248,0.25);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div style="font-size:12px;font-weight:700;color:var(--accent-indigo);margin-bottom:8px;letter-spacing:1px;">💡 CONCETTO CHIAVE: FIBONACCI (Memoization vs Bottom-Up)</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;">
+              <div><strong>Ricorrenza:</strong> F(0) = 0, F(1) = 1 &nbsp;|&nbsp; <span style="color:var(--accent-amber);">F(n) = F(n-1) + F(n-2)</span> per n ≥ 2</div>
+            </div>
+            <div style="margin-top:10px;font-size:12px;color:var(--text-muted);line-height:1.6;">
+              • <strong style="color:var(--accent-rose);">1. Naive (Senza DP):</strong> Calcola a cieca. Per F(5) ricalcola F(3) 2 volte e F(2) 3 volte. Chiamate tot: 15! ❌<br>
+              • <strong style="color:var(--accent-emerald);">2. Memoizzazione (Top-Down):</strong> Parte da F(n) e scende. Salva ogni F(k) calcolato in <code style="color:var(--accent-emerald);">memo[k]</code>. Se lo ri-chiedono, risponde subito in O(1) (HIT!). 🟢<br>
+              • <strong style="color:var(--accent-blue);">3. Bottom-Up (Iterativo):</strong> Parte da F[0]=0, F[1]=1 e con un semplice ciclo <code style="color:var(--accent-blue);">for i=2 to n</code> riempie la tabella da sinistra a destra. 🔵
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+            <button class="mod-btn active" id="fib-mode-btn-1" onclick="setFibMode(1)">🔴 1. Ricorsione Naive (Senza DP)</button>
+            <button class="mod-btn" id="fib-mode-btn-2" onclick="setFibMode(2)">🟢 2. Memoizzazione Top-Down (memo[])</button>
+            <button class="mod-btn" id="fib-mode-btn-3" onclick="setFibMode(3)">🔵 3. Bottom-Up Iterativo (for i=2 to n)</button>
+          </div>
+
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:0 0 150px;">
+              <label style="font-size:12px;color:var(--text-muted);">Calcola F(n) per n =</label>
+              <input type="number" class="heap-input" id="fib-n-input" value="5" min="2" max="8">
+            </div>
+            <button class="action-btn" onclick="initFib()">▶ Simula Modalità</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="fib-step-btn" onclick="executeFibStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="fib-step-counter">Passi: 0</span>
+            <div id="fib-stats-box" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-amber);padding:6px 12px;background:rgba(251,191,36,0.08);border-radius:8px;border:1px solid rgba(251,191,36,0.2);">Chiamate / Operazioni: 0</div>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="dp-matrix-wrap" style="flex:1;">
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;font-weight:700;">STATO DELL'ARRAY F[0..n] / MEMO[0..n]:</div>
+              <div id="fib-array-container" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                💻 Pseudocodice Eseguito (Riga Evidenziata)
+              </div>
+              <div class="code-box" id="fib-code-box"></div>
+            </div>
+            <div class="log-panel" style="max-height:240px;">
+              <div class="log-title">📋 Registro Esecuzione Passo-Passo</div>
+              <div class="log-list" id="fib-log"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODULO 1: GREEDY (3 STRATEGIE) ===== -->
+        <div class="module-panel" id="mod-greedy">
+
+          <!-- Strategy Selector -->
+          <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+            <button class="mod-btn active" id="gs-btn-1" onclick="setGreedyStrategy(1)">📅 Strategia 1: Inizia per ultima</button>
+            <button class="mod-btn" id="gs-btn-2" onclick="setGreedyStrategy(2)">⏱️ Strategia 2: Scheduling (minima lunghezza)</button>
+            <button class="mod-btn" id="gs-btn-3" onclick="setGreedyStrategy(3)">☁️ Strategia 3: File su Cloud (minima dimensione)</button>
+          </div>
+
+          <!-- STRATEGY 1 INPUTS -->
+          <div id="gs-inputs-1">
+            <div class="exam-text-box">
+              <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 31/01/2024 e 07/02/2025 (Esercizio 2)</div>
+              <div>"Si consideri il problema di selezione di attività compatibili, con n attività a<sub>1</sub>, ..., a<sub>n</sub> date attraverso due vettori s e f di tempi di inizio e fine, e ordinate per tempo di inizio (0 &lt; s<sub>1</sub> ≤ s<sub>2</sub> ≤ ... ≤ s<sub>n</sub>). 
+              (a) Scrivere un algoritmo greedy iterativo che implementa la scelta greedy di selezionare l'attività che <strong>inizia per ultima</strong>. 
+              (b) Determinare l'insieme di attività restituito dall'algoritmo al punto (a) quando eseguito sul seguente insieme di 6 attività: s = (1, 2, 3, 5, 7, 10), f = (3, 9, 10, 7, 11, 12)."</div>
+            </div>
+            <div class="heap-controls">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+                <label style="font-size:12px;color:var(--text-muted);">s (tempi di inizio, ordinati crescenti):</label>
+                <input type="text" class="heap-input" id="greedy-s" value="1, 2, 3, 5, 7, 10">
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+                <label style="font-size:12px;color:var(--text-muted);">f (tempi di fine):</label>
+                <input type="text" class="heap-input" id="greedy-f" value="3, 9, 10, 7, 11, 12">
+              </div>
+              <button class="action-btn" onclick="initGreedy()">▶ Carica</button>
+            </div>
+          </div>
+
+          <!-- STRATEGY 2 INPUTS -->
+          <div id="gs-inputs-2" style="display:none;">
+            <div class="exam-text-box">
+              <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appello 18/06/2025 (Esercizio 2)</div>
+              <div>"Abbiamo n programmi da eseguire sul nostro computer. Ogni programma j ha lunghezza l<sub>j</sub>, che rappresenta il tempo richiesto per la sua esecuzione. Dato un ordine di esecuzione σ = j<sub>1</sub>, ..., j<sub>n</sub>, il tempo di completamento C<sub>j_i</sub> è dato dalla somma delle lunghezze dei programmi j<sub>1</sub>...j<sub>i</sub>. L'obiettivo è trovare un ordine σ che <strong>minimizza la somma dei tempi di completamento</strong> di tutti i programmi: Σ C<sub>j</sub>(σ). 
+              (a) Dare un semplice algoritmo greedy per questo problema, e valutarne la complessità."</div>
+            </div>
+            <div class="heap-controls">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:2;">
+                <label style="font-size:12px;color:var(--text-muted);">Lunghezze programmi l (non ordinate):</label>
+                <input type="text" class="heap-input" id="sched-l" value="4, 1, 3, 2">
+              </div>
+              <button class="action-btn" onclick="initSched()">▶ Carica</button>
+            </div>
+          </div>
+
+          <!-- STRATEGY 3 INPUTS -->
+          <div id="gs-inputs-3" style="display:none;">
+            <div class="exam-text-box">
+              <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appello 20/01/2026 (Esercizio 2)</div>
+              <div>"Avete n file f<sub>1</sub>, f<sub>2</sub>, ..., f<sub>n</sub> di dimensioni d<sub>1</sub>, d<sub>2</sub>, ..., d<sub>n</sub> MB da caricare sul servizio cloud. Purtroppo la somma delle dimensioni è superiore alla capacità c MB disponibile. Vi dovete accontentare di <strong>caricare il maggior numero possibile di file</strong>, senza eccedere la capacità c. 
+              (a) Progettare un algoritmo greedy per questo problema e valutarne la complessità."</div>
+            </div>
+            <div class="heap-controls">
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+                <label style="font-size:12px;color:var(--text-muted);">Dimensioni file d (MB, non ordinate):</label>
+                <input type="text" class="heap-input" id="cloud-d" value="5, 2, 8, 1, 4, 3">
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:0 0 120px;">
+                <label style="font-size:12px;color:var(--text-muted);">Capacità c (MB):</label>
+                <input type="text" class="heap-input" id="cloud-c" value="10">
+              </div>
+              <button class="action-btn" onclick="initCloud()">▶ Carica</button>
+            </div>
+          </div>
+
+          <!-- SHARED STEP CONTROLS -->
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="greedy-step-btn" onclick="executeGreedyStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="greedy-step-counter">Passi: 0</span>
+          </div>
+
+          <!-- SHARED VISUALIZATION AREA -->
+          <div class="gantt-wrap" id="greedy-viz-wrap">
+            <div id="gantt-container"></div>
+          </div>
+
+          <div class="log-panel" style="margin-top:16px;max-height:220px;">
+            <div class="log-title">📋 Registro Greedy</div>
+            <div class="log-list" id="greedy-log"></div>
+          </div>
+        </div>
+
+        <!-- ===== MODULO 2: DP BOTTOM-UP MATRICE ===== -->
+        <div class="module-panel" id="mod-dp">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 02/07/2024, 19/09/2024 e 24/01/2025 (Esercizio 2)</div>
+            <div>"Siano dati due vettori a componenti intere a, b ∈ Z<sup>n</sup>. Si consideri la quantità c(i, j), con 0 ≤ i ≤ j ≤ n-1, definita come segue: <br>
+            c(i, j) = a<sub>i</sub> se 0 &lt; i ≤ n-1 e j = n-1; &nbsp;&nbsp;|&nbsp;&nbsp; b<sub>j</sub> se i = 0 e 0 ≤ j ≤ n-1; &nbsp;&nbsp;|&nbsp;&nbsp; c(i-1, j) · c(i, j+1) se 0 &lt; i ≤ j &lt; n-1. <br>
+            Si vuole calcolare la quantità m = max{c(i, j) : 0 ≤ i ≤ j ≤ n-1}. <br>
+            (a) Scrivere un algoritmo iterativo bottom-up per il calcolo di m e mostrarne la matrice popolata."</div>
+          </div>
+
+          <!-- FORMULA ALWAYS VISIBLE -->
+          <div style="background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.25);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div style="font-size:12px;font-weight:700;color:var(--accent-blue);margin-bottom:10px;letter-spacing:1px;">RICORRENZA (sempre visibile)</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2;">
+              <div><span style="color:var(--accent-amber);">c(i, n-1)</span> = <span style="color:var(--accent-blue);">a[i]</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#475569;">// caso base: ultima COLONNA → prendi a[i]</span></div>
+              <div><span style="color:var(--accent-amber);">c(0, j)</span> &nbsp; = <span style="color:var(--accent-blue);">b[j]</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#475569;">// caso base: prima RIGA → prendi b[j]</span></div>
+              <div><span style="color:var(--accent-emerald);">c(i, j)</span> &nbsp; = <span style="color:var(--accent-rose);">c(i-1, j)</span> * <span style="color:var(--accent-indigo);">c(i, j+1)</span> &nbsp;<span style="color:#475569;">// caso ricorsivo: usa la cella SOPRA e quella a DESTRA</span></div>
+            </div>
+            <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">
+              <strong style="color:var(--accent-amber);">Ordine di scansione:</strong> riempi prima l'ultima colonna (i=0..n-1), poi la prima riga (j=0..n-2), poi scorri colonne da destra a sinistra (j=n-2 downto 0), righe dall'alto al basso (i=1..n-1).
+            </div>
+          </div>
+
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Vettore a[0..n-1] (colonna finale, n valori):</label>
+              <input type="text" class="heap-input" id="dp-a" value="2, 3, 4, 5">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Vettore b[0..n-2] (prima riga, n-1 valori):</label>
+              <input type="text" class="heap-input" id="dp-b" value="1, 2, 3">
+            </div>
+            <button class="action-btn" onclick="initDPMatrix()">▶ Inizializza</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="dp-step-btn" onclick="executeDPStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="dp-step-counter">Passi: 0</span>
+            <div id="dp-current-formula" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-amber);padding:6px 12px;background:rgba(251,191,36,0.08);border-radius:8px;border:1px solid rgba(251,191,36,0.2);"></div>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="dp-matrix-wrap" style="flex:1;">
+              <table class="dp-table"><tbody id="dp-table-body"></tbody></table>
+            </div>
+            <div style="flex:0 0 200px;font-size:12px;color:var(--text-muted);background:#090d16;border:1px solid var(--border-color);border-radius:10px;padding:14px;">
+              <div style="margin-bottom:10px;font-weight:700;color:var(--accent-blue);">LEGENDA COLORI</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(56,189,248,0.15);color:var(--accent-blue);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">BLU</span> &nbsp;Caso base (dato)</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(251,191,36,0.25);color:var(--accent-amber);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">GIALLO</span> Cella in calcolo</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(251,113,133,0.2);color:var(--accent-rose);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">ROSSO</span> &nbsp;c(i-1,j) sopra</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(129,140,248,0.2);color:var(--accent-indigo);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">VIOLA</span> &nbsp;c(i,j+1) destra</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(52,211,153,0.15);color:var(--accent-emerald);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">VERDE</span> &nbsp;Calcolato</div>
+              <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-color);color:#475569;">La cella GIALLA dipende sempre da ROSSO (sopra) e VIOLA (destra).</div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                💻 Algoritmo Bottom-Up (Riga Evidenziata)
+              </div>
+              <div class="code-box" id="dp-code-box"></div>
+            </div>
+            <div class="log-panel" style="max-height:240px;">
+              <div class="log-title">📋 Registro DP Bottom-Up</div>
+              <div class="log-list" id="dp-log"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODULO 3: DP MEMOIZZATA STRINGA ===== -->
+        <div class="module-panel" id="mod-memo">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 14/02/2024, 04/07/2025 e 10/09/2025 (Esercizio 2)</div>
+            <div>"Data una stringa X = ⟨x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub>⟩, si consideri la quantità ℓ(i, j) definita per 1 ≤ i ≤ j ≤ n: <br>
+            ℓ(i, j) = 1 se i = j; &nbsp;&nbsp;|&nbsp;&nbsp; 2 se i = j-1 e x<sub>i</sub> = x<sub>j</sub>; &nbsp;&nbsp;|&nbsp;&nbsp; 2 + ℓ(i+1, j-1) se (i &lt; j-1) e (x<sub>i</sub> = x<sub>j</sub>); &nbsp;&nbsp;|&nbsp;&nbsp; max<sub>k</sub> { ℓ(i, k) + ℓ(k+1, j) } se (i &lt; j-1) e (x<sub>i</sub> ≠ x<sub>j</sub>). <br>
+            (a) Scrivere una coppia di algoritmi INITL(X) e RECL(X, L, i, j) per il calcolo memoizzato di ℓ(1, n)."</div>
+          </div>
+
+          <!-- FORMULA SEMPRE VISIBILE -->
+          <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.25);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div style="font-size:12px;font-weight:700;color:var(--accent-emerald);margin-bottom:10px;letter-spacing:1px;">RICORRENZA l(i,j) — Appello 04/07/2025 (sempre visibile)</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;line-height:2.2;">
+              <div><span style="color:var(--accent-blue);">l(i,j) = 1</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#475569;">// CASO BASE: i == j (singolo carattere)</span></div>
+              <div><span style="color:var(--accent-blue);">l(i,j) = 2</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#475569;">// CASO BASE: i == j-1 e X[i] == X[j]</span></div>
+              <div><span style="color:var(--accent-emerald);">l(i,j) = 2 + l(i+1, j-1)</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#475569;">// X[i] == X[j] e j > i+1 → scava dentro</span></div>
+              <div><span style="color:var(--accent-amber);">l(i,j) = max_k { l(i,k) + l(k+1,j) }</span> &nbsp;<span style="color:#475569;">// X[i] != X[j] → prova tutti i tagli k</span></div>
+            </div>
+            <div style="margin-top:10px;font-size:12px;color:var(--text-muted);">
+              <strong style="color:var(--accent-emerald);">Come funziona INITL:</strong> inizializza tutta la matrice a NIL. &nbsp;|&nbsp;
+              <strong style="color:var(--accent-emerald);">Come funziona RECL(X,L,i,j):</strong> se L[i][j] != NIL → restituisci subito (HIT!). Altrimenti calcola e salva.
+            </div>
+          </div>
+
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:2;">
+              <label style="font-size:12px;color:var(--text-muted);">Stringa X (es: "abba", "aab", "abcba"):</label>
+              <input type="text" class="heap-input" id="memo-string" value="abba">
+            </div>
+            <button class="action-btn" onclick="initDPMemo()">▶ Inizializza INITL + RECL</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="memo-step-btn" onclick="executeMemoStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="memo-step-counter">Passi: 0</span>
+            <div id="memo-current-call" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-emerald);padding:6px 12px;background:rgba(52,211,153,0.08);border-radius:8px;border:1px solid rgba(52,211,153,0.2);"></div>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="dp-matrix-wrap" style="flex:1;">
+              <table class="dp-table"><tbody id="memo-table-body"></tbody></table>
+            </div>
+            <div style="flex:0 0 200px;font-size:12px;color:var(--text-muted);background:#090d16;border:1px solid var(--border-color);border-radius:10px;padding:14px;">
+              <div style="margin-bottom:10px;font-weight:700;color:var(--accent-emerald);">LEGENDA COLORI</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(56,189,248,0.15);color:var(--accent-blue);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">BLU</span> &nbsp;Caso base (i==j)</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(251,191,36,0.25);color:var(--accent-amber);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">GIALLO</span> In calcolo ora</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(52,211,153,0.2);color:var(--accent-emerald);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">VERDE</span> &nbsp;HIT! Memo = O(1)</div>
+              <div style="margin-bottom:8px;"><span style="background:rgba(129,140,248,0.12);color:var(--accent-indigo);padding:3px 10px;border-radius:4px;font-family:monospace;font-size:11px;">VIOLA</span> &nbsp;Calcolato e salvato</div>
+              <div style="margin-bottom:8px;"><span style="color:#475569;padding:3px 10px;font-family:monospace;font-size:11px;">—</span> &nbsp;NIL (non ancora toccato)</div>
+              <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-color);color:#475569;">Verde = il valore era gia in memoria. Non si ricalcola niente!</div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--accent-emerald); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                💻 Pseudocodice INITL / RECL (Riga Evidenziata)
+              </div>
+              <div class="code-box" id="memo-code-box"></div>
+            </div>
+            <div class="log-panel" style="max-height:240px;">
+              <div class="log-title">📋 Registro INITL / RECL — ogni riga = una chiamata</div>
+              <div class="log-list" id="memo-log"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODULO 4: LCS (LONGEST COMMON SUBSEQUENCE) ===== -->
+        <div class="module-panel" id="mod-lcs">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO DIDATTICO & PROBLEMA CLASSICO — LCS (Longest Common Subsequence)</div>
+            <div>Dati due sequenze <code>X = &lt;x<sub>1</sub>, ..., x<sub>m</sub>&gt;</code> e <code>Y = &lt;y<sub>1</sub>, ..., y<sub>n</sub>&gt;</code>, trovare la lunghezza della più lunga sottosequenza comune. <br>
+            Ricorrenza: <code>c(i,j) = 0</code> se i=0 o j=0 | <code>1 + c(i-1, j-1)</code> se X[i]==Y[j] | <code>max(c(i-1, j), c(i, j-1))</code> se X[i] ≠ Y[j]. <br>
+            Confrontare l'esecuzione in <strong>Memoizzazione Top-Down</strong> (con tabella <code>memo[][]</code> a <code>NIL</code>) e <strong>Tabulazione Bottom-Up</strong>.</div>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+            <button class="mod-btn active" id="lcs-mode-btn-1" onclick="setLcsMode(1)">🔵 1. Bottom-Up (Tabulazione 2D)</button>
+            <button class="mod-btn" id="lcs-mode-btn-2" onclick="setLcsMode(2)">🟢 2. Memoizzazione Top-Down (memo[][])</button>
+          </div>
+
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Stringa X (m caratteri):</label>
+              <input type="text" class="heap-input" id="lcs-x-input" value="ABCBDAB">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Stringa Y (n caratteri):</label>
+              <input type="text" class="heap-input" id="lcs-y-input" value="BDCABA">
+            </div>
+            <button class="action-btn" onclick="initLCS()">▶ Inizializza LCS</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="lcs-step-btn" onclick="executeLcsStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="lcs-step-counter">Passi: 0</span>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="dp-matrix-wrap" style="flex:1;">
+              <table class="dp-table"><tbody id="lcs-table-body"></tbody></table>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                💻 Pseudocodice LCS (Riga Evidenziata)
+              </div>
+              <div class="code-box" id="lcs-code-box"></div>
+            </div>
+            <div class="log-panel" style="max-height:240px;">
+              <div class="log-title">📋 Registro Esecuzione LCS</div>
+              <div class="log-list" id="lcs-log"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODULO 5: LIS (LONGEST INCREASING SUBSEQUENCE) ===== -->
+        <div class="module-panel" id="mod-lis">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO DIDATTICO & PROBLEMA CLASSICO — LIS (Longest Increasing Subsequence)</div>
+            <div>Dato un array <code>A = &lt;a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub>&gt;</code> di numeri interi, trovare la lunghezza della più lunga sottosequenza strettamente crescente. <br>
+            Ricorrenza: <code>L[i] = 1 + max({ L[j] : 0 ≤ j &lt; i e A[j] &lt; A[i] } ∪ {0})</code>. Il risultato è <code>max<sub>i</sub> L[i]</code>. <br>
+            Confrontare l'esecuzione in <strong>Bottom-Up (Tabellare 1D)</strong> e <strong>Memoizzazione Top-Down</strong>.</div>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+            <button class="mod-btn active" id="lis-mode-btn-1" onclick="setLisMode(1)">🔵 1. Bottom-Up (Tabellare 1D)</button>
+            <button class="mod-btn" id="lis-mode-btn-2" onclick="setLisMode(2)">🟢 2. Memoizzazione Top-Down (memo[])</button>
+          </div>
+
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:2;">
+              <label style="font-size:12px;color:var(--text-muted);">Array A (valori separati da virgola):</label>
+              <input type="text" class="heap-input" id="lis-a-input" value="10, 22, 9, 33, 21, 50, 41, 60">
+            </div>
+            <button class="action-btn" onclick="initLIS()">▶ Inizializza LIS</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="lis-step-btn" onclick="executeLisStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="lis-step-counter">Passi: 0</span>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="dp-matrix-wrap" style="flex:1;">
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;font-weight:700;">STATO DELL'ARRAY A E LUNGHEZZA LIS L[i]:</div>
+              <div id="lis-array-container" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                💻 Pseudocodice LIS (Riga Evidenziata)
+              </div>
+              <div class="code-box" id="lis-code-box"></div>
+            </div>
+            <div class="log-panel" style="max-height:240px;">
+              <div class="log-title">📋 Registro Esecuzione LIS</div>
+              <div class="log-list" id="lis-log"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -780,7 +1260,1114 @@
     window.onload = () => {
       initHeapArray();
       buildDefaultBST();
+      initFib();
+      initGreedy();
+      initDPMatrix();
+      initDPMemo();
+      initLCS();
+      initLIS();
     };
+
+    // ============================================================
+    // UTILITY UTILS & CODE BOX RENDERER
+    // ============================================================
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function renderCodeBox(boxId, lines, activeLine = -1, lineClass = 'active') {
+      const box = document.getElementById(boxId);
+      if (!box || !lines) return;
+      let html = '';
+      lines.forEach((lineText, idx) => {
+        const lineNum = idx + 1;
+        const isActive = lineNum === activeLine;
+        const cls = isActive ? `code-line-row ${lineClass}` : 'code-line-row';
+        html += `<div class="${cls}"><span class="code-line-num">${lineNum}</span><span class="code-line-text">${escapeHtml(lineText)}</span></div>`;
+      });
+      box.innerHTML = html;
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 0: INTRO DP FIBONACCI
+    // ============================================================
+    let currentFibMode = 1; // 1: Naive, 2: Memoized, 3: Bottom-Up
+    let fibSteps = [];
+    let fibN = 5;
+    let fibArray = [];
+
+    const fibCodeTemplates = {
+      1: [
+        "FIB(n):",
+        "  if n == 0: return 0",
+        "  if n == 1: return 1",
+        "  return FIB(n-1) + FIB(n-2)"
+      ],
+      2: [
+        "INIT_FIB(n):",
+        "  memo = array[0..n] a NIL",
+        "  return FIB_MEMO(n, memo)",
+        "",
+        "FIB_MEMO(k, memo):",
+        "  if memo[k] != NIL: return memo[k]  # HIT O(1)!",
+        "  if k == 0: memo[0] = 0",
+        "  elif k == 1: memo[1] = 1",
+        "  else: memo[k] = FIB_MEMO(k-1, memo) + FIB_MEMO(k-2, memo)",
+        "  return memo[k]"
+      ],
+      3: [
+        "FIB_BOTTOM_UP(n):",
+        "  F = array[0..n]",
+        "  F[0] = 0",
+        "  F[1] = 1",
+        "  for i = 2 to n:",
+        "    F[i] = F[i-1] + F[i-2]",
+        "  return F[n]"
+      ]
+    };
+
+    function setFibMode(mode) {
+      currentFibMode = mode;
+      [1, 2, 3].forEach(m => {
+        const btn = document.getElementById(`fib-mode-btn-${m}`);
+        if (btn) btn.classList.toggle('active', m === mode);
+      });
+      initFib();
+    }
+
+    function initFib() {
+      fibN = parseInt(document.getElementById('fib-n-input').value) || 5;
+      if (fibN < 2) fibN = 2; if (fibN > 8) fibN = 8;
+      document.getElementById('fib-n-input').value = fibN;
+
+      fibSteps = [];
+      fibArray = Array(fibN + 1).fill(null);
+      clearLog('fib-log');
+
+      if (currentFibMode === 1) {
+        generateFibNaiveSteps(fibN);
+        addLog('fib-log', `INIZIO SIMULAZIONE NAIVE per F(${fibN}). Nessuna memoria usata.`, 'func');
+      } else if (currentFibMode === 2) {
+        generateFibMemoSteps(fibN);
+        addLog('fib-log', `INIZIO SIMULAZIONE MEMOIZZATA (Top-Down) per F(${fibN}). Array memo[0..${fibN}] inizializzato a NIL.`, 'func');
+      } else {
+        generateFibBottomUpSteps(fibN);
+        addLog('fib-log', `INIZIO SIMULAZIONE BOTTOM-UP (Iterativa) per F(${fibN}). Si parte da F[0]=0, F[1]=1 e si sale.`, 'func');
+      }
+
+      renderFibArray();
+      renderCodeBox('fib-code-box', fibCodeTemplates[currentFibMode], 1, 'func');
+      document.getElementById('fib-step-btn').disabled = false;
+      document.getElementById('fib-step-counter').innerText = `Passi: ${fibSteps.length}`;
+      document.getElementById('fib-stats-box').innerText = `Chiamate / Operazioni: 0`;
+    }
+
+    function generateFibNaiveSteps(n) {
+      fibSteps = [];
+      let calls = 0;
+      let arrayState = Array(n + 1).fill(null);
+
+      function fib(k, depth = 0) {
+        calls++;
+        const indent = "  ".repeat(depth);
+        fibSteps.push({
+          msg: `${indent}▶ Chiamata fib(${k}) [Totale chiamate: ${calls}]`,
+          type: 'func',
+          hi: k,
+          calls,
+          codeLine: 1,
+          array: [...arrayState]
+        });
+
+        if (k === 0) {
+          arrayState[0] = 0;
+          fibSteps.push({ msg: `${indent}  Base fib(0) = 0`, type: 'normal', hi: 0, calls, codeLine: 2, array: [...arrayState] });
+          return 0;
+        }
+        if (k === 1) {
+          arrayState[1] = 1;
+          fibSteps.push({ msg: `${indent}  Base fib(1) = 1`, type: 'normal', hi: 1, calls, codeLine: 3, array: [...arrayState] });
+          return 1;
+        }
+
+        fibSteps.push({ msg: `${indent}  fib(${k}) chiama fib(${k-1}) e fib(${k-2})`, type: 'swap', hi: k, calls, codeLine: 4, array: [...arrayState] });
+        const left = fib(k - 1, depth + 1);
+        const right = fib(k - 2, depth + 1);
+        const res = left + right;
+        arrayState[k] = res;
+        fibSteps.push({ msg: `${indent}  fib(${k}) = ${left} + ${right} = ${res} (Ricalcolato da zero!)`, type: 'swap', hi: k, calls, codeLine: 4, array: [...arrayState] });
+        return res;
+      }
+
+      fib(n);
+      fibSteps.push({
+        msg: `COMPLETATO NAIVE! F(${n}) = ${arrayState[n]}. Esplosione di chiamate: BEN ${calls} chiamate ricorsive per n=${n}! ❌`,
+        type: 'swap',
+        hi: n,
+        calls,
+        codeLine: 4,
+        array: [...arrayState]
+      });
+    }
+
+    function generateFibMemoSteps(n) {
+      fibSteps = [];
+      let calls = 0;
+      let hits = 0;
+      let memo = Array(n + 1).fill(null);
+
+      function fibMemo(k, depth = 0) {
+        calls++;
+        const indent = "  ".repeat(depth);
+
+        if (memo[k] !== null) {
+          hits++;
+          fibSteps.push({
+            msg: `${indent}⚡ HIT MEMO O(1)! memo[${k}] ha gia il valore ${memo[k]} → NESSUN RICALCOLO!`,
+            type: 'hit',
+            hi: k,
+            calls,
+            hits,
+            codeLine: 6,
+            array: [...memo]
+          });
+          return memo[k];
+        }
+
+        fibSteps.push({
+          msg: `${indent}▶ Chiamata fibMemo(${k}) [memo[${k}] e NIL → calcolo...]`,
+          type: 'func',
+          hi: k,
+          calls,
+          hits,
+          codeLine: 5,
+          array: [...memo]
+        });
+
+        if (k === 0) {
+          memo[0] = 0;
+          fibSteps.push({ msg: `${indent}  Base memo[0] = 0`, type: 'normal', hi: 0, calls, hits, codeLine: 7, array: [...memo] });
+          return 0;
+        }
+        if (k === 1) {
+          memo[1] = 1;
+          fibSteps.push({ msg: `${indent}  Base memo[1] = 1`, type: 'normal', hi: 1, calls, hits, codeLine: 8, array: [...memo] });
+          return 1;
+        }
+
+        const left = fibMemo(k - 1, depth + 1);
+        const right = fibMemo(k - 2, depth + 1);
+        const res = left + right;
+        memo[k] = res;
+        fibSteps.push({ msg: `${indent}  memo[${k}] = ${left} + ${right} = ${res} (Salvato in cache memo!)`, type: 'success', hi: k, calls, hits, codeLine: 9, array: [...memo] });
+        return res;
+      }
+
+      fibMemo(n);
+      fibSteps.push({
+        msg: `COMPLETATO MEMOIZZATO! F(${n}) = ${memo[n]}. Chiamate: ${calls} (di cui ${hits} HIT in O(1)). Soltanto le celle necessarie vengono calcolate! 🟢`,
+        type: 'success',
+        hi: n,
+        calls,
+        hits,
+        codeLine: 10,
+        array: [...memo]
+      });
+    }
+
+    function generateFibBottomUpSteps(n) {
+      fibSteps = [];
+      let ops = 0;
+      let F = Array(n + 1).fill(null);
+
+      F[0] = 0; ops++;
+      fibSteps.push({ msg: `Inizializzazione Caso Base: F[0] = 0`, type: 'normal', hi: 0, calls: ops, codeLine: 3, array: [...F] });
+
+      F[1] = 1; ops++;
+      fibSteps.push({ msg: `Inizializzazione Caso Base: F[1] = 1`, type: 'normal', hi: 1, calls: ops, codeLine: 4, array: [...F] });
+
+      fibSteps.push({ msg: `Ciclo iterativo: for i = 2 to ${n}`, type: 'func', hi: -1, calls: ops, codeLine: 5, array: [...F] });
+
+      for (let i = 2; i <= n; i++) {
+        ops++;
+        F[i] = F[i - 1] + F[i - 2];
+        fibSteps.push({
+          msg: `i = ${i}: F[${i}] = F[${i-1}] (${F[i-1]}) + F[${i-2}] (${F[i-2]}) = ${F[i]}`,
+          type: 'success',
+          hi: i,
+          calls: ops,
+          codeLine: 6,
+          array: [...F]
+        });
+      }
+
+      fibSteps.push({
+        msg: `COMPLETATO BOTTOM-UP! F(${n}) = ${F[n]}. Ciclo lineare completato in SOLI ${n-1} passaggi! 🔵`,
+        type: 'success',
+        hi: n,
+        calls: ops,
+        codeLine: 7,
+        array: [...F]
+      });
+    }
+
+    function executeFibStep() {
+      if (fibSteps.length === 0) return;
+      const step = fibSteps.shift();
+      const cls = step.type === 'hit' ? 'hit' : (step.type === 'success' ? 'success' : step.type);
+      addLog('fib-log', step.msg, cls);
+
+      fibArray = step.array || fibArray;
+      renderFibArray(step.hi, step.type === 'hit');
+      renderCodeBox('fib-code-box', fibCodeTemplates[currentFibMode], step.codeLine, step.type === 'hit' ? 'hit' : (step.type === 'func' ? 'func' : 'active'));
+
+      const statsEl = document.getElementById('fib-stats-box');
+      if (statsEl) {
+        if (currentFibMode === 2) {
+          statsEl.innerText = `Chiamate: ${step.calls} | Hit O(1): ${step.hits || 0}`;
+        } else if (currentFibMode === 1) {
+          statsEl.innerText = `Chiamate Ricorsive Totali: ${step.calls}`;
+        } else {
+          statsEl.innerText = `Operazioni Ciclo For: ${step.calls}`;
+        }
+      }
+
+      document.getElementById('fib-step-counter').innerText = `Passi: ${fibSteps.length}`;
+      if (fibSteps.length === 0) document.getElementById('fib-step-btn').disabled = true;
+    }
+
+    function renderFibArray(hiIndex = -1, isHit = false) {
+      const container = document.getElementById('fib-array-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      for (let i = 0; i <= fibN; i++) {
+        const val = fibArray[i];
+        const box = document.createElement('div');
+        box.style.cssText = `
+          background: ${val === null ? 'rgba(255,255,255,0.03)' : (i === hiIndex ? (isHit ? 'rgba(52,211,153,0.25)' : 'rgba(251,191,36,0.25)') : 'rgba(129,140,248,0.12)')};
+          border: 2px solid ${val === null ? '#1e2d4a' : (i === hiIndex ? (isHit ? 'var(--accent-emerald)' : 'var(--accent-amber)') : 'var(--accent-indigo)')};
+          border-radius: 10px;
+          padding: 10px 14px;
+          text-align: center;
+          font-family: 'JetBrains Mono', monospace;
+          min-width: 65px;
+          transition: all 0.3s;
+        `;
+
+        let statusTxt = val === null ? 'NIL' : val;
+        let lblColor = i === hiIndex ? (isHit ? 'var(--accent-emerald)' : 'var(--accent-amber)') : (val === null ? '#64748b' : 'var(--accent-blue)');
+
+        box.innerHTML = `
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:2px;">[${i}]</div>
+          <div style="font-size:16px;font-weight:700;color:${lblColor};">${statusTxt}</div>
+          <div style="font-size:9px;color:${lblColor};margin-top:2px;">${val === null ? 'Vuoto' : (isHit && i===hiIndex ? 'HIT!' : 'F('+i+')')}</div>
+        `;
+        container.appendChild(box);
+      }
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 1: GREEDY (3 STRATEGIE)
+    // ============================================================
+    let currentGreedyStrategy = 1;
+    let greedyActivities = [];
+    let greedySteps = [];
+    let greedyState = [];
+
+    function setGreedyStrategy(n) {
+      currentGreedyStrategy = n;
+      [1, 2, 3].forEach(i => {
+        document.getElementById(`gs-btn-${i}`).classList.toggle('active', i === n);
+        document.getElementById(`gs-inputs-${i}`).style.display = i === n ? '' : 'none';
+      });
+      greedySteps = [];
+      document.getElementById('gantt-container').innerHTML = '';
+      clearLog('greedy-log');
+      document.getElementById('greedy-step-btn').disabled = true;
+      document.getElementById('greedy-step-counter').innerText = 'Passi: 0';
+    }
+
+    // ---- STRATEGIA 1: Inizia per ultima ----
+    function initGreedy() {
+      const sArr = document.getElementById('greedy-s').value.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      const fArr = document.getElementById('greedy-f').value.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      greedyActivities = sArr.map((s, i) => ({ s, f: fArr[i] || s + 1 }));
+      greedySteps = [];
+      greedyState = greedyActivities.map(() => 'pending');
+      generateGreedySteps();
+      renderGantt();
+      clearLog('greedy-log');
+      addLog('greedy-log', `${greedyActivities.length} attività caricate. La strategia: prendi a_n (inizia per ultima), poi scorri a ritroso.`, 'func');
+      document.getElementById('greedy-step-btn').disabled = false;
+      document.getElementById('greedy-step-counter').innerText = `Passi: ${greedySteps.length}`;
+    }
+
+    function generateGreedySteps() {
+      const acts = greedyActivities;
+      const n = acts.length;
+      greedySteps = [];
+      let state = acts.map(() => 'pending');
+      greedySteps.push({ msg: `INIZIO: selezioniamo a_${n} — l'attività che inizia per ultima (s=${acts[n-1].s}). Nessun controllo necessario.`, type: 'func', selected: n-1, state: [...state] });
+      state[n-1] = 'selected';
+      let lastact = acts[n-1].s;
+      for (let i = n - 2; i >= 0; i--) {
+        const st = [...state]; st[i] = 'checking';
+        const ok = acts[i].f <= lastact;
+        greedySteps.push({ msg: `Controllo a_${i+1} [s=${acts[i].s}, f=${acts[i].f}]: f=${acts[i].f} <= lastact=${lastact}? ${ok ? 'SI → SELEZIONATA (compatibile!)' : 'NO → SCARTATA (si sovrappone)'}`, type: ok ? 'success' : 'swap', selected: i, state: st });
+        const st2 = [...state];
+        if (ok) { st2[i] = 'selected'; lastact = acts[i].s; } else { st2[i] = 'rejected'; }
+        state = st2;
+      }
+      greedySteps.push({ msg: `COMPLETATO. Insieme in VERDE = soluzione ottima.`, type: 'success', state: [...state] });
+    }
+
+    function executeGreedyStep() {
+      if (greedySteps.length === 0) return;
+      const step = greedySteps.shift();
+      addLog('greedy-log', step.msg, step.type);
+      if (step.render === 'sched') renderSched(step);
+      else if (step.render === 'cloud') renderCloud(step);
+      else { greedyState = step.state; renderGantt(step.selected); }
+      document.getElementById('greedy-step-counter').innerText = `Passi: ${greedySteps.length}`;
+      if (greedySteps.length === 0) document.getElementById('greedy-step-btn').disabled = true;
+    }
+
+    function renderGantt(highlightIdx = -1) {
+      const container = document.getElementById('gantt-container');
+      if (!greedyActivities.length) { container.innerHTML = ''; return; }
+      const maxT = Math.max(...greedyActivities.map(a => a.f));
+      const minT = Math.min(...greedyActivities.map(a => a.s));
+      const range = maxT - minT + 1;
+      container.innerHTML = '';
+      greedyActivities.forEach((act, i) => {
+        const row = document.createElement('div'); row.className = 'gantt-row';
+        const lbl = document.createElement('div'); lbl.className = 'gantt-label'; lbl.innerText = `a${i+1}`;
+        const track = document.createElement('div'); track.className = 'gantt-track';
+        const bar = document.createElement('div'); bar.className = 'gantt-bar';
+        const leftPct = ((act.s - minT) / range) * 100;
+        const widthPct = ((act.f - act.s) / range) * 100;
+        bar.style.left = leftPct + '%'; bar.style.width = Math.max(widthPct, 4) + '%';
+        bar.innerText = `[${act.s},${act.f}]`;
+        let barClass = greedyState[i] || 'pending';
+        if (i === highlightIdx) barClass = 'checking';
+        bar.classList.add(barClass);
+        track.appendChild(bar); row.appendChild(lbl); row.appendChild(track); container.appendChild(row);
+      });
+      const axis = document.createElement('div'); axis.className = 'gantt-axis';
+      for (let t = minT; t <= maxT; t++) {
+        const tick = document.createElement('div'); tick.className = 'gantt-tick';
+        tick.style.left = (((t - minT) / range) * 100) + '%'; tick.innerText = t; axis.appendChild(tick);
+      }
+      container.appendChild(axis);
+    }
+
+    // ---- STRATEGIA 2: Scheduling — ordina per lunghezza crescente ----
+    let schedData = [];
+
+    function initSched() {
+      const lArr = document.getElementById('sched-l').value.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      schedData = lArr.map((l, i) => ({ id: i + 1, l, origIdx: i }));
+      greedySteps = [];
+      document.getElementById('gantt-container').innerHTML = '';
+      clearLog('greedy-log');
+      generateSchedSteps();
+      renderSchedTable([...schedData], null, null, 0);
+      addLog('greedy-log', `Programmi: ${schedData.map(p => 'p'+p.id+'(l='+p.l+')').join(', ')}. Strategia: ordina per lunghezza crescente, poi calcola C_j = somma delle lunghezze dei primi j programmi.`, 'func');
+      document.getElementById('greedy-step-btn').disabled = false;
+      document.getElementById('greedy-step-counter').innerText = `Passi: ${greedySteps.length}`;
+    }
+
+    function generateSchedSteps() {
+      const progs = [...schedData];
+      greedySteps = [];
+      // Step 1: show original order
+      greedySteps.push({ render: 'sched', msg: `Ordine originale: ${progs.map(p=>'p'+p.id+'(l='+p.l+')').join(', ')}. Ordiniamo per lunghezza crescente...`, type: 'func', sorted: false, data: [...progs], hi: -1, cj: null, total: null });
+      // Sort
+      const sorted = [...progs].sort((a, b) => a.l - b.l);
+      greedySteps.push({ render: 'sched', msg: `Ordine ottimo sigma*: ${sorted.map(p=>'p'+p.id+'(l='+p.l+')').join(' → ')}. Ora calcoliamo C_j per ogni programma.`, type: 'func', sorted: true, data: sorted, hi: -1, cj: null, total: null });
+      // Compute C_j step by step
+      let cumul = 0;
+      const cjArr = [];
+      let totalSum = 0;
+      for (let j = 0; j < sorted.length; j++) {
+        cumul += sorted[j].l;
+        cjArr.push(cumul);
+        totalSum += cumul;
+        greedySteps.push({ render: 'sched', msg: `j=${j+1}: eseguo p${sorted[j].id} (l=${sorted[j].l}). C_${j+1} = ${cjArr.map((c,k)=>k===j?`[${c}]`:c).join(' + ')} ... corrente: ${cumul}. Sum parziale = ${totalSum}.`, type: j === sorted.length-1 ? 'success' : 'normal', sorted: true, data: sorted, hi: j, cj: [...cjArr], total: totalSum });
+      }
+      greedySteps.push({ render: 'sched', msg: `COMPLETATO! Sum(C_j) = ${cjArr.join(' + ')} = ${totalSum}. Questa è la somma minima ottenibile.`, type: 'success', sorted: true, data: sorted, hi: -1, cj: cjArr, total: totalSum });
+    }
+
+    function renderSched(step) {
+      const container = document.getElementById('gantt-container');
+      const data = step.data || [];
+      const cj = step.cj || [];
+      const hi = step.hi;
+      let html = `<div style="overflow-x:auto;"><table style="border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:13px;width:100%;"><thead><tr>`;
+      html += `<th style="padding:8px 12px;background:rgba(56,189,248,0.1);color:var(--accent-blue);border:1px solid var(--border-color);">Posizione</th>`;
+      html += `<th style="padding:8px 12px;background:rgba(56,189,248,0.1);color:var(--accent-blue);border:1px solid var(--border-color);">Programma</th>`;
+      html += `<th style="padding:8px 12px;background:rgba(56,189,248,0.1);color:var(--accent-blue);border:1px solid var(--border-color);">Lunghezza l_j</th>`;
+      html += `<th style="padding:8px 12px;background:rgba(56,189,248,0.1);color:var(--accent-blue);border:1px solid var(--border-color);">C_j (completamento)</th></tr></thead><tbody>`;
+      data.forEach((p, j) => {
+        const isHi = j === hi;
+        const cjVal = cj[j] !== undefined ? cj[j] : '—';
+        const rowStyle = isHi ? 'background:rgba(251,191,36,0.15);' : (cj[j] !== undefined && j !== hi ? 'background:rgba(129,140,248,0.07);' : '');
+        const cjStyle = isHi ? 'color:var(--accent-amber);font-weight:700;' : (cj[j] !== undefined ? 'color:var(--accent-emerald);font-weight:600;' : 'color:#475569;');
+        html += `<tr style="${rowStyle}">`;
+        html += `<td style="padding:8px 12px;border:1px solid var(--border-color);color:var(--text-muted);">${j+1}</td>`;
+        html += `<td style="padding:8px 12px;border:1px solid var(--border-color);color:var(--accent-indigo);font-weight:600;">p${p.id}</td>`;
+        html += `<td style="padding:8px 12px;border:1px solid var(--border-color);color:var(--text-main);">${p.l}</td>`;
+        html += `<td style="padding:8px 12px;border:1px solid var(--border-color);${cjStyle}">${cjVal}</td>`;
+        html += '</tr>';
+      });
+      if (step.total !== null && step.total !== undefined) {
+        html += `<tr><td colspan="3" style="padding:8px 12px;border:1px solid var(--border-color);color:var(--accent-emerald);font-weight:700;text-align:right;">TOTALE Sum(C_j) =</td><td style="padding:8px 12px;border:1px solid var(--border-color);color:var(--accent-emerald);font-weight:700;">${step.total}</td></tr>`;
+      }
+      html += '</tbody></table></div>';
+      container.innerHTML = html;
+    }
+
+    function renderSchedTable(data, cj, hi, total) {
+      renderSched({ data, cj: cj || [], hi: hi !== null ? hi : -1, total });
+    }
+
+    // ---- STRATEGIA 3: File su Cloud — ordina per dimensione crescente ----
+    let cloudData = [];
+
+    function initCloud() {
+      const dArr = document.getElementById('cloud-d').value.split(',').map(x => parseFloat(x.trim())).filter(x => !isNaN(x));
+      const cap = parseFloat(document.getElementById('cloud-c').value.trim());
+      cloudData = dArr.map((d, i) => ({ id: i + 1, d, origIdx: i }));
+      greedySteps = [];
+      document.getElementById('gantt-container').innerHTML = '';
+      clearLog('greedy-log');
+      generateCloudSteps(cap);
+      renderCloud({ data: [...cloudData], selected: [], hi: -1, cap, used: 0 });
+      addLog('greedy-log', `File: ${cloudData.map(f=>'f'+f.id+'('+f.d+'MB)').join(', ')}. Capacità: ${cap}MB. Strategia: ordina per dimensione crescente, carica finché c'è spazio.`, 'func');
+      document.getElementById('greedy-step-btn').disabled = false;
+      document.getElementById('greedy-step-counter').innerText = `Passi: ${greedySteps.length}`;
+    }
+
+    function generateCloudSteps(cap) {
+      const files = [...cloudData].sort((a, b) => a.d - b.d);
+      greedySteps = [];
+      greedySteps.push({ render: 'cloud', msg: `Ordiniamo i file per dimensione crescente: ${files.map(f=>'f'+f.id+'('+f.d+'MB)').join(' → ')}. Capacità disponibile: ${cap}MB.`, type: 'func', data: files, selected: [], hi: -1, cap, used: 0 });
+      const selected = [];
+      let used = 0;
+      for (let i = 0; i < files.length; i++) {
+        const f = files[i];
+        const fits = used + f.d <= cap;
+        greedySteps.push({ render: 'cloud', msg: `File f${f.id} (${f.d}MB): spazio usato ${used}MB + ${f.d}MB = ${+(used+f.d).toFixed(2)}MB ${fits ? '<= '+cap+'MB → CARICATO ✓' : '> '+cap+'MB → NON ENTRA ✗'}`, type: fits ? 'success' : 'swap', data: files, selected: [...selected], hi: i, cap, used });
+        if (fits) { selected.push(f.id); used = +(used + f.d).toFixed(2); }
+      }
+      greedySteps.push({ render: 'cloud', msg: `COMPLETATO. Caricati ${selected.length} file: ${selected.map(id=>'f'+id).join(', ')}. Spazio usato: ${used}/${cap}MB.`, type: 'success', data: files, selected, hi: -1, cap, used });
+    }
+
+    function renderCloud(step) {
+      const container = document.getElementById('gantt-container');
+      const data = step.data || [];
+      const selected = step.selected || [];
+      const cap = step.cap || 1;
+      const used = step.used || 0;
+      const hi = step.hi;
+      // Capacity bar
+      const pct = Math.min((used / cap) * 100, 100);
+      let html = `<div style="margin-bottom:16px;">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">Spazio usato: <strong style="color:var(--accent-amber);">${used}MB</strong> / ${cap}MB</div>
+        <div style="background:rgba(255,255,255,0.05);border-radius:8px;height:18px;overflow:hidden;border:1px solid var(--border-color);">
+          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent-emerald),var(--accent-blue));border-radius:8px;transition:width 0.4s ease;"></div>
+        </div>
+      </div>`;
+      html += `<div style="display:flex;flex-wrap:wrap;gap:8px;">`;
+      data.forEach((f, i) => {
+        const isSel = selected.includes(f.id);
+        const isHi = i === hi;
+        let bg = 'rgba(100,116,139,0.2)'; let border = '#475569'; let color = '#94a3b8';
+        if (isHi) { bg = 'rgba(251,191,36,0.2)'; border = 'var(--accent-amber)'; color = 'var(--accent-amber)'; }
+        else if (isSel) { bg = 'rgba(52,211,153,0.2)'; border = 'var(--accent-emerald)'; color = 'var(--accent-emerald)'; }
+        html += `<div style="background:${bg};border:2px solid ${border};border-radius:10px;padding:12px 16px;text-align:center;font-family:'JetBrains Mono',monospace;transition:all 0.3s;min-width:80px;">`;
+        html += `<div style="font-size:14px;font-weight:700;color:${color};">f${f.id}</div>`;
+        html += `<div style="font-size:12px;color:${color};opacity:0.8;">${f.d} MB</div>`;
+        if (isSel) html += `<div style="font-size:10px;color:var(--accent-emerald);margin-top:4px;">✓ caricato</div>`;
+        if (isHi && !isSel && i === hi) html += `<div style="font-size:10px;color:var(--accent-amber);margin-top:4px;">in esame...</div>`;
+        html += '</div>';
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 2: DP BOTTOM-UP MATRICE 2D
+    // ============================================================
+    let dpMatrix = [];
+    let dpSteps = [];
+    let dpN = 0;
+    let dpA = [], dpB = [];
+
+    const dpMatrixCodeTemplate = [
+      "COMPUTE_C(a, b, n):",
+      "  c = matrice n x n",
+      "  for i = 0 to n-1: c[i, n-1] = a[i]       # Base: colonna finale",
+      "  for j = 0 to n-2: c[0, j] = b[j]         # Base: prima riga",
+      "  for j = n-2 downto 0:                    # Reverse Column-Major",
+      "    for i = 1 to n-1:",
+      "      c[i, j] = c[i-1, j] * c[i, j+1]      # Sopra * Destra",
+      "  return m = max{c[i,j]}"
+    ];
+
+    function initDPMatrix() {
+      const aInput = document.getElementById('dp-a').value;
+      const bInput = document.getElementById('dp-b').value;
+      dpA = aInput.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      dpB = bInput.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      dpN = dpA.length;
+      dpMatrix = Array.from({length: dpN}, () => Array(dpN).fill(null));
+      dpSteps = [];
+      generateDPSteps();
+      renderDPMatrix();
+      renderCodeBox('dp-code-box', dpMatrixCodeTemplate, 1, 'func');
+      clearLog('dp-log');
+      addLog('dp-log', `Matrice ${dpN}x${dpN} inizializzata a NIL. Premi STEP per riempire.`, 'func');
+      document.getElementById('dp-step-btn').disabled = false;
+      document.getElementById('dp-step-counter').innerText = `Passi: ${dpSteps.length}`;
+    }
+
+    function generateDPSteps() {
+      const n = dpN;
+      const c = Array.from({length: n}, () => Array(n).fill(null));
+
+      // Base cases: last column
+      dpSteps.push({ msg: `CASI BASE (colonna j=${n-1}): c(i,${n-1}) = a[i] per ogni i`, type: 'func', codeLine: 3, matrix: c.map(r=>[...r]) });
+      for (let i = 0; i < n; i++) {
+        c[i][n-1] = dpA[i];
+        dpSteps.push({ msg: `c(${i},${n-1}) = a[${i}] = ${dpA[i]}`, type: 'normal', codeLine: 3, matrix: c.map(r=>[...r]), hi: i, hj: n-1, base: true });
+      }
+      // Base cases: first row
+      dpSteps.push({ msg: `CASI BASE (riga i=0): c(0,j) = b[j] per ogni j`, type: 'func', codeLine: 4, matrix: c.map(r=>[...r]) });
+      for (let j = 0; j < n - 1; j++) {
+        c[0][j] = dpB[j];
+        dpSteps.push({ msg: `c(0,${j}) = b[${j}] = ${dpB[j]}  [caso base: prima riga]`, type: 'normal', codeLine: 4, matrix: c.map(r=>[...r]), hi: 0, hj: j, base: true });
+      }
+      // Fill reverse column-major: j from n-2 down to 0, i from 1 to n-1
+      dpSteps.push({ msg: `RIEMPIMENTO reverse column-major: j da ${n-2} a 0 (destra→sinistra), i da 1 a ${n-1} (alto→basso)`, type: 'func', codeLine: 5, matrix: c.map(r=>[...r]) });
+      for (let j = n - 2; j >= 0; j--) {
+        for (let i = 1; i < n; i++) {
+          if (c[i-1] && c[i-1][j] !== null && c[i][j+1] !== null) {
+            const val = c[i-1][j] * c[i][j+1];
+            dpSteps.push({
+              msg: `c(${i},${j}) = c(${i-1},${j}) [SOPRA=${c[i-1][j]}] * c(${i},${j+1}) [DESTRA=${c[i][j+1]}] = ${val}`,
+              type: 'normal', matrix: c.map(r=>[...r]),
+              hi: i, hj: j, codeLine: 7,
+              dep_above: [i-1, j],
+              dep_right: [i, j+1]
+            });
+            c[i][j] = val;
+          }
+        }
+      }
+      dpSteps.push({ msg: `COMPLETATO! Calcola m = max{c(i,j)} scorrendo tutta la matrice.`, type: 'success', codeLine: 8, matrix: c.map(r=>[...r]) });
+      dpMatrix = c;
+    }
+
+    function executeDPStep() {
+      if (dpSteps.length === 0) return;
+      const step = dpSteps.shift();
+      addLog('dp-log', step.msg, step.type);
+      renderDPMatrix(step.hi, step.hj, step.base, step.matrix, step.dep_above, step.dep_right);
+      renderCodeBox('dp-code-box', dpMatrixCodeTemplate, step.codeLine, step.base ? 'func' : 'active');
+
+      const formulaEl = document.getElementById('dp-current-formula');
+      if (formulaEl) {
+        if (step.hi !== undefined && step.hi >= 0 && !step.base) {
+          formulaEl.innerText = `Calcolo: c(${step.hi},${step.hj}) = c(${step.hi-1},${step.hj}) * c(${step.hi},${step.hj+1})`;
+        } else if (step.base) {
+          formulaEl.innerText = `Caso base: assegno valore diretto`;
+        } else {
+          formulaEl.innerText = '';
+        }
+      }
+      document.getElementById('dp-step-counter').innerText = `Passi: ${dpSteps.length}`;
+      if (dpSteps.length === 0) document.getElementById('dp-step-btn').disabled = true;
+    }
+
+    function renderDPMatrix(hiRow = -1, hiCol = -1, isBase = false, matrix = null, depAbove = null, depRight = null) {
+      const m = matrix || dpMatrix;
+      const n = dpN;
+      const table = document.getElementById('dp-table-body');
+      if (!table || n === 0) return;
+      let html = '<tr><th>i\j</th>';
+      for (let j = 0; j < n; j++) html += `<th>${j}</th>`;
+      html += '</tr>';
+      for (let i = 0; i < n; i++) {
+        html += `<tr><th>${i}</th>`;
+        for (let j = 0; j < n; j++) {
+          const val = m[i][j];
+          let cls = val === null ? 'nil' : 'done';
+          if (i === hiRow && j === hiCol) cls = isBase ? 'base' : 'computing';
+          else if (depAbove && i === depAbove[0] && j === depAbove[1]) cls = 'dep-above';
+          else if (depRight && i === depRight[0] && j === depRight[1]) cls = 'dep-right';
+          html += `<td class="${cls}">${val === null ? 'NIL' : val}</td>`;
+        }
+        html += '</tr>';
+      }
+      table.innerHTML = html;
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 3: DP MEMOIZZATA SU STRINGA l(i,j)
+    // ============================================================
+    let memoMatrix = [];
+    let memoSteps = [];
+    let memoX = [];
+    let memoN = 0;
+
+    const dpMemoCodeTemplate = [
+      "INIT_L(X):",
+      "  L = matrice (n+1) x (n+1) a NIL",
+      "  return REC_L(X, L, 1, n)",
+      "",
+      "REC_L(X, L, i, j):",
+      "  if L[i][j] != NIL: return L[i][j]       # HIT MEMO O(1)!",
+      "  if i == j: L[i][j] = 1                   # Caso base 1",
+      "  elif X[i] == X[j]:",
+      "    if i == j-1: L[i][j] = 2               # Caso base 2",
+      "    else: L[i][j] = 2 + REC_L(X, L, i+1, j-1)",
+      "  else:",
+      "    L[i][j] = max_{k} { REC_L(i,k) + REC_L(k+1,j) }",
+      "  return L[i][j]"
+    ];
+
+    function initDPMemo() {
+      const xInput = document.getElementById('memo-string').value.trim();
+      memoX = xInput.split('').filter(c => c !== ' ');
+      memoN = memoX.length;
+      memoMatrix = Array.from({length: memoN + 1}, () => Array(memoN + 1).fill(null));
+      memoSteps = [];
+      const L = Array.from({length: memoN + 1}, () => Array(memoN + 1).fill(null));
+      generateMemoSteps(L, 1, memoN);
+      memoSteps.push({ msg: `COMPLETATO. l(1,${memoN}) = ${L[1][memoN]}`, type: 'success', codeLine: 13, matrix: L.map(r=>[...r]) });
+      renderMemoMatrix(L);
+      renderCodeBox('memo-code-box', dpMemoCodeTemplate, 3, 'func');
+      clearLog('memo-log');
+      addLog('memo-log', `Stringa X = [${memoX.join(', ')}] (n=${memoN}). Premi STEP.`, 'func');
+      document.getElementById('memo-step-btn').disabled = false;
+      document.getElementById('memo-step-counter').innerText = `Passi: ${memoSteps.length}`;
+    }
+
+    function generateMemoSteps(L, i, j) {
+      if (L[i][j] !== null) {
+        memoSteps.push({ msg: `HIT MEMOIZZATO: L[${i}][${j}] = ${L[i][j]} già calcolato → O(1)!`, type: 'hit', hi: i, hj: j, codeLine: 6, matrix: L.map(r=>[...r]) });
+        return L[i][j];
+      }
+      if (i === j) {
+        L[i][j] = 1;
+        memoSteps.push({ msg: `BASE i==j: L[${i}][${j}] = 1 (singolo carattere '${memoX[i-1]}')`, type: 'normal', hi: i, hj: j, codeLine: 7, matrix: L.map(r=>[...r]), base: true });
+        return 1;
+      }
+      memoSteps.push({ msg: `Chiamo RECL(X, L, ${i}, ${j}): confronto X[${i}]='${memoX[i-1]}' con X[${j}]='${memoX[j-1]}'`, type: 'func', hi: i, hj: j, codeLine: 5, matrix: L.map(r=>[...r]) });
+      if (memoX[i-1] === memoX[j-1]) {
+        if (i === j - 1) {
+          L[i][j] = 2;
+          memoSteps.push({ msg: `X[${i}]==X[${j}] e i==j-1 → BASE: L[${i}][${j}] = 2`, type: 'normal', hi: i, hj: j, codeLine: 9, matrix: L.map(r=>[...r]), base: true });
+          return 2;
+        }
+        memoSteps.push({ msg: `X[${i}]==X[${j}] → caso ricorsivo: L[${i}][${j}] = 2 + RECL(${i+1}, ${j-1})`, type: 'normal', hi: i, hj: j, codeLine: 10, matrix: L.map(r=>[...r]) });
+        const sub = generateMemoSteps(L, i + 1, j - 1);
+        L[i][j] = 2 + sub;
+        memoSteps.push({ msg: `L[${i}][${j}] = 2 + ${sub} = ${L[i][j]}`, type: 'success', hi: i, hj: j, codeLine: 13, matrix: L.map(r=>[...r]) });
+      } else {
+        memoSteps.push({ msg: `X[${i}]!=X[${j}] → ciclo su k da ${i} a ${j-1} per trovare il max`, type: 'swap', hi: i, hj: j, codeLine: 12, matrix: L.map(r=>[...r]) });
+        let maxVal = 0;
+        for (let k = i; k < j; k++) {
+          const left = generateMemoSteps(L, i, k);
+          const right = generateMemoSteps(L, k + 1, j);
+          const val = left + right;
+          memoSteps.push({ msg: `  k=${k}: L[${i}][${k}]+L[${k+1}][${j}] = ${left}+${right} = ${val}`, type: 'normal', hi: i, hj: j, codeLine: 12, matrix: L.map(r=>[...r]) });
+          if (val > maxVal) maxVal = val;
+        }
+        L[i][j] = maxVal;
+        memoSteps.push({ msg: `L[${i}][${j}] = max = ${maxVal}`, type: 'success', hi: i, hj: j, codeLine: 13, matrix: L.map(r=>[...r]) });
+      }
+      return L[i][j];
+    }
+
+    function executeMemoStep() {
+      if (memoSteps.length === 0) return;
+      const step = memoSteps.shift();
+      const cls = step.type === 'hit' ? 'hit' : (step.type === 'success' ? 'success' : step.type);
+      addLog('memo-log', step.msg, cls);
+      if (step.matrix) renderMemoMatrix(step.matrix, step.hi, step.hj, step.base, step.type === 'hit');
+      renderCodeBox('memo-code-box', dpMemoCodeTemplate, step.codeLine, step.type === 'hit' ? 'hit' : (step.type === 'func' ? 'func' : 'active'));
+
+      document.getElementById('memo-step-counter').innerText = `Passi: ${memoSteps.length}`;
+      if (memoSteps.length === 0) document.getElementById('memo-step-btn').disabled = true;
+    }
+
+    function renderMemoMatrix(L, hiRow = -1, hiCol = -1, isBase = false, isHit = false) {
+      const n = memoN;
+      const table = document.getElementById('memo-table-body');
+      if (!table || n === 0) return;
+      let html = '<tr><th>i\j</th>';
+      for (let j = 1; j <= n; j++) html += `<th>${j}<br><small style="color:var(--accent-amber)">${memoX[j-1]}</small></th>`;
+      html += '</tr>';
+      for (let i = 1; i <= n; i++) {
+        html += `<tr><th>${i} <small style="color:var(--accent-amber)">${memoX[i-1]}</small></th>`;
+        for (let j = 1; j <= n; j++) {
+          if (j < i) { html += `<td style="background:#070a12"></td>`; continue; }
+          const val = L[i][j];
+          let cls = val === null ? 'nil' : 'done';
+          if (i === hiRow && j === hiCol) {
+            cls = isHit ? 'hit' : (isBase ? 'base' : 'computing');
+          }
+          html += `<td class="${cls}">${val === null ? '—' : val}</td>`;
+        }
+        html += '</tr>';
+      }
+      table.innerHTML = html;
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 4: LCS (LONGEST COMMON SUBSEQUENCE)
+    // ============================================================
+    let currentLcsMode = 1; // 1: Bottom-Up, 2: Memoized
+    let lcsSteps = [];
+    let lcsX = [], lcsY = [];
+    let lcsMatrix = [];
+
+    const lcsCodeTemplates = {
+      1: [
+        "LCS_BOTTOM_UP(X, Y, m, n):",
+        "  c = matrice (m+1) x (n+1)",
+        "  for i = 0 to m: c[i][0] = 0",
+        "  for j = 0 to n: c[0][j] = 0",
+        "  for i = 1 to m:",
+        "    for j = 1 to n:",
+        "      if X[i-1] == Y[j-1]: c[i][j] = 1 + c[i-1][j-1]",
+        "      else: c[i][j] = max(c[i-1][j], c[i][j-1])",
+        "  return c[m][n]"
+      ],
+      2: [
+        "INIT_LCS(X, Y, m, n):",
+        "  memo = matrice (m+1) x (n+1) a NIL",
+        "  return REC_LCS(X, Y, memo, m, n)",
+        "",
+        "REC_LCS(X, Y, memo, i, j):",
+        "  if memo[i][j] != NIL: return memo[i][j]  # HIT O(1)!",
+        "  if i == 0 or j == 0: memo[i][j] = 0",
+        "  elif X[i-1] == Y[j-1]: memo[i][j] = 1 + REC_LCS(i-1, j-1)",
+        "  else: memo[i][j] = max(REC_LCS(i-1, j), REC_LCS(i, j-1))",
+        "  return memo[i][j]"
+      ]
+    };
+
+    function setLcsMode(mode) {
+      currentLcsMode = mode;
+      [1, 2].forEach(m => {
+        const btn = document.getElementById(`lcs-mode-btn-${m}`);
+        if (btn) btn.classList.toggle('active', m === mode);
+      });
+      initLCS();
+    }
+
+    function initLCS() {
+      const xStr = document.getElementById('lcs-x-input').value.trim();
+      const yStr = document.getElementById('lcs-y-input').value.trim();
+      lcsX = xStr.split('');
+      lcsY = yStr.split('');
+      const m = lcsX.length, n = lcsY.length;
+      lcsMatrix = Array.from({length: m + 1}, () => Array(n + 1).fill(null));
+      lcsSteps = [];
+      clearLog('lcs-log');
+
+      if (currentLcsMode === 1) {
+        generateLcsBottomUpSteps(m, n);
+        addLog('lcs-log', `INIZIO LCS BOTTOM-UP tra "${xStr}" (${m}) e "${yStr}" (${n}).`, 'func');
+      } else {
+        const memo = Array.from({length: m + 1}, () => Array(n + 1).fill(null));
+        generateLcsMemoSteps(memo, m, n);
+        addLog('lcs-log', `INIZIO LCS MEMOIZZATA (Top-Down) per REC_LCS(${m}, ${n}).`, 'func');
+      }
+
+      renderLcsMatrix(lcsMatrix);
+      renderCodeBox('lcs-code-box', lcsCodeTemplates[currentLcsMode], 1, 'func');
+      document.getElementById('lcs-step-btn').disabled = false;
+      document.getElementById('lcs-step-counter').innerText = `Passi: ${lcsSteps.length}`;
+    }
+
+    function generateLcsBottomUpSteps(m, n) {
+      lcsSteps = [];
+      const c = Array.from({length: m + 1}, () => Array(n + 1).fill(null));
+
+      // Base cases row 0 and col 0
+      for (let i = 0; i <= m; i++) c[i][0] = 0;
+      for (let j = 0; j <= n; j++) c[0][j] = 0;
+      lcsSteps.push({ msg: `CASI BASE: c[i][0] = 0 e c[0][j] = 0 per ogni i, j`, type: 'func', codeLine: 3, matrix: c.map(r=>[...r]) });
+
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const match = lcsX[i-1] === lcsY[j-1];
+          if (match) {
+            c[i][j] = 1 + c[i-1][j-1];
+            lcsSteps.push({
+              msg: `MATCH X[${i}]='${lcsX[i-1]}' == Y[${j}]='${lcsY[j-1]}'! c[${i}][${j}] = 1 + c[${i-1}][${j-1}] (${c[i-1][j-1]}) = ${c[i][j]}`,
+              type: 'success', hi: i, hj: j, codeLine: 7, matrix: c.map(r=>[...r])
+            });
+          } else {
+            const val = Math.max(c[i-1][j], c[i][j-1]);
+            c[i][j] = val;
+            lcsSteps.push({
+              msg: `MISMATCH X[${i}]='${lcsX[i-1]}' != Y[${j}]='${lcsY[j-1]}'. c[${i}][${j}] = max(SOPRA=${c[i-1][j]}, SINISTRA=${c[i][j-1]}) = ${val}`,
+              type: 'normal', hi: i, hj: j, codeLine: 8, matrix: c.map(r=>[...r])
+            });
+          }
+        }
+      }
+
+      lcsSteps.push({ msg: `COMPLETATO LCS BOTTOM-UP! Lunghezza LCS = c[${m}][${n}] = ${c[m][n]}`, type: 'success', codeLine: 9, matrix: c.map(r=>[...r]) });
+      lcsMatrix = c;
+    }
+
+    function generateLcsMemoSteps(memo, i, j) {
+      if (memo[i][j] !== null) {
+        lcsSteps.push({ msg: `⚡ HIT MEMO O(1)! memo[${i}][${j}] = ${memo[i][j]} già in memoria!`, type: 'hit', hi: i, hj: j, codeLine: 6, matrix: memo.map(r=>[...r]) });
+        return memo[i][j];
+      }
+
+      if (i === 0 || j === 0) {
+        memo[i][j] = 0;
+        lcsSteps.push({ msg: `BASE i==0 o j==0: memo[${i}][${j}] = 0`, type: 'normal', hi: i, hj: j, codeLine: 7, matrix: memo.map(r=>[...r]) });
+        return 0;
+      }
+
+      lcsSteps.push({ msg: `Chiamo REC_LCS(${i}, ${j}): confronto X[${i}]='${lcsX[i-1]}' con Y[${j}]='${lcsY[j-1]}'`, type: 'func', hi: i, hj: j, codeLine: 5, matrix: memo.map(r=>[...r]) });
+
+      if (lcsX[i-1] === lcsY[j-1]) {
+        const sub = generateLcsMemoSteps(memo, i - 1, j - 1);
+        memo[i][j] = 1 + sub;
+        lcsSteps.push({ msg: `MATCH X[${i}]=='${lcsX[i-1]}'! memo[${i}][${j}] = 1 + ${sub} = ${memo[i][j]}`, type: 'success', hi: i, hj: j, codeLine: 8, matrix: memo.map(r=>[...r]) });
+      } else {
+        const top = generateLcsMemoSteps(memo, i - 1, j);
+        const left = generateLcsMemoSteps(memo, i, j - 1);
+        memo[i][j] = Math.max(top, left);
+        lcsSteps.push({ msg: `MISMATCH! memo[${i}][${j}] = max(${top}, ${left}) = ${memo[i][j]}`, type: 'normal', hi: i, hj: j, codeLine: 9, matrix: memo.map(r=>[...r]) });
+      }
+
+      return memo[i][j];
+    }
+
+    function executeLcsStep() {
+      if (lcsSteps.length === 0) return;
+      const step = lcsSteps.shift();
+      const cls = step.type === 'hit' ? 'hit' : (step.type === 'success' ? 'success' : step.type);
+      addLog('lcs-log', step.msg, cls);
+      if (step.matrix) renderLcsMatrix(step.matrix, step.hi, step.hj, step.type === 'hit');
+      renderCodeBox('lcs-code-box', lcsCodeTemplates[currentLcsMode], step.codeLine, step.type === 'hit' ? 'hit' : (step.type === 'func' ? 'func' : 'active'));
+
+      document.getElementById('lcs-step-counter').innerText = `Passi: ${lcsSteps.length}`;
+      if (lcsSteps.length === 0) document.getElementById('lcs-step-btn').disabled = true;
+    }
+
+    function renderLcsMatrix(matrix, hiRow = -1, hiCol = -1, isHit = false) {
+      const m = lcsX.length, n = lcsY.length;
+      const table = document.getElementById('lcs-table-body');
+      if (!table) return;
+      let html = '<tr><th>i\\j</th><th>Ø</th>';
+      for (let j = 1; j <= n; j++) html += `<th>${j}<br><small style="color:var(--accent-amber)">${lcsY[j-1]}</small></th>`;
+      html += '</tr>';
+
+      for (let i = 0; i <= m; i++) {
+        const charX = i === 0 ? 'Ø' : lcsX[i-1];
+        html += `<tr><th>${i} <small style="color:var(--accent-amber)">${charX}</small></th>`;
+        for (let j = 0; j <= n; j++) {
+          const val = matrix[i][j];
+          let cls = val === null ? 'nil' : 'done';
+          if (i === hiRow && j === hiCol) cls = isHit ? 'hit' : 'computing';
+          html += `<td class="${cls}">${val === null ? '—' : val}</td>`;
+        }
+        html += '</tr>';
+      }
+      table.innerHTML = html;
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 5: LIS (LONGEST INCREASING SUBSEQUENCE)
+    // ============================================================
+    let currentLisMode = 1; // 1: Bottom-Up, 2: Memoized
+    let lisSteps = [];
+    let lisArr = [];
+    let lisL = [];
+
+    const lisCodeTemplates = {
+      1: [
+        "LIS_BOTTOM_UP(A, n):",
+        "  L = array di dimensione n (inizializzato a 1)",
+        "  for i = 0 to n-1:",
+        "    for j = 0 to i-1:",
+        "      if A[j] < A[i]:",
+        "        L[i] = max(L[i], 1 + L[j])",
+        "  return max(L)"
+      ],
+      2: [
+        "INIT_LIS(A, n):",
+        "  memo = array di dimensione n a NIL",
+        "  for i = 0 to n-1: REC_LIS(A, memo, i)",
+        "  return max(memo)",
+        "",
+        "REC_LIS(A, memo, i):",
+        "  if memo[i] != NIL: return memo[i]  # HIT O(1)!",
+        "  max_sub = 0",
+        "  for j = 0 to i-1:",
+        "    if A[j] < A[i]: max_sub = max(max_sub, REC_LIS(j))",
+        "  memo[i] = 1 + max_sub",
+        "  return memo[i]"
+      ]
+    };
+
+    function setLisMode(mode) {
+      currentLisMode = mode;
+      [1, 2].forEach(m => {
+        const btn = document.getElementById(`lis-mode-btn-${m}`);
+        if (btn) btn.classList.toggle('active', m === mode);
+      });
+      initLIS();
+    }
+
+    function initLIS() {
+      const aInput = document.getElementById('lis-a-input').value;
+      lisArr = aInput.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      const n = lisArr.length;
+      lisL = Array(n).fill(null);
+      lisSteps = [];
+      clearLog('lis-log');
+
+      if (currentLisMode === 1) {
+        generateLisBottomUpSteps(n);
+        addLog('lis-log', `INIZIO LIS BOTTOM-UP per A = [${lisArr.join(', ')}].`, 'func');
+      } else {
+        generateLisMemoSteps(n);
+        addLog('lis-log', `INIZIO LIS MEMOIZZATA (Top-Down) per A = [${lisArr.join(', ')}].`, 'func');
+      }
+
+      renderLisArray();
+      renderCodeBox('lis-code-box', lisCodeTemplates[currentLisMode], 1, 'func');
+      document.getElementById('lis-step-btn').disabled = false;
+      document.getElementById('lis-step-counter').innerText = `Passi: ${lisSteps.length}`;
+    }
+
+    function generateLisBottomUpSteps(n) {
+      lisSteps = [];
+      const L = Array(n).fill(1);
+      lisSteps.push({ msg: `Inizializzo L[i] = 1 per ogni elemento (sottosequenza minima di lunghezza 1)`, type: 'normal', codeLine: 2, array: [...L] });
+
+      for (let i = 0; i < n; i++) {
+        lisSteps.push({ msg: `▶ Esamino A[${i}] = ${lisArr[i]} (cerco elementi precedenti minori)`, type: 'func', hi: i, codeLine: 3, array: [...L] });
+        for (let j = 0; j < i; j++) {
+          if (lisArr[j] < lisArr[i]) {
+            const newLen = 1 + L[j];
+            if (newLen > L[i]) {
+              L[i] = newLen;
+              lisSteps.push({
+                msg: `  A[${j}]=${lisArr[j]} < A[${i}]=${lisArr[i]}: aggiorno L[${i}] = 1 + L[${j}] (${L[j]}) = ${L[i]}`,
+                type: 'success', hi: i, prevHi: j, codeLine: 6, array: [...L]
+              });
+            } else {
+              lisSteps.push({
+                msg: `  A[${j}]=${lisArr[j]} < A[${i}]=${lisArr[i]}, ma 1+L[${j}] (${newLen}) <= L[${i}] (${L[i]}) → invariato`,
+                type: 'normal', hi: i, prevHi: j, codeLine: 5, array: [...L]
+              });
+            }
+          }
+        }
+      }
+
+      const maxLis = Math.max(...L);
+      lisSteps.push({ msg: `COMPLETATO LIS BOTTOM-UP! Lunghezza massima LIS = max(L) = ${maxLis}`, type: 'success', codeLine: 7, array: [...L] });
+      lisL = L;
+    }
+
+    function generateLisMemoSteps(n) {
+      lisSteps = [];
+      const memo = Array(n).fill(null);
+
+      function recLis(i) {
+        if (memo[i] !== null) {
+          lisSteps.push({ msg: `⚡ HIT MEMO O(1)! memo[${i}] = ${memo[i]} già in memoria!`, type: 'hit', hi: i, codeLine: 6, array: [...memo] });
+          return memo[i];
+        }
+
+        lisSteps.push({ msg: `▶ Chiamo REC_LIS(i=${i}, A[${i}]=${lisArr[i]})`, type: 'func', hi: i, codeLine: 5, array: [...memo] });
+        let maxSub = 0;
+
+        for (let j = 0; j < i; j++) {
+          if (lisArr[j] < lisArr[i]) {
+            const subLen = recLis(j);
+            if (subLen > maxSub) maxSub = subLen;
+          }
+        }
+
+        memo[i] = 1 + maxSub;
+        lisSteps.push({ msg: `memo[${i}] = 1 + max_sub (${maxSub}) = ${memo[i]} (Salvato in memo!)`, type: 'success', hi: i, codeLine: 10, array: [...memo] });
+        return memo[i];
+      }
+
+      for (let i = 0; i < n; i++) recLis(i);
+      const maxLis = Math.max(...memo);
+      lisSteps.push({ msg: `COMPLETATO LIS MEMOIZZATO! Max LIS = ${maxLis}`, type: 'success', codeLine: 4, array: [...memo] });
+      lisL = memo;
+    }
+
+    function executeLisStep() {
+      if (lisSteps.length === 0) return;
+      const step = lisSteps.shift();
+      const cls = step.type === 'hit' ? 'hit' : (step.type === 'success' ? 'success' : step.type);
+      addLog('lis-log', step.msg, cls);
+
+      if (step.array) lisL = step.array;
+      renderLisArray(step.hi, step.prevHi, step.type === 'hit');
+      renderCodeBox('lis-code-box', lisCodeTemplates[currentLisMode], step.codeLine, step.type === 'hit' ? 'hit' : (step.type === 'func' ? 'func' : 'active'));
+
+      document.getElementById('lis-step-counter').innerText = `Passi: ${lisSteps.length}`;
+      if (lisSteps.length === 0) document.getElementById('lis-step-btn').disabled = true;
+    }
+
+    function renderLisArray(hiIdx = -1, prevIdx = -1, isHit = false) {
+      const container = document.getElementById('lis-array-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      lisArr.forEach((val, i) => {
+        const lVal = lisL[i];
+        const box = document.createElement('div');
+        const isCurrent = i === hiIdx;
+        const isPrev = i === prevIdx;
+
+        let bg = 'rgba(255,255,255,0.03)'; let border = '#1e2d4a'; let color = 'var(--text-muted)';
+        if (isCurrent) { bg = isHit ? 'rgba(52,211,153,0.25)' : 'rgba(251,191,36,0.25)'; border = isHit ? 'var(--accent-emerald)' : 'var(--accent-amber)'; color = 'var(--accent-amber)'; }
+        else if (isPrev) { bg = 'rgba(129,140,248,0.2)'; border = 'var(--accent-indigo)'; color = 'var(--accent-indigo)'; }
+        else if (lVal !== null) { bg = 'rgba(56,189,248,0.1)'; border = 'rgba(56,189,248,0.3)'; color = 'var(--accent-blue)'; }
+
+        box.style.cssText = `
+          background: ${bg}; border: 2px solid ${border}; border-radius: 10px;
+          padding: 10px 14px; text-align: center; font-family: 'JetBrains Mono', monospace;
+          min-width: 70px; transition: all 0.3s;
+        `;
+
+        box.innerHTML = `
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:2px;">A[${i}]</div>
+          <div style="font-size:16px;font-weight:700;color:${color};">${val}</div>
+          <div style="font-size:10px;color:var(--accent-emerald);margin-top:4px;font-weight:700;">L=${lVal === null ? '—' : lVal}</div>
+        `;
+        container.appendChild(box);
+      });
+    }
+
+    function switchModule(mod) {
+      document.querySelectorAll('.mod-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`mod-btn-${mod}`).classList.add('active');
+      document.getElementById(`mod-${mod}`).classList.add('active');
+    }
   </script>
 </body>
 </html>
