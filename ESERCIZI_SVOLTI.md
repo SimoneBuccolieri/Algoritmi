@@ -886,6 +886,200 @@ L'insieme di attività restituito è **`{ a_1, a_4, a_6 }`** (attività con iniz
 
 ---
 
+### 📝 Es D.2: Calcolo Memoizzato Ricorrenza ℓ(i,j) su Stringa (con Sommatoria)
+* **Fonte**: Appello 14 Febbraio 2024, Esercizio 2 (presente anche in appelli 04/07/2025 e 10/09/2025)
+* **Problema**: 
+  Data una stringa `X = <x_1, x_2, ..., x_n>`, si consideri la quantità `ℓ(i, j)` definita per `1 <= i <= j <= n`:
+  - `ℓ(i, j) = 1` se `i = j`
+  - `ℓ(i, j) = 2` se `i = j - 1` e `x_i = x_j`
+  - `ℓ(i, j) = 2 + ℓ(i+1, j-1)` se `i < j - 1` e `x_i = x_j`
+  - `ℓ(i, j) = sum_{k=i}^{j-1} ( ℓ(i, k) + ℓ(k+1, j) )` se `i < j - 1` e `x_i != x_j`
+  
+  **(a)** Scrivere una coppia di algoritmi `INITL(X)` e `RECL(X, L, i, j)` per il calcolo memoizzato di `ℓ(1, n)`.
+  **(b)** Valutare la complessità in tempo e spazio dell'algoritmo.
+  **(c)** Eseguire a mano il calcolo della matrice memoizzata `L` sulla stringa `X = "abba"`.
+
+#### 1. Pseudocodice Ufficiale (Soluzione)
+```plaintext
+INITL(X):
+    n = X.length
+    // Matrice (n+1) x (n+1) inizializzata interamente a NIL
+    Sia L una matrice di dimensione (n + 1) x (n + 1)
+    for i = 1 to n:
+        for j = 1 to n:
+            L[i][j] = NIL
+
+    return RECL(X, L, 1, n)
+
+RECL(X, L, i, j):
+    // 1. Controllo della memoria (MEMOIZATION HIT)
+    if L[i][j] != NIL:
+        return L[i][j]
+
+    // 2. Calcolo nei 4 rami esatti della ricorrenza
+    if i == j:
+        L[i][j] = 1
+    else if i == j - 1:
+        L[i][j] = 2
+    else if X[i] == X[j]:
+        L[i][j] = 2 + RECL(X, L, i + 1, j - 1)
+    else:
+        // Caso i < j - 1 e X[i] != X[j]: SOMMATORIA per k da i a j-1
+        sum_val = 0
+        for k = i to j - 1:
+            sum_val = sum_val + RECL(X, L, i, k) + RECL(X, L, k + 1, j)
+        L[i][j] = sum_val
+
+    // 3. Ritorno del valore salvato in matrice
+    return L[i][j]
+```
+
+#### 2. Correttezza e Logica di Memoizzazione
+* **Inizializzazione**: `INITL(X)` crea la matrice ausiliaria `L` ponendo ogni casella a `NIL` per segnalare che nessun problema è stato ancora risolto.
+* **Controllo Memoization (O(1))**: All'inizio di `RECL(X, L, i, j)`, il controllo `if L[i][j] != NIL` garantisce che se il valore per la sottostringa `X[i..j]` è già stato calcolato in precedenza, viene restituito immediatamente senza effettuare ulteriori chiamate ricorsive.
+* **Calcolo della Sommatoria e Salvataggio**: Quando `X[i] != X[j]`, l'algoritmo calcola la somma cumulata dei valori `RECL(i,k) + RECL(k+1,j)` al variare del punto di taglio `k`. Il risultato viene salvato in `L[i][j]`.
+
+#### 3. Complessità
+* **Spazio**:
+  * La matrice `L` ha dimensione `(n+1) x (n+1)`, occupando uno spazio **Theta(n^2)**.
+  * La pila della ricorsione raggiunge al più profondità `n`, occupando uno spazio **O(n)**.
+  * Spazio ausiliario totale: **Theta(n^2)**.
+* **Tempo**:
+  * Vi sono in tutto **O(n^2)** sottoproblemi distinti della forma `(i, j)` con `1 <= i <= j <= n`.
+  * Ciascun sottoproblema viene calcolato **una sola volta** (grazie alla memoizzazione).
+  * Per i casi con `X[i] == X[j]`, il calcolo interno richiede tempo **O(1)**.
+  * Per i casi con `X[i] != X[j]`, il ciclo `for k = i to j - 1` effettua al più `n` iterazioni (costo **O(n)** per quell'istanza).
+  * Il tempo di esecuzione complessivo è **O(n^3)**.
+
+#### 4. Esecuzione a Mano sulla stringa X = "abba" (n = 4)
+* **Diagonale principale (i = j, lunghezza 1)**:
+  * `L[1][1] = 1` ('a')
+  * `L[2][2] = 1` ('b')
+  * `L[3][3] = 1` ('b')
+  * `L[4][4] = 1` ('a')
+* **Lunghezza 2 (j = i + 1)**:
+  * `L[1][2]`: 'a' != 'b' ➔ `k=1: L[1][1] + L[2][2] = 1 + 1 = 2` ➔ `L[1][2] = 2`
+  * `L[2][3]`: 'b' == 'b' e `i = j - 1` ➔ `L[2][3] = 2`
+  * `L[3][4]`: 'b' != 'a' ➔ `k=3: L[3][3] + L[4][4] = 1 + 1 = 2` ➔ `L[3][4] = 2`
+* **Lunghezza 3 (j = i + 2)**:
+  * `L[1][3]`: 'a' != 'b' ➔ Sommatoria `k=1..2`: `(L[1][1]+L[2][3]) + (L[1][2]+L[3][3]) = (1+2) + (2+1) = 3 + 3 = 6` ➔ `L[1][3] = 6`
+  * `L[2][4]`: 'b' != 'a' ➔ Sommatoria `k=2..3`: `(L[2][2]+L[3][4]) + (L[2][3]+L[4][4]) = (1+2) + (2+1) = 3 + 3 = 6` ➔ `L[2][4] = 6`
+* **Lunghezza 4 (i = 1, j = 4)**:
+  * `L[1][4]`: 'a' == 'a' e `j > i + 1` ➔ `2 + RECL(2, 3) = 2 + 2 = 4`
+
+**Matrice L popolata finale:**
+```plaintext
+     j=1   j=2   j=3   j=4
+i=1 [ 1     2     6     4 ]
+i=2 [ NIL   1     2     6 ]
+i=3 [ NIL  NIL    1     2 ]
+i=4 [ NIL  NIL   NIL    1 ]
+```
+*(Valore restituito da `INITL(X)` = `L[1][4] = 4`)*
+
+---
+
+### 📝 Es D.3: Longest Common Substring (Sottostringa Comune Più Lunga)
+* **Fonte**: Appello 18 Giugno 2024, Esercizio 2
+* **Problema**: 
+  Una *longest common substring* di due stringhe `X` e `Y` di lunghezza `n` è una sottostringa di `X` e `Y` di lunghezza massima.
+  **(a)** Determinare la complessità dell'algoritmo esaustivo.
+  **(b)** Migliorare l'algoritmo usando la ricerca binaria sulla lunghezza con verificatore in `O(m + n)`.
+  **(c)** Progettare un algoritmo di programmazione dinamica bottom-up fornendo la relazione di ricorrenza e lo pseudocodice.
+
+#### 1. Punto (a): Algoritmo Esaustivo (Brute Force)
+* **Numero di sottostringhe**: Una stringa di lunghezza `n` possiede `n * (n + 1) / 2 = Theta(n^2)` possibili sottostringhe.
+* **Confronto**: Per ciascuna delle `O(n^2)` sottostringhe di `X` (di lunghezza `m`), per verificare se appare in `Y` occorre confrontarla con fino a `n - m + 1` posizioni in `Y`. Ciascun confronto di stringhe di lunghezza `m` richiede `O(m)` verifiche.
+* **Complessità esaustiva**: Confrontare ogni sottostringa di `X` con ogni sottostringa di `Y` richiede tempo **O(n^5)** (o **O(n^4)** con ottimizzazioni elementari di confronto).
+
+#### 2. Punto (b): Ottimizzazione con Ricerca Binaria sulla Lunghezza
+* **Idea**: Poiché se esiste una sottostringa comune di lunghezza `L`, esistono anche sottostringhe comuni di lunghezza `< L`, la proprietà di esistenza è monotona rispetto alla lunghezza.
+* **Ricerca Binaria**: Effettuiamo una ricerca binaria sul valore della lunghezza `L` nell'intervallo `[1, n]`.
+* **Verifica a lunghezza L**: Vi sono `n - L + 1` sottostringhe di `X` di lunghezza `L`. Per ciascuna di esse, la funzione ausiliaria determina se è presente in `Y` in tempo `O(L + n) = O(n)`. Il costo per testare una lunghezza `L` è dunque `O(n^2)`.
+* **Complessità ottimizzata**: La ricerca binaria compie `O(log n)` tentativi. Tempo totale: **O(n^2 log n)**.
+
+#### 3. Punto (c): Algoritmo di Programmazione Dinamica (Bottom-Up)
+
+##### Definizione dello Stato
+Sia `c(i, j)` la lunghezza della più lunga sottostringa comune che **termina esattamente al carattere `x_i` in `X` e `y_j` in `Y`**.
+
+##### Relazione di Ricorrenza
+- `c(i, j) = 0` se `i = 0` oppure `j = 0` (casi base con prefissi vuoti)
+- `c(i, j) = 1 + c(i-1, j-1)` se `x_i == y_j` (estende la sottostringa comune che terminava in `i-1` e `j-1`)
+- `c(i, j) = 0` se `x_i != y_j` (la sottostringa che termina in `i` e `j` si interrompe)
+
+Il risultato finale della Longest Common Substring globale è il valore massimo contenuto nella tabella:
+`LCS_max = max_{1 <= i <= n, 1 <= j <= n} c(i, j)`
+
+##### Pseudocodice Bottom-Up
+```plaintext
+LongestCommonSubstring(X, Y, n):
+    Sia c una matrice di dimensione (n + 1) x (n + 1)
+    max_len = 0
+
+    // Casi base: riga 0 e colonna 0
+    for i = 0 to n:
+        c[i][0] = 0
+    for j = 0 to n:
+        c[0][j] = 0
+
+    // Riempimento della tabella per righe/colonne
+    for i = 1 to n:
+        for j = 1 to n:
+            if X[i] == Y[j]:
+                c[i][j] = 1 + c[i - 1][j - 1]
+                if c[i][j] > max_len:
+                    max_len = c[i][j]
+            else:
+                c[i][j] = 0
+
+    return max_len
+```
+
+#### 4. Complessità dell'Algoritmo DP
+* **Tempo**: Due cicli `for` annidati da `1` a `n` compiono `n^2` passi di costo costante `O(1)`. Tempo **Theta(n^2)** (nettamente migliore di `O(n^2 log n)`).
+* **Spazio**: La matrice `c` ha dimensione `(n+1) x (n+1)`. Spazio ausiliario **Theta(n^2)** (ottimizzabile a `Theta(n)` conservando solo la riga precedente).
+
+---
+
+### 📝 Es D.11: LIS — Longest Increasing Subsequence (Sottosequenza Strettamente Crescente)
+* **Fonte**: Tipologia 2 della Guida di Programmazione Dinamica (Problema Classico d'Esame)
+* **Problema**: 
+  Dato un array `A = <a_1, a_2, ..., a_n>` di numeri interi, trovare la lunghezza della più lunga sottosequenza i cui elementi sono disposti in ordine strettamente crescente.
+
+#### 1. Definizione dello Stato (Strengthening)
+Definiamo `L[i]` come la lunghezza della più lunga sottosequenza strettamente crescente dell'array `A[1..i]` che **termina obbligatoriamente al valore `A[i]`**.
+
+#### 2. Relazione di Ricorrenza
+- `L[i] = 1 + max( { L[j] : 1 <= j < i  e  A[j] < A[i] } U {0} )`
+
+*Spiegazione*: Il valore `A[i]` da solo costituisce una sottosequenza di lunghezza 1. Se esiste un elemento precedente `A[j]` con `A[j] < A[i]`, l'elemento `A[i]` può estendere la sottosequenza crescente che terminava in `A[j]`, ottenendo lunghezza `1 + L[j]`. Si sceglie il massimo tra tutti i `j` ammissibili.
+
+#### 3. Pseudocodice Bottom-Up
+```plaintext
+LIS_Length(A, n):
+    Sia L un array di dimensione n
+    max_lis = 1
+
+    // Inizializzazione: ciascun elemento da solo ha lunghezza 1
+    for i = 1 to n:
+        L[i] = 1
+
+    // Riempimento tabella 1D
+    for i = 2 to n:
+        for j = 1 to i - 1:
+            if A[j] < A[i] e (L[j] + 1 > L[i]):
+                L[i] = L[j] + 1
+        if L[i] > max_lis:
+            max_lis = L[i]
+
+    return max_lis
+```
+
+#### 4. Complessità
+* **Tempo**: Il primo ciclo `i` va da 2 a `n`, e il ciclo interno `j` compie `i - 1` passi. Il numero totale di confronti è `sum_{i=2}^{n} (i - 1) = n * (n - 1) / 2`. Tempo **Theta(n^2)**.
+* **Spazio**: Si utilizza solo l'array monodimensionale `L` di dimensione `n`. Spazio ausiliario **Theta(n)**.
+
 
 
 

@@ -75,8 +75,8 @@
 
 #### Gruppo D: Esercizi 2 (Programmazione Dinamica e Greedy)
 - [x] **Es D.1 (G)**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
-- [ ] **Es D.2 (G)**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
-- [ ] **Es D.3 (G)**: Longest Common Substring (Appello 18/06/2024)
+- [x] **Es D.2 (G)**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
+- [x] **Es D.3 (G)**: Longest Common Substring (Appello 18/06/2024)
 - [ ] **Es D.4 (A)**: Selezione attività greedy con inizio per ultimo (Appello 02/07/2024)
 - [ ] **Es D.5 (A)**: Algoritmo bottom-up per tabella c(i,j) (Appello 19/09/2024)
 - [ ] **Es D.6 (A)**: Algoritmo bottom-up per ricorrenza ℓ(i, j) (Appello 24/01/2025)
@@ -84,6 +84,7 @@
 - [ ] **Es D.8 (A)**: Ottimizzazione tempo completamento programmi (Appello 18/06/2025)
 - [ ] **Es D.9 (A)**: Algoritmo memoizzato per ricorrenza matriciale M(i,j) (Appello 10/09/2025)
 - [ ] **Es D.10 (A)**: Caricamento file in cloud con capacità limitata c (Appello 20/01/2026)
+- [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D, pseudocodice e complessità)
 
 ---
 

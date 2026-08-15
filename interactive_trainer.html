@@ -1930,11 +1930,11 @@
       "REC_L(X, L, i, j):",
       "  if L[i][j] != NIL: return L[i][j]       # HIT MEMO O(1)!",
       "  if i == j: L[i][j] = 1                   # Caso base 1",
+      "  elif i == j-1: L[i][j] = 2               # Caso base 2",
       "  elif X[i] == X[j]:",
-      "    if i == j-1: L[i][j] = 2               # Caso base 2",
-      "    else: L[i][j] = 2 + REC_L(X, L, i+1, j-1)",
+      "    L[i][j] = 2 + REC_L(X, L, i+1, j-1)",
       "  else:",
-      "    L[i][j] = max_{k} { REC_L(i,k) + REC_L(k+1,j) }",
+      "    L[i][j] = sum_{k=i..j-1} ( REC_L(i,k) + REC_L(k+1,j) )",
       "  return L[i][j]"
     ];
 
@@ -1965,29 +1965,29 @@
         memoSteps.push({ msg: `BASE i==j: L[${i}][${j}] = 1 (singolo carattere '${memoX[i-1]}')`, type: 'normal', hi: i, hj: j, codeLine: 7, matrix: L.map(r=>[...r]), base: true });
         return 1;
       }
+      if (i === j - 1) {
+        L[i][j] = 2;
+        memoSteps.push({ msg: `BASE i==j-1: L[${i}][${j}] = 2 (coppia adiacente '${memoX[i-1]}${memoX[j-1]}')`, type: 'normal', hi: i, hj: j, codeLine: 8, matrix: L.map(r=>[...r]), base: true });
+        return 2;
+      }
       memoSteps.push({ msg: `Chiamo RECL(X, L, ${i}, ${j}): confronto X[${i}]='${memoX[i-1]}' con X[${j}]='${memoX[j-1]}'`, type: 'func', hi: i, hj: j, codeLine: 5, matrix: L.map(r=>[...r]) });
       if (memoX[i-1] === memoX[j-1]) {
-        if (i === j - 1) {
-          L[i][j] = 2;
-          memoSteps.push({ msg: `X[${i}]==X[${j}] e i==j-1 → BASE: L[${i}][${j}] = 2`, type: 'normal', hi: i, hj: j, codeLine: 9, matrix: L.map(r=>[...r]), base: true });
-          return 2;
-        }
         memoSteps.push({ msg: `X[${i}]==X[${j}] → caso ricorsivo: L[${i}][${j}] = 2 + RECL(${i+1}, ${j-1})`, type: 'normal', hi: i, hj: j, codeLine: 10, matrix: L.map(r=>[...r]) });
         const sub = generateMemoSteps(L, i + 1, j - 1);
         L[i][j] = 2 + sub;
         memoSteps.push({ msg: `L[${i}][${j}] = 2 + ${sub} = ${L[i][j]}`, type: 'success', hi: i, hj: j, codeLine: 13, matrix: L.map(r=>[...r]) });
       } else {
-        memoSteps.push({ msg: `X[${i}]!=X[${j}] → ciclo su k da ${i} a ${j-1} per trovare il max`, type: 'swap', hi: i, hj: j, codeLine: 12, matrix: L.map(r=>[...r]) });
-        let maxVal = 0;
+        memoSteps.push({ msg: `X[${i}]!=X[${j}] → SOMMATORIA su k da ${i} a ${j-1}`, type: 'swap', hi: i, hj: j, codeLine: 12, matrix: L.map(r=>[...r]) });
+        let sumVal = 0;
         for (let k = i; k < j; k++) {
           const left = generateMemoSteps(L, i, k);
           const right = generateMemoSteps(L, k + 1, j);
           const val = left + right;
-          memoSteps.push({ msg: `  k=${k}: L[${i}][${k}]+L[${k+1}][${j}] = ${left}+${right} = ${val}`, type: 'normal', hi: i, hj: j, codeLine: 12, matrix: L.map(r=>[...r]) });
-          if (val > maxVal) maxVal = val;
+          sumVal += val;
+          memoSteps.push({ msg: `  k=${k}: L[${i}][${k}]+L[${k+1}][${j}] = ${left}+${right} = ${val} → Somma parziale = ${sumVal}`, type: 'normal', hi: i, hj: j, codeLine: 12, matrix: L.map(r=>[...r]) });
         }
-        L[i][j] = maxVal;
-        memoSteps.push({ msg: `L[${i}][${j}] = max = ${maxVal}`, type: 'success', hi: i, hj: j, codeLine: 13, matrix: L.map(r=>[...r]) });
+        L[i][j] = sumVal;
+        memoSteps.push({ msg: `L[${i}][${j}] = SOMMATORIA TOTALE = ${sumVal}`, type: 'success', hi: i, hj: j, codeLine: 13, matrix: L.map(r=>[...r]) });
       }
       return L[i][j];
     }
