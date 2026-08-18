@@ -1042,6 +1042,71 @@ LongestCommonSubstring(X, Y, n):
 
 ---
 
+### 📝 Es D.4: DP Bottom-Up per Matrice 2D c(i, j) con Calcolo Esatto Prodotti
+* **Fonte**: Appello 2 Luglio 2024, Esercizio 2 (presente anche negli appelli 19/09/2024 e 24/01/2025)
+* **Problema**: 
+  Per `n > 0`, siano dati due vettori a componenti intere `a, b` in `Z^n`. Si consideri la quantità `c(i, j)`, con `0 <= i <= j <= n-1`, definita come segue:
+  - `c(i, j) = a_i` se `0 < i <= n-1` e `j = n-1` (caso base: colonna finale)
+  - `c(i, j) = b_j` se `i = 0` e `0 <= j <= n-1` (caso base: prima riga)
+  - `c(i, j) = c(i-1, j) * c(i, j+1)` se `0 < i <= j < n-1` (caso ricorsivo)
+
+  Si vuole calcolare la quantità `m = max { c(i, j) : 0 <= i <= j <= n-1 }`.
+  **(a)** Scrivere un algoritmo iterativo bottom-up per il calcolo di `m`.
+  **(b)** Valutare la complessità esatta dell'algoritmo, associando costo unitario ai prodotti tra numeri interi e costo nullo a tutte le altre operazioni.
+
+#### 1. Analisi delle Dipendenze e Ordine di Scansione
+Per calcolare la cella `c(i, j)` del caso ricorsivo (`0 < i <= j < n-1`), occorrono due valori già memorizzati:
+* `c(i-1, j)`: situato nella **stessa colonna `j`**, ma nella **riga sopra `i-1`**.
+  * Dipendenza da SOPRA ➔ le righe devono essere scorse dall'alto verso il basso (`i` da `0` a `n-1`).
+* `c(i, j+1)`: situato nella **stessa riga `i`**, ma nella **colonna a destra `j+1`**.
+  * Dipendenza da DESTRA ➔ all'interno di ciascuna riga, le colonne devono essere scorse da destra verso sinistra (`j` da `n-1` a `0`).
+
+#### 2. Pseudocodice Bottom-Up
+```plaintext
+CALCOLA_MASSIMO_MATRICE(a, b, n):
+    Sia c una matrice di dimensione n x n
+
+    // 1. Casi Base: Prima riga (i = 0)
+    for j = 0 to n - 1:
+        c[0][j] = b[j]
+
+    // 2. Casi Base: Ultima colonna (j = n - 1)
+    for i = 1 to n - 1:
+        c[i][n - 1] = a[i]
+
+    // 3. Riempimento Bottom-Up della matrice (dall'alto in basso, da destra a sinistra)
+    for i = 1 to n - 2:
+        for j = n - 2 down to i:
+            c[i][j] = c[i - 1][j] * c[i][j + 1]
+
+    // 4. Calcolo del massimo assoluto m sulla triangolare superiore (0 <= i <= j <= n - 1)
+    m = c[0][0]
+    for i = 0 to n - 1:
+        for j = i to n - 1:
+            if c[i][j] > m:
+                m = c[i][j]
+
+    return m
+```
+
+#### 3. Correttezza dell'Algoritmo
+* **Invariante di Ciclo**: All'inizio dell'iterazione `(i, j)` con `0 < i <= j < n-1`, sia `c[i-1][j]` (calcolato nell'iterazione sulla riga precedente `i-1`) sia `c[i][j+1]` (calcolato nell'iterazione precedente del ciclo `j` sulla colonna a destra) contengono il valore corretto della ricorrenza. Dunque la moltiplicazione `c[i-1][j] * c[i][j+1]` assegna a `c[i][j]` il valore esatto.
+* **Completezza**: Il ciclo finale esamina tutte le `n(n+1)/2` celle della regione `0 <= i <= j <= n-1`, garantendo di trovare il massimo valore `m`.
+
+#### 4. Complessità Esatta e Conteggio Prodotti (Punto b)
+* **Conteggio Esatto dei Prodotti**:
+  * La regione triangolare superiore contiene in totale `n(n+1)/2` celle.
+  * Le celle dei casi base che NON compiono alcuna moltiplicazione sono:
+    * Prima riga (`i = 0`): `n` celle.
+    * Ultima colonna (`j = n-1` con `i > 0`): `n - 1` celle.
+    * Totale celle dei casi base: `n + (n - 1) = 2n - 1` celle.
+  * Di conseguenza, le celle appartenenti al caso ricorsivo in cui viene eseguita esattamente 1 moltiplicazione sono:
+    `n(n+1)/2 - (2n - 1) = (n^2 + n - 4n + 2) / 2 = (n^2 - 3n + 2) / 2 = (n - 1)(n - 2) / 2`.
+* **Costo Temporale Esatto**: Assegnando costo unitario a ciascun prodotto e costo nullo alle altre operazioni, il tempo esatto è **`(n - 1)(n - 2) / 2` prodotti**, ossia una complessità **Theta(n^2)**.
+* **Spazio Ausiliario**: La matrice `c` richiede uno spazio **Theta(n^2)**.
+
+---
+
 ### 📝 Es D.11: LIS — Longest Increasing Subsequence (Sottosequenza Strettamente Crescente)
 * **Fonte**: Tipologia 2 della Guida di Programmazione Dinamica (Problema Classico d'Esame)
 * **Problema**: 

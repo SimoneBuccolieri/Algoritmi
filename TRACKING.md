@@ -77,14 +77,14 @@
 - [x] **Es D.1 (G)**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
 - [x] **Es D.2 (G)**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
 - [x] **Es D.3 (G)**: Longest Common Substring (Appello 18/06/2024)
-- [ ] **Es D.4 (A)**: Selezione attività greedy con inizio per ultimo (Appello 02/07/2024)
-- [ ] **Es D.5 (A)**: Algoritmo bottom-up per tabella c(i,j) (Appello 19/09/2024)
-- [ ] **Es D.6 (A)**: Algoritmo bottom-up per ricorrenza ℓ(i, j) (Appello 24/01/2025)
-- [ ] **Es D.7 (A)**: Selezione attività greedy con inizio per ultimo (Appello 07/02/2025)
-- [ ] **Es D.8 (A)**: Ottimizzazione tempo completamento programmi (Appello 18/06/2025)
-- [ ] **Es D.9 (A)**: Algoritmo memoizzato per ricorrenza matriciale M(i,j) (Appello 10/09/2025)
-- [ ] **Es D.10 (A)**: Caricamento file in cloud con capacità limitata c (Appello 20/01/2026)
-- [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D, pseudocodice e complessità)
+- [x] **Es D.4 (A)**: Algoritmo bottom-up per tabella c(i,j) (Appello 02/07/2024)
+- [x] **Es D.5 (A)**: Algoritmo bottom-up per ricorrenza due stringhe ℓ(i, j) (Appello 24/01/2025)
+- [ ] **Es D.6 (A)**: Greedy Selezione Attività con inizio per ultimo (Appello 07/02/2025)
+- [ ] **Es D.7 (A)**: Greedy Scheduling Programmi sum C_j (Appello 18/06/2025)
+- [ ] **Es D.8 (A)**: DP Memoizzata Ricorrenza Matriciale M(i,j) (Appello 10/09/2025)
+- [ ] **Es D.9 (A)**: Greedy Caricamento File Cloud capacità limitata c (Appello 20/01/2026)
+- [ ] **Es D.10 (A)**: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria (Appello 04/07/2025)
+- [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D)
 
 ---
 
@@ -98,6 +98,7 @@
 | 2026-05-18 | **Pillars 4, 2, 6**: D&C, BST Arricchiti, Greedy. | Logica scarto D&C; routing BST; Proprietà scelta Greedy. | Gestione ritorni BST; casi limite Greedy. | Programmazione Dinamica (Blocco B). |
 | 2026-08-04 | **Ripresa Studio**: Risolto Es A.2 (Ricorrenza a più termini). | Albero di ricorrenza e sostituzione per T(n) = 2T(n/5) + T(n/2) + n. | Nessuna, concetto del 9/10 n assimilato. | Prossimo in scaletta: Es A.3 (Ricorrenza MT) o Es C.3 (Algoritmo Triplet). |
 | 2026-07-16 | **Riorganizzazione Piano**: Passaggio a 4 Gruppi strutturati come lo scritto (Domanda A, Domanda B, Es 1, Es 2). | Struttura dello scritto d'esame. | Adattamento dello studio agli appelli reali. | Continuare Gruppo A (Es A.2). |
+| 2026-08-18 | **Gruppo D**: DP Bottom-Up 2D Matrice e Stringhe (Es D.4 e Es D.5). | Metodo delle Frecce per indici Bottom-Up (`n-2 down to i`). | Memoizzazione e Greedy da approfondire nei prossimi esercizi. | Focus su Greedy (Es D.6, D.7, D.9) e DP Memoizzata (Es D.8, D.10). |
 
 ---
 

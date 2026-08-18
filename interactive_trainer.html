@@ -139,14 +139,14 @@
 
     /* ESERCIZIO 2 STYLES */
     .module-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-    .mod-btn {
+    .mod-btn, .dp-mod-btn {
       background: rgba(255,255,255,0.05); border: 1px solid var(--border-color);
       color: var(--text-muted); padding: 9px 16px; border-radius: var(--radius-md);
       font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.2s;
     }
-    .mod-btn.active { background: rgba(56,189,248,0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
-    .module-panel { display: none; }
-    .module-panel.active { display: block; animation: fadeIn 0.3s ease; }
+    .mod-btn.active, .dp-mod-btn.active { background: rgba(56,189,248,0.12); border-color: var(--accent-blue); color: var(--accent-blue); }
+    .module-panel, .dp-module-panel { display: none; }
+    .module-panel.active, .dp-module-panel.active { display: block; animation: fadeIn 0.3s ease; }
 
     /* GANTT */
     .gantt-wrap { background: #090d16; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; overflow-x: auto; }
@@ -230,7 +230,8 @@
   <nav>
     <button class="tab-btn active" id="tab-heap" onclick="switchTab('heap')">🌳 MAX-HEAP & HEAPSORT (Passo-Passo)</button>
     <button class="tab-btn" id="tab-bst" onclick="switchTab('bst')">🌴 BST (Inserimento Guidato)</button>
-    <button class="tab-btn" id="tab-es2" onclick="switchTab('es2')">⚡ ESERCIZIO 2: GREEDY & DP</button>
+    <button class="tab-btn" id="tab-greedy" onclick="switchTab('greedy')">🎯 ESERCIZIO 2: GREEDY</button>
+    <button class="tab-btn" id="tab-dp" onclick="switchTab('dp')">🧩 ESERCIZIO 2: PROGRAMMAZIONE DINAMICA (DP)</button>
   </nav>
 
   <main>
@@ -316,26 +317,116 @@
       </div>
     </div>
 
-    <!-- TAB ESERCIZIO 2: GREEDY & DP -->
-    <div class="tab-content" id="content-es2">
+    <!-- TAB ESERCIZIO 2: ALGORITMI GREEDY -->
+    <div class="tab-content" id="content-greedy">
       <div class="card" style="margin-bottom: 24px;">
         <div class="card-header">
-          <h2 class="card-title">⚡ ESERCIZIO 2 — Greedy & Programmazione Dinamica</h2>
+          <h2 class="card-title">🎯 ESERCIZIO 2 — Algoritmi Greedy (3 Strategie d'Esame Baldan)</h2>
+          <span class="badge-tag">Appelli Baldan 2024–2026</span>
+        </div>
+
+        <!-- Strategy Selector -->
+        <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
+          <button class="mod-btn active" id="gs-btn-1" onclick="setGreedyStrategy(1)">📅 Strategia 1: Inizia per ultima (Activity Selection)</button>
+          <button class="mod-btn" id="gs-btn-2" onclick="setGreedyStrategy(2)">⏱️ Strategia 2: Scheduling Programmi (sum C_j)</button>
+          <button class="mod-btn" id="gs-btn-3" onclick="setGreedyStrategy(3)">☁️ Strategia 3: Caricamento File Cloud (capacità c)</button>
+        </div>
+
+        <!-- STRATEGY 1 INPUTS -->
+        <div id="gs-inputs-1">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 31/01/2024 e 07/02/2025 (Esercizio 2)</div>
+            <div>"Si consideri il problema di selezione di attività compatibili, con n attività a<sub>1</sub>, ..., a<sub>n</sub> date attraverso due vettori s e f di tempi di inizio e fine, e ordinate per tempo di inizio (0 &lt; s<sub>1</sub> ≤ s<sub>2</sub> ≤ ... ≤ s<sub>n</sub>). 
+            (a) Scrivere un algoritmo greedy iterativo che implementa la scelta greedy di selezionare l'attività che <strong>inizia per ultima</strong>. 
+            (b) Determinare l'insieme di attività restituito dall'algoritmo al punto (a) quando eseguito sul seguente insieme di 6 attività: s = (1, 2, 3, 5, 7, 10), f = (3, 9, 10, 7, 11, 12)."</div>
+          </div>
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">s (tempi di inizio, ordinati crescenti):</label>
+              <input type="text" class="heap-input" id="greedy-s" value="1, 2, 3, 5, 7, 10">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">f (tempi di fine):</label>
+              <input type="text" class="heap-input" id="greedy-f" value="3, 9, 10, 7, 11, 12">
+            </div>
+            <button class="action-btn" onclick="initGreedy()">▶ Carica</button>
+          </div>
+        </div>
+
+        <!-- STRATEGY 2 INPUTS -->
+        <div id="gs-inputs-2" style="display:none;">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appello 18/06/2025 (Esercizio 2)</div>
+            <div>"Abbiamo n programmi da eseguire sul nostro computer. Ogni programma j ha lunghezza l<sub>j</sub>, che rappresenta il tempo richiesto per la sua esecuzione. Dato un ordine di esecuzione σ = j<sub>1</sub>, ..., j<sub>n</sub>, il tempo di completamento C<sub>j_i</sub> è dato dalla somma delle lunghezze dei programmi j<sub>1</sub>...j<sub>i</sub>. L'obiettivo è trovare un ordine σ che <strong>minimizza la somma dei tempi di completamento</strong> di tutti i programmi: Σ C<sub>j</sub>(σ). 
+            (a) Dare un semplice algoritmo greedy per questo problema, e valutarne la complessità."</div>
+          </div>
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:2;">
+              <label style="font-size:12px;color:var(--text-muted);">Lunghezze programmi l (non ordinate):</label>
+              <input type="text" class="heap-input" id="sched-l" value="4, 1, 3, 2">
+            </div>
+            <button class="action-btn" onclick="initSched()">▶ Carica</button>
+          </div>
+        </div>
+
+        <!-- STRATEGY 3 INPUTS -->
+        <div id="gs-inputs-3" style="display:none;">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appello 20/01/2026 (Esercizio 2)</div>
+            <div>"Avete n file f<sub>1</sub>, f<sub>2</sub>, ..., f<sub>n</sub> di dimensioni d<sub>1</sub>, d<sub>2</sub>, ..., d<sub>n</sub> MB da caricare sul servizio cloud. Purtroppo la somma delle dimensioni è superiore alla capacità c MB disponibile. Vi dovete accontentare di <strong>caricare il maggior numero possibile di file</strong>, senza eccedere la capacità c. 
+            (a) Progettare un algoritmo greedy per questo problema e valutarne la complessità."</div>
+          </div>
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Dimensioni file d (MB, non ordinate):</label>
+              <input type="text" class="heap-input" id="cloud-d" value="5, 2, 8, 1, 4, 3">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;flex:0 0 120px;">
+              <label style="font-size:12px;color:var(--text-muted);">Capacità c (MB):</label>
+              <input type="text" class="heap-input" id="cloud-c" value="10">
+            </div>
+            <button class="action-btn" onclick="initCloud()">▶ Carica</button>
+          </div>
+        </div>
+
+        <!-- SHARED STEP CONTROLS -->
+        <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+          <button class="step-btn" id="greedy-step-btn" onclick="executeGreedyStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+          <span style="font-size:13px;color:var(--text-muted);" id="greedy-step-counter">Passi: 0</span>
+        </div>
+
+        <!-- SHARED VISUALIZATION AREA -->
+        <div class="gantt-wrap" id="greedy-viz-wrap">
+          <div id="gantt-container"></div>
+        </div>
+
+        <div class="log-panel" style="margin-top:16px;max-height:220px;">
+          <div class="log-title">📋 Registro Greedy</div>
+          <div class="log-list" id="greedy-log"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB ESERCIZIO 2: PROGRAMMAZIONE DINAMICA (DP) -->
+    <div class="tab-content" id="content-dp">
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <h2 class="card-title">🧩 ESERCIZIO 2 — Programmazione Dinamica (DP)</h2>
           <span class="badge-tag">Appelli Baldan 2024–2026</span>
         </div>
 
         <!-- MODULE SELECTOR -->
         <div class="module-tabs">
-          <button class="mod-btn active" id="mod-btn-fib" onclick="switchModule('fib')">🌱 MOD 0: Intro DP — Fibonacci (Memo vs Bottom-Up)</button>
-          <button class="mod-btn" id="mod-btn-greedy" onclick="switchModule('greedy')">🎯 MOD 1: Greedy (3 Strategie)</button>
-          <button class="mod-btn" id="mod-btn-dp" onclick="switchModule('dp')">🗃️ MOD 2: DP Bottom-Up Matrice 2D</button>
-          <button class="mod-btn" id="mod-btn-memo" onclick="switchModule('memo')">🧩 MOD 3: DP Memoizzata Stringa</button>
-          <button class="mod-btn" id="mod-btn-lcs" onclick="switchModule('lcs')">🔤 MOD 4: LCS (Memo vs Bottom-Up)</button>
-          <button class="mod-btn" id="mod-btn-lis" onclick="switchModule('lis')">📈 MOD 5: LIS (Memo vs Bottom-Up)</button>
+          <button class="dp-mod-btn active" id="mod-btn-fib" onclick="switchModule('fib')">🌱 MOD 0: Intro DP (Fibonacci)</button>
+          <button class="dp-mod-btn" id="mod-btn-dp" onclick="switchModule('dp')">🗃️ MOD 1: DP Bottom-Up Matrice 2D</button>
+          <button class="dp-mod-btn" id="mod-btn-memo" onclick="switchModule('memo')">🧩 MOD 2: DP Memoizzata Stringa</button>
+          <button class="dp-mod-btn" id="mod-btn-lcs" onclick="switchModule('lcs')">🔤 MOD 3: LCS (Subsequence non contigua)</button>
+          <button class="dp-mod-btn" id="mod-btn-lcstr" onclick="switchModule('lcstr')">✂️ MOD 4: Substring (Sottostringa contigua)</button>
+          <button class="dp-mod-btn" id="mod-btn-lis" onclick="switchModule('lis')">📈 MOD 5: LIS (Sequenza crescente)</button>
         </div>
 
         <!-- ===== MODULO 0: INTRO DP FIBONACCI ===== -->
-        <div class="module-panel active" id="mod-fib">
+        <div class="dp-module-panel active" id="mod-fib">
           <div class="exam-text-box">
             <div class="exam-text-title">📜 TESTO DIDATTICO — CONCETTI CHIAVE E CONFRONTO PARADIGMI</div>
             <div>Si vuole calcolare il valore del n-esimo numero di Fibonacci <code>F(n)</code>, definito dalla ricorrenza: 
@@ -396,92 +487,8 @@
           </div>
         </div>
 
-        <!-- ===== MODULO 1: GREEDY (3 STRATEGIE) ===== -->
-        <div class="module-panel" id="mod-greedy">
-
-          <!-- Strategy Selector -->
-          <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
-            <button class="mod-btn active" id="gs-btn-1" onclick="setGreedyStrategy(1)">📅 Strategia 1: Inizia per ultima</button>
-            <button class="mod-btn" id="gs-btn-2" onclick="setGreedyStrategy(2)">⏱️ Strategia 2: Scheduling (minima lunghezza)</button>
-            <button class="mod-btn" id="gs-btn-3" onclick="setGreedyStrategy(3)">☁️ Strategia 3: File su Cloud (minima dimensione)</button>
-          </div>
-
-          <!-- STRATEGY 1 INPUTS -->
-          <div id="gs-inputs-1">
-            <div class="exam-text-box">
-              <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 31/01/2024 e 07/02/2025 (Esercizio 2)</div>
-              <div>"Si consideri il problema di selezione di attività compatibili, con n attività a<sub>1</sub>, ..., a<sub>n</sub> date attraverso due vettori s e f di tempi di inizio e fine, e ordinate per tempo di inizio (0 &lt; s<sub>1</sub> ≤ s<sub>2</sub> ≤ ... ≤ s<sub>n</sub>). 
-              (a) Scrivere un algoritmo greedy iterativo che implementa la scelta greedy di selezionare l'attività che <strong>inizia per ultima</strong>. 
-              (b) Determinare l'insieme di attività restituito dall'algoritmo al punto (a) quando eseguito sul seguente insieme di 6 attività: s = (1, 2, 3, 5, 7, 10), f = (3, 9, 10, 7, 11, 12)."</div>
-            </div>
-            <div class="heap-controls">
-              <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
-                <label style="font-size:12px;color:var(--text-muted);">s (tempi di inizio, ordinati crescenti):</label>
-                <input type="text" class="heap-input" id="greedy-s" value="1, 2, 3, 5, 7, 10">
-              </div>
-              <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
-                <label style="font-size:12px;color:var(--text-muted);">f (tempi di fine):</label>
-                <input type="text" class="heap-input" id="greedy-f" value="3, 9, 10, 7, 11, 12">
-              </div>
-              <button class="action-btn" onclick="initGreedy()">▶ Carica</button>
-            </div>
-          </div>
-
-          <!-- STRATEGY 2 INPUTS -->
-          <div id="gs-inputs-2" style="display:none;">
-            <div class="exam-text-box">
-              <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appello 18/06/2025 (Esercizio 2)</div>
-              <div>"Abbiamo n programmi da eseguire sul nostro computer. Ogni programma j ha lunghezza l<sub>j</sub>, che rappresenta il tempo richiesto per la sua esecuzione. Dato un ordine di esecuzione σ = j<sub>1</sub>, ..., j<sub>n</sub>, il tempo di completamento C<sub>j_i</sub> è dato dalla somma delle lunghezze dei programmi j<sub>1</sub>...j<sub>i</sub>. L'obiettivo è trovare un ordine σ che <strong>minimizza la somma dei tempi di completamento</strong> di tutti i programmi: Σ C<sub>j</sub>(σ). 
-              (a) Dare un semplice algoritmo greedy per questo problema, e valutarne la complessità."</div>
-            </div>
-            <div class="heap-controls">
-              <div style="display:flex;flex-direction:column;gap:6px;flex:2;">
-                <label style="font-size:12px;color:var(--text-muted);">Lunghezze programmi l (non ordinate):</label>
-                <input type="text" class="heap-input" id="sched-l" value="4, 1, 3, 2">
-              </div>
-              <button class="action-btn" onclick="initSched()">▶ Carica</button>
-            </div>
-          </div>
-
-          <!-- STRATEGY 3 INPUTS -->
-          <div id="gs-inputs-3" style="display:none;">
-            <div class="exam-text-box">
-              <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appello 20/01/2026 (Esercizio 2)</div>
-              <div>"Avete n file f<sub>1</sub>, f<sub>2</sub>, ..., f<sub>n</sub> di dimensioni d<sub>1</sub>, d<sub>2</sub>, ..., d<sub>n</sub> MB da caricare sul servizio cloud. Purtroppo la somma delle dimensioni è superiore alla capacità c MB disponibile. Vi dovete accontentare di <strong>caricare il maggior numero possibile di file</strong>, senza eccedere la capacità c. 
-              (a) Progettare un algoritmo greedy per questo problema e valutarne la complessità."</div>
-            </div>
-            <div class="heap-controls">
-              <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
-                <label style="font-size:12px;color:var(--text-muted);">Dimensioni file d (MB, non ordinate):</label>
-                <input type="text" class="heap-input" id="cloud-d" value="5, 2, 8, 1, 4, 3">
-              </div>
-              <div style="display:flex;flex-direction:column;gap:6px;flex:0 0 120px;">
-                <label style="font-size:12px;color:var(--text-muted);">Capacità c (MB):</label>
-                <input type="text" class="heap-input" id="cloud-c" value="10">
-              </div>
-              <button class="action-btn" onclick="initCloud()">▶ Carica</button>
-            </div>
-          </div>
-
-          <!-- SHARED STEP CONTROLS -->
-          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
-            <button class="step-btn" id="greedy-step-btn" onclick="executeGreedyStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
-            <span style="font-size:13px;color:var(--text-muted);" id="greedy-step-counter">Passi: 0</span>
-          </div>
-
-          <!-- SHARED VISUALIZATION AREA -->
-          <div class="gantt-wrap" id="greedy-viz-wrap">
-            <div id="gantt-container"></div>
-          </div>
-
-          <div class="log-panel" style="margin-top:16px;max-height:220px;">
-            <div class="log-title">📋 Registro Greedy</div>
-            <div class="log-list" id="greedy-log"></div>
-          </div>
-        </div>
-
-        <!-- ===== MODULO 2: DP BOTTOM-UP MATRICE ===== -->
-        <div class="module-panel" id="mod-dp">
+        <!-- ===== MODULO 1: DP BOTTOM-UP MATRICE ===== -->
+        <div class="dp-module-panel" id="mod-dp">
           <div class="exam-text-box">
             <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 02/07/2024, 19/09/2024 e 24/01/2025 (Esercizio 2)</div>
             <div>"Siano dati due vettori a componenti intere a, b ∈ Z<sup>n</sup>. Si consideri la quantità c(i, j), con 0 ≤ i ≤ j ≤ n-1, definita come segue: <br>
@@ -550,8 +557,8 @@
           </div>
         </div>
 
-        <!-- ===== MODULO 3: DP MEMOIZZATA STRINGA ===== -->
-        <div class="module-panel" id="mod-memo">
+        <!-- ===== MODULO 2: DP MEMOIZZATA STRINGA ===== -->
+        <div class="dp-module-panel" id="mod-memo">
           <div class="exam-text-box">
             <div class="exam-text-title">📜 TESTO REALE D'ESAME — Appelli 14/02/2024, 04/07/2025 e 10/09/2025 (Esercizio 2)</div>
             <div>"Data una stringa X = ⟨x<sub>1</sub>, x<sub>2</sub>, ..., x<sub>n</sub>⟩, si consideri la quantità ℓ(i, j) definita per 1 ≤ i ≤ j ≤ n: <br>
@@ -618,7 +625,7 @@
         </div>
 
         <!-- ===== MODULO 4: LCS (LONGEST COMMON SUBSEQUENCE) ===== -->
-        <div class="module-panel" id="mod-lcs">
+        <div class="dp-module-panel" id="mod-lcs">
           <div class="exam-text-box">
             <div class="exam-text-title">📜 TESTO DIDATTICO & PROBLEMA CLASSICO — LCS (Longest Common Subsequence)</div>
             <div>Dati due sequenze <code>X = &lt;x<sub>1</sub>, ..., x<sub>m</sub>&gt;</code> e <code>Y = &lt;y<sub>1</sub>, ..., y<sub>n</sub>&gt;</code>, trovare la lunghezza della più lunga sottosequenza comune. <br>
@@ -668,13 +675,58 @@
           </div>
         </div>
 
-        <!-- ===== MODULO 5: LIS (LONGEST INCREASING SUBSEQUENCE) ===== -->
-        <div class="module-panel" id="mod-lis">
+        <!-- ===== MODULO 5: LONGEST COMMON SUBSTRING (CONTIGUA) ===== -->
+        <div class="dp-module-panel" id="mod-lcstr">
+          <div class="exam-text-box">
+            <div class="exam-text-title">📜 TESTO DIDATTICO — Longest Common Substring (Sottostringa Contigua)</div>
+            <div>Dati due sequenze <code>X = &lt;x<sub>1</sub>, ..., x<sub>m</sub>&gt;</code> e <code>Y = &lt;y<sub>1</sub>, ..., y<sub>n</sub>&gt;</code>, trovare la lunghezza della più lunga sottostringa <strong>contigua/ininterrotta</strong> comune a entrambe. <br>
+            Ricorrenza: <code>c(i,j) = 0</code> se i=0 o j=0 | <code>1 + c(i-1, j-1)</code> se X[i]==Y[j] | <strong><code>0</code> (si spezza!)</strong> se X[i] ≠ Y[j]. <br>
+            Il risultato finale è il <strong>massimo valore assoluto</strong> della tabella: <code>max_{i,j} c(i,j)</code>.</div>
+          </div>
+
+          <div class="heap-controls">
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Stringa X (m caratteri):</label>
+              <input type="text" class="heap-input" id="lcstr-x-input" value="ABABC">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;flex:1;">
+              <label style="font-size:12px;color:var(--text-muted);">Stringa Y (n caratteri):</label>
+              <input type="text" class="heap-input" id="lcstr-y-input" value="BABC">
+            </div>
+            <button class="action-btn" onclick="initLCSTR()">▶ Inizializza Substring</button>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
+            <button class="step-btn" id="lcstr-step-btn" onclick="executeLcstrStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
+            <span style="font-size:13px;color:var(--text-muted);" id="lcstr-step-counter">Passi: 0</span>
+          </div>
+
+          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
+            <div class="dp-matrix-wrap" style="flex:1;">
+              <table class="dp-table"><tbody id="lcstr-table-body"></tbody></table>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+                💻 Pseudocodice Longest Common Substring (Riga Evidenziata)
+              </div>
+              <div class="code-box" id="lcstr-code-box"></div>
+            </div>
+            <div class="log-panel" style="max-height:240px;">
+              <div class="log-title">📋 Registro Esecuzione Substring</div>
+              <div class="log-list" id="lcstr-log"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODULO 6: LIS (LONGEST INCREASING SUBSEQUENCE) ===== -->
+        <div class="dp-module-panel" id="mod-lis">
           <div class="exam-text-box">
             <div class="exam-text-title">📜 TESTO DIDATTICO & PROBLEMA CLASSICO — LIS (Longest Increasing Subsequence)</div>
             <div>Dato un array <code>A = &lt;a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub>&gt;</code> di numeri interi, trovare la lunghezza della più lunga sottosequenza strettamente crescente. <br>
-            Ricorrenza: <code>L[i] = 1 + max({ L[j] : 0 ≤ j &lt; i e A[j] &lt; A[i] } ∪ {0})</code>. Il risultato è <code>max<sub>i</sub> L[i]</code>. <br>
-            Confrontare l'esecuzione in <strong>Bottom-Up (Tabellare 1D)</strong> e <strong>Memoizzazione Top-Down</strong>.</div>
+            Ricorrenza: <code>L[i] = 1 + max({ L[j] : 0 ≤ j &lt; i e A[j] &lt; A[i] } ∪ {0})</code>. Il risultato finale è <code>max<sub>i</sub> L[i]</code>.</div>
           </div>
 
           <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap;">
@@ -693,16 +745,34 @@
           <div style="display:flex;align-items:center;gap:16px;margin:16px 0;">
             <button class="step-btn" id="lis-step-btn" onclick="executeLisStep()" disabled>⏭️ PASSO SUCCESSIVO</button>
             <span style="font-size:13px;color:var(--text-muted);" id="lis-step-counter">Passi: 0</span>
-          </div>
-
-          <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start;">
-            <div class="dp-matrix-wrap" style="flex:1;">
-              <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;font-weight:700;">STATO DELL'ARRAY A E LUNGHEZZA LIS L[i]:</div>
-              <div id="lis-array-container" style="display:flex;gap:10px;flex-wrap:wrap;"></div>
+            <div id="lis-result-badge" style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-emerald);padding:6px 14px;background:rgba(52,211,153,0.1);border-radius:8px;border:1px solid rgba(52,211,153,0.3);font-weight:700;">
+              LIS Max Finora = 0
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-top:16px;">
+          <!-- DUAL ARRAY VISUALIZATION CONTAINER -->
+          <div style="background:#090d16; border:1px solid var(--border-color); border-radius:12px; padding:20px; margin-bottom:16px;">
+            
+            <!-- ROW 1: ARRAY A -->
+            <div style="margin-bottom:16px;">
+              <div style="font-size:12px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                <span>📦 ARRAY INPUT A[0..n-1]</span>
+                <span style="font-size:11px; color:var(--text-muted); font-weight:400;">(Elemento i in esame = Giallo 🟡 | Elemento j precedente = Indaco 🟣)</span>
+              </div>
+              <div id="lis-array-a-container" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+            </div>
+
+            <!-- ROW 2: ARRAY L DP -->
+            <div>
+              <div style="font-size:12px; font-weight:700; color:var(--accent-emerald); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                <span>📊 ARRAY DP L[0..n-1] (Lunghezza LIS che termina in A[i])</span>
+              </div>
+              <div id="lis-array-l-container" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+            </div>
+
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:16px;">
             <div>
               <div style="font-size:13px; font-weight:700; color:var(--accent-blue); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
                 💻 Pseudocodice LIS (Riga Evidenziata)
@@ -733,6 +803,15 @@
 
       if (tabId === 'heap') initHeapArray();
       if (tabId === 'bst') renderBST();
+      if (tabId === 'greedy') initGreedy();
+      if (tabId === 'dp') {
+        initFib();
+        initDPMatrix();
+        initDPMemo();
+        initLCS();
+        initLCSTR();
+        initLIS();
+      }
     }
 
     function addLog(panelId, msg, type = 'normal') {
@@ -1257,16 +1336,6 @@
       drawNode(bstRoot, width / 2, startY, width / 4);
     }
 
-    window.onload = () => {
-      initHeapArray();
-      buildDefaultBST();
-      initFib();
-      initGreedy();
-      initDPMatrix();
-      initDPMemo();
-      initLCS();
-      initLIS();
-    };
 
     // ============================================================
     // UTILITY UTILS & CODE BOX RENDERER
@@ -2332,42 +2401,195 @@
     }
 
     function renderLisArray(hiIdx = -1, prevIdx = -1, isHit = false) {
-      const container = document.getElementById('lis-array-container');
-      if (!container) return;
-      container.innerHTML = '';
+      const containerA = document.getElementById('lis-array-a-container');
+      const containerL = document.getElementById('lis-array-l-container');
+      const badge = document.getElementById('lis-result-badge');
+      if (!containerA || !containerL) return;
+
+      containerA.innerHTML = '';
+      containerL.innerHTML = '';
+
+      let maxVal = 0;
 
       lisArr.forEach((val, i) => {
         const lVal = lisL[i];
-        const box = document.createElement('div');
+        if (lVal !== null && lVal > maxVal) maxVal = lVal;
+
         const isCurrent = i === hiIdx;
         const isPrev = i === prevIdx;
 
-        let bg = 'rgba(255,255,255,0.03)'; let border = '#1e2d4a'; let color = 'var(--text-muted)';
-        if (isCurrent) { bg = isHit ? 'rgba(52,211,153,0.25)' : 'rgba(251,191,36,0.25)'; border = isHit ? 'var(--accent-emerald)' : 'var(--accent-amber)'; color = 'var(--accent-amber)'; }
-        else if (isPrev) { bg = 'rgba(129,140,248,0.2)'; border = 'var(--accent-indigo)'; color = 'var(--accent-indigo)'; }
-        else if (lVal !== null) { bg = 'rgba(56,189,248,0.1)'; border = 'rgba(56,189,248,0.3)'; color = 'var(--accent-blue)'; }
+        // Card A
+        let bgA = 'rgba(255,255,255,0.03)'; let borderA = '#1e2d4a'; let colorA = 'var(--text-muted)';
+        if (isCurrent) { bgA = 'rgba(251,191,36,0.25)'; borderA = 'var(--accent-amber)'; colorA = 'var(--accent-amber)'; }
+        else if (isPrev) { bgA = 'rgba(129,140,248,0.25)'; borderA = 'var(--accent-indigo)'; colorA = 'var(--accent-indigo)'; }
+        else { bgA = 'rgba(56,189,248,0.08)'; borderA = 'rgba(56,189,248,0.25)'; colorA = 'var(--accent-blue)'; }
 
-        box.style.cssText = `
-          background: ${bg}; border: 2px solid ${border}; border-radius: 10px;
-          padding: 10px 14px; text-align: center; font-family: 'JetBrains Mono', monospace;
-          min-width: 70px; transition: all 0.3s;
+        const boxA = document.createElement('div');
+        boxA.style.cssText = `
+          background: ${bgA}; border: 2px solid ${borderA}; border-radius: 10px;
+          padding: 8px 14px; text-align: center; font-family: 'JetBrains Mono', monospace;
+          min-width: 65px; transition: all 0.25s;
         `;
+        boxA.innerHTML = `
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:2px;">i = ${i}</div>
+          <div style="font-size:16px;font-weight:700;color:${colorA};">${val}</div>
+        `;
+        containerA.appendChild(boxA);
 
-        box.innerHTML = `
-          <div style="font-size:10px;color:var(--text-dim);margin-bottom:2px;">A[${i}]</div>
-          <div style="font-size:16px;font-weight:700;color:${color};">${val}</div>
-          <div style="font-size:10px;color:var(--accent-emerald);margin-top:4px;font-weight:700;">L=${lVal === null ? '—' : lVal}</div>
+        // Card L
+        let bgL = 'rgba(255,255,255,0.03)'; let borderL = '#1e2d4a'; let colorL = 'var(--text-muted)';
+        if (isCurrent) { bgL = 'rgba(52,211,153,0.25)'; borderL = 'var(--accent-emerald)'; colorL = 'var(--accent-emerald)'; }
+        else if (lVal !== null) { bgL = 'rgba(52,211,153,0.1)'; borderL = 'rgba(52,211,153,0.3)'; colorL = 'var(--accent-emerald)'; }
+
+        const boxL = document.createElement('div');
+        boxL.style.cssText = `
+          background: ${bgL}; border: 2px solid ${borderL}; border-radius: 10px;
+          padding: 8px 14px; text-align: center; font-family: 'JetBrains Mono', monospace;
+          min-width: 65px; transition: all 0.25s;
         `;
-        container.appendChild(box);
+        boxL.innerHTML = `
+          <div style="font-size:10px;color:var(--text-dim);margin-bottom:2px;">L[${i}]</div>
+          <div style="font-size:16px;font-weight:700;color:${colorL};">${lVal === null ? '—' : lVal}</div>
+        `;
+        containerL.appendChild(boxL);
       });
+
+      if (badge) {
+        badge.innerText = `LIS Max Finora = ${maxVal}`;
+      }
+    }
+
+    // ============================================================
+    // ESERCIZIO 2 — MODULO 5: LONGEST COMMON SUBSTRING (CONTIGUA)
+    // ============================================================
+    let lcstrSteps = [];
+    let lcstrX = [], lcstrY = [];
+    let lcstrMatrix = [];
+
+    const lcstrCodeTemplate = [
+      "LONGEST_COMMON_SUBSTRING(X, Y, m, n):",
+      "  c = matrice (m+1) x (n+1) a 0",
+      "  max_len = 0",
+      "  for i = 1 to m:",
+      "    for j = 1 to n:",
+      "      if X[i-1] == Y[j-1]:",
+      "        c[i][j] = 1 + c[i-1][j-1]",
+      "        max_len = max(max_len, c[i][j])",
+      "      else: c[i][j] = 0  # Si spezza!",
+      "  return max_len"
+    ];
+
+    function initLCSTR() {
+      const xStr = document.getElementById('lcstr-x-input').value.trim();
+      const yStr = document.getElementById('lcstr-y-input').value.trim();
+      lcstrX = xStr.split('');
+      lcstrY = yStr.split('');
+      const m = lcstrX.length, n = lcstrY.length;
+      lcstrMatrix = Array.from({length: m + 1}, () => Array(n + 1).fill(null));
+      lcstrSteps = [];
+      clearLog('lcstr-log');
+
+      generateLcstrSteps(m, n);
+      addLog('lcstr-log', `INIZIO LONGEST COMMON SUBSTRING (contigua) tra "${xStr}" e "${yStr}".`, 'func');
+
+      renderLcstrMatrix(lcstrMatrix);
+      renderCodeBox('lcstr-code-box', lcstrCodeTemplate, 1, 'func');
+      document.getElementById('lcstr-step-btn').disabled = false;
+      document.getElementById('lcstr-step-counter').innerText = `Passi: ${lcstrSteps.length}`;
+    }
+
+    function generateLcstrSteps(m, n) {
+      lcstrSteps = [];
+      const c = Array.from({length: m + 1}, () => Array(n + 1).fill(0));
+      let maxLen = 0;
+
+      lcstrSteps.push({ msg: `CASI BASE: c[i][0] = 0 e c[0][j] = 0 per ogni i, j`, type: 'func', codeLine: 2, matrix: c.map(r=>[...r]) });
+
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          const match = lcstrX[i-1] === lcstrY[j-1];
+          if (match) {
+            c[i][j] = 1 + c[i-1][j-1];
+            if (c[i][j] > maxLen) maxLen = c[i][j];
+            lcstrSteps.push({
+              msg: `MATCH X[${i}]='${lcstrX[i-1]}' == Y[${j}]='${lcstrY[j-1]}'! Catena estesa: c[${i}][${j}] = 1 + c[${i-1}][${j-1}] = ${c[i][j]} (Max globale = ${maxLen})`,
+              type: 'success', hi: i, hj: j, codeLine: 7, matrix: c.map(r=>[...r])
+            });
+          } else {
+            c[i][j] = 0;
+            lcstrSteps.push({
+              msg: `MISMATCH X[${i}]='${lcstrX[i-1]}' != Y[${j}]='${lcstrY[j-1]}'. Catena spezzata! c[${i}][${j}] = 0`,
+              type: 'normal', hi: i, hj: j, codeLine: 9, matrix: c.map(r=>[...r])
+            });
+          }
+        }
+      }
+
+      lcstrSteps.push({ msg: `COMPLETATO SUBSTRING! Lunghezza massima sottostringa contigua = ${maxLen}`, type: 'success', codeLine: 10, matrix: c.map(r=>[...r]) });
+      lcstrMatrix = c;
+    }
+
+    function executeLcstrStep() {
+      if (lcstrSteps.length === 0) return;
+      const step = lcstrSteps.shift();
+      const cls = step.type === 'hit' ? 'hit' : (step.type === 'success' ? 'success' : step.type);
+      addLog('lcstr-log', step.msg, cls);
+      if (step.matrix) renderLcstrMatrix(step.matrix, step.hi, step.hj);
+      renderCodeBox('lcstr-code-box', lcstrCodeTemplate, step.codeLine, step.type === 'func' ? 'func' : 'active');
+
+      document.getElementById('lcstr-step-counter').innerText = `Passi: ${lcstrSteps.length}`;
+      if (lcstrSteps.length === 0) document.getElementById('lcstr-step-btn').disabled = true;
+    }
+
+    function renderLcstrMatrix(matrix, hiRow = -1, hiCol = -1) {
+      const m = lcstrX.length, n = lcstrY.length;
+      const table = document.getElementById('lcstr-table-body');
+      if (!table) return;
+      let html = '<tr><th>i\\j</th><th>Ø</th>';
+      for (let j = 1; j <= n; j++) html += `<th>${j}<br><small style="color:var(--accent-amber)">${lcstrY[j-1]}</small></th>`;
+      html += '</tr>';
+
+      for (let i = 0; i <= m; i++) {
+        const charX = i === 0 ? 'Ø' : lcstrX[i-1];
+        html += `<tr><th>${i} <small style="color:var(--accent-amber)">${charX}</small></th>`;
+        for (let j = 0; j <= n; j++) {
+          const val = matrix[i][j];
+          let cls = val === null ? 'nil' : 'done';
+          if (i === hiRow && j === hiCol) cls = 'computing';
+          html += `<td class="${cls}">${val === null ? '—' : val}</td>`;
+        }
+        html += '</tr>';
+      }
+      table.innerHTML = html;
     }
 
     function switchModule(mod) {
-      document.querySelectorAll('.mod-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
-      document.getElementById(`mod-btn-${mod}`).classList.add('active');
-      document.getElementById(`mod-${mod}`).classList.add('active');
+      document.querySelectorAll('.dp-mod-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.dp-module-panel').forEach(p => p.classList.remove('active'));
+      const btn = document.getElementById(`mod-btn-${mod}`);
+      const panel = document.getElementById(`mod-${mod}`);
+      if (btn) btn.classList.add('active');
+      if (panel) panel.classList.add('active');
+
+      if (mod === 'fib') initFib();
+      if (mod === 'dp') initDPMatrix();
+      if (mod === 'memo') initDPMemo();
+      if (mod === 'lcs') initLCS();
+      if (mod === 'lcstr') initLCSTR();
+      if (mod === 'lis') initLIS();
     }
+
+    window.onload = () => {
+      initHeapArray();
+      buildDefaultBST();
+      initFib();
+      initGreedy();
+      initDPMatrix();
+      initDPMemo();
+      initLCS();
+      initLCSTR();
+      initLIS();
+    };
   </script>
 </body>
 </html>
