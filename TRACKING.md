@@ -81,7 +81,7 @@
 - [x] **Es D.5 (A)**: Algoritmo bottom-up per ricorrenza due stringhe ℓ(i, j) (Appello 24/01/2025)
 - [x] **Es D.6 (A)**: Greedy Selezione Attività con inizio per ultimo (Appello 07/02/2025)
 - [x] **Es D.7 (A)**: Greedy Scheduling Programmi sum C_j (Appello 18/06/2025)
-- [ ] **Es D.8 (A)**: DP Memoizzata Ricorrenza Matriciale M(i,j) (Appello 10/09/2025)
+- [ ] **Es D.8 (A)**: DP Memoizzata Ricorrenza M(i,j) con 3 prodotti (Appello 10/09/2025)
 - [ ] **Es D.9 (A)**: Greedy Caricamento File Cloud capacità limitata c (Appello 20/01/2026)
 - [ ] **Es D.10 (A)**: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria (Appello 04/07/2025)
 - [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D)
