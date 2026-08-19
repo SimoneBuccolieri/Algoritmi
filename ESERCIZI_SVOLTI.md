@@ -1107,49 +1107,138 @@ CALCOLA_MASSIMO_MATRICE(a, b, n):
 
 ---
 
-### 📝 Es D.11: LIS — Longest Increasing Subsequence (Sottosequenza Strettamente Crescente)
-* **Fonte**: Tipologia 2 della Guida di Programmazione Dinamica (Problema Classico d'Esame)
+### 📝 Es D.5: DP Bottom-Up 2D su Due Stringhe ℓ(i, j)
+* **Fonte**: Appello 24 Gennaio 2025, Esercizio 2
 * **Problema**: 
-  Dato un array `A = <a_1, a_2, ..., a_n>` di numeri interi, trovare la lunghezza della più lunga sottosequenza i cui elementi sono disposti in ordine strettamente crescente.
+  Date due stringhe `X = <x_1, x_2, ..., x_m>` e `Y = <y_1, y_2, ..., y_n>`, si consideri la quantità `ℓ(i, j)` definita per `0 <= i <= m` e `0 <= j <= n`:
+  - `ℓ(i, j) = 1` se `i = 0` oppure `j = 0` (caso base)
+  - `ℓ(i, j) = 3 * ℓ(i, j - 1)` se `i, j > 0` e `x_i == y_j` (caso match)
+  - `ℓ(i, j) = 2 * ℓ(i - 1, j - 1) - ℓ(i - 1, j)` se `i, j > 0` e `x_i != y_j` (caso mismatch)
 
-#### 1. Definizione dello Stato (Strengthening)
-Definiamo `L[i]` come la lunghezza della più lunga sottosequenza strettamente crescente dell'array `A[1..i]` che **termina obbligatoriamente al valore `A[i]`**.
+  Si vuole calcolare `q = max { ℓ(i, j) : 0 <= i <= m, 0 <= j <= n }`.
+  **(a)** Scrivere un algoritmo bottom-up per il calcolo di `q`.
+  **(b)** Determinare la complessità esatta dell'algoritmo, supponendo che le uniche operazioni di costo unitario e non nullo siano i confronti tra caratteri (`x_i == y_j`).
 
-#### 2. Relazione di Ricorrenza
-- `L[i] = 1 + max( { L[j] : 1 <= j < i  e  A[j] < A[i] } U {0} )`
-
-*Spiegazione*: Il valore `A[i]` da solo costituisce una sottosequenza di lunghezza 1. Se esiste un elemento precedente `A[j]` con `A[j] < A[i]`, l'elemento `A[i]` può estendere la sottosequenza crescente che terminava in `A[j]`, ottenendo lunghezza `1 + L[j]`. Si sceglie il massimo tra tutti i `j` ammissibili.
-
-#### 3. Pseudocodice Bottom-Up
+#### 1. Pseudocodice Bottom-Up
 ```plaintext
-LIS_Length(A, n):
-    Sia L un array di dimensione n
-    max_lis = 1
+CALCOLA_QUANTITA_Q(X, Y, m, n):
+    Sia L una matrice di dimensione (m + 1) x (n + 1)
+    max_val = 1
 
-    // Inizializzazione: ciascun elemento da solo ha lunghezza 1
-    for i = 1 to n:
-        L[i] = 1
+    // 1. Casi Base: Prima riga (i = 0) e Prima colonna (j = 0)
+    for i = 0 to m:
+        L[i][0] = 1
+    for j = 0 to n:
+        L[0][j] = 1
 
-    // Riempimento tabella 1D
-    for i = 2 to n:
-        for j = 1 to i - 1:
-            if A[j] < A[i] e (L[j] + 1 > L[i]):
-                L[i] = L[j] + 1
-        if L[i] > max_lis:
-            max_lis = L[i]
+    // 2. Riempimento Bottom-Up della matrice (dall'alto in basso, da sinistra a destra)
+    for i = 1 to m:
+        for j = 1 to n:
+            if X[i] == Y[j]:
+                L[i][j] = 3 * L[i][j - 1]
+            else:
+                L[i][j] = 2 * L[i - 1][j - 1] - L[i - 1][j]
 
-    return max_lis
+            if L[i][j] > max_val:
+                max_val = L[i][j]
+
+    return max_val
 ```
 
+#### 2. Correttezza dell'Algoritmo
+* **Invariante di Ciclo**: All'inizio dell'iterazione `(i, j)`, le tre celle antecedenti necessarie `L[i][j-1]` (sinistra), `L[i-1][j-1]` (diagonale) e `L[i-1][j]` (sopra) sono già state calcolate nelle iterazioni precedenti. Quindi l'assegnamento della ricorrenza calcola il valore esatto di `ℓ(i, j)`.
+* **Completezza**: Il confronto continuo `if L[i][j] > max_val` garantisce di individuare il massimo assoluto `q` su tutta la tabella.
+
+#### 3. Complessità Esatta (Punto b)
+* **Conteggio Esatto dei Confronti**: Il confronto di caratteri `X[i] == Y[j]` viene eseguito esattamente 1 volta all'interno dei due cicli annidati `i = 1..m` e `j = 1..n`. Il numero totale di confronti effettuati è esattamente **`m * n` confronti**.
+* **Complessità Temporale**: **Theta(m * n)** (quadratica se `m = n`).
+* **Spazio Ausiliario**: Matrice `L` di dimensione `(m+1) x (n+1)` $\rightarrow$ **Theta(m * n)**.
+
+---
+
+### 📝 Es D.6: Greedy Selezione Attività (Attività che Inizia per Ultima)
+* **Fonte**: Appello 7 Febbraio 2025, Esercizio 2 (presente anche in appelli 31/01/2024)
+* **Problema**: 
+  Siano date `n` attività `a_1, ..., a_n` con vettori `s` ed `f` dei tempi di inizio e fine, già ordinate per tempo di inizio (`0 < s_1 <= s_2 <= ... <= s_n`).
+  **(a)** Scrivere un algoritmo greedy iterativo che seleziona l'attività che **INIZIA PER ULTIMA**.
+  **(b)** Determinare l'insieme di attività restituito sul seguente insieme di 6 attività: `s = (1, 2, 3, 5, 7, 10)`, `f = (3, 9, 10, 7, 11, 12)`.
+  **(c)** Dimostrare la proprietà di scelta greedy (dimostrazione per scambio).
+
+#### 1. Pseudocodice Iterativo
+```plaintext
+GREEDY_ACTIVITY_SELECTOR_INIZIO(s, f, n):
+    act = { a_n }        // Selezioniamo l'attività a_n (quella con tempo di inizio massimo s_n)
+    lastinit = s[n]
+
+    for i = n - 1 down to 1:
+        if f[i] <= lastinit:
+            act = act U { a_i }
+            lastinit = s[i]
+
+    return act
+```
+
+#### 2. Esecuzione a Mano sulle 6 Attività Date
+* `a_6` `[10, 12]` ➔ Selezionata! Insieme `{ a_6 }`, `lastinit = 10`.
+* `a_5` `[7, 11]` ➔ `f_5 = 11 > 10` (Sovrapposta) ➔ Scartata.
+* `a_4` `[5, 7]` ➔ `f_4 = 7 <= 10` (Compatibile) ➔ Selezionata! Insieme `{ a_6, a_4 }`, `lastinit = 5`.
+* `a_3` `[3, 10]` ➔ `f_3 = 10 > 5` (Sovrapposta) ➔ Scartata.
+* `a_2` `[2, 9]` ➔ `f_2 = 9 > 5` (Sovrapposta) ➔ Scartata.
+* `a_1` `[1, 3]` ➔ `f_1 = 3 <= 5` (Compatibile) ➔ Selezionata! Insieme `{ a_6, a_4, a_1 }`.
+
+Risultato restituito: **`{ a_1, a_4, a_6 }`** (con tempi di inizio `1, 5, 10`).
+
+#### 3. Dimostrazione della Scelta Greedy (Per Scambio)
+* **Ipotesi**: Sia `T` una soluzione ottima qualsiasi per il problema di selezione attività.
+* **Caso 1**: Se `a_n` appartiene a `T`, la tesi è verificata.
+* **Caso 2**: Se `a_n` non appartiene a `T`, sia `a_k` l'attività in `T` con tempo di inizio massimo tra quelle in `T`. Poiché `a_n` è l'attività con tempo di inizio massimo in assoluto tra tutte le `n` attività, vale `s_n >= s_k`.
+* **Costruzione**: Definiamo `T' = (T \ {a_k}) U {a_n}`. Poiché `s_n >= s_k`, l'attività `a_n` inizia contemporaneamente o dopo `a_k`, quindi non può sovrapporsi a nessuna attività in `T` che termina prima di `s_k`.
+* **Conclusione**: `T'` è formato da attività tutte compatibili e ha cardinalità `|T'| = |T|`. Quindi anche `T'` è una soluzione ottima contenente la scelta greedy `a_n`. Q.E.D.
+
 #### 4. Complessità
-* **Tempo**: Il primo ciclo `i` va da 2 a `n`, e il ciclo interno `j` compie `i - 1` passi. Il numero totale di confronti è `sum_{i=2}^{n} (i - 1) = n * (n - 1) / 2`. Tempo **Theta(n^2)**.
-* **Spazio**: Si utilizza solo l'array monodimensionale `L` di dimensione `n`. Spazio ausiliario **Theta(n)**.
+* **Tempo**: Poiché i tempi di inizio sono già ordinati, il ciclo compie `n-1` passi di costo O(1) ➔ **Theta(n)**.
+* **Spazio**: Spazio ausiliario **Theta(1)**.
 
+---
 
+### 📝 Es D.7: Greedy Scheduling Programmi (Minimizzazione Σ C_j)
+* **Fonte**: Appello 18 Giugno 2025, Esercizio 2
+* **Problema**: 
+  Dati `n` programmi di lunghezza `l_j`, trovare un ordine di esecuzione `sigma` che minimizzi la somma dei tempi di completamento `sum_{j=1}^{n} C_j`.
+  **(a)** Progettare un algoritmo greedy iterativo.
+  **(b)** Valutare la complessità in tempo e spazio.
+  **(c)** Eseguire l'algoritmo a mano su `n = 4` con lunghezze `l = (4, 1, 3, 2)`.
 
+#### 1. Pseudocodice (Scelta Greedy: Shortest Processing Time - SPT)
+```plaintext
+GREEDY_SCHEDULING_PROGRAMMI(l, n):
+    // 1. Scelta Greedy: Ordinare i programmi per lunghezza crescente l_j
+    Ordina l in senso crescente in modo che l[1] <= l[2] <= ... <= l[n]
 
+    // 2. Calcolo dei tempi di completamento C[i] e della somma totale
+    total_sum = 0
+    current_time = 0
 
+    for i = 1 to n:
+        current_time = current_time + l[i]
+        total_sum = total_sum + current_time
 
+    return total_sum
+```
 
+#### 2. Esecuzione a Mano su l = (4, 1, 3, 2)
+1. **Ordinamento crescente**: `l' = (1, 2, 3, 4)`
+2. **Tempi di completamento singoli `C_i`**:
+   - `C_1 = 1`
+   - `C_2 = 1 + 2 = 3`
+   - `C_3 = 1 + 2 + 3 = 6`
+   - `C_4 = 1 + 2 + 3 + 4 = 10`
+   - Vettore tempi di completamento: `[1, 3, 6, 10]`
+3. **Somma totale dei tempi di completamento**: `Sum C_j = 1 + 3 + 6 + 10 = 20`.
 
+#### 3. Complessità
+* **Tempo**: Ordinare `n` lunghezze richiede tempo **Theta(n log n)** (es. con MergeSort o HeapSort). Il ciclo di calcolo della somma richiede tempo **Theta(n)**. Tempo totale: **Theta(n log n)**.
+* **Spazio**: Spazio ausiliario **Theta(1)** in-place o **Theta(n)**.
+
+---
 
