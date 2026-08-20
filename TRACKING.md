@@ -33,7 +33,7 @@
 | **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 10 / 10 |
 | **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.1 guidato) | 0 / 10 |
 | **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | ✅ Completato | 10 / 10 |
-| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso (Es D.7 completato) | 7 / 11 |
+| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso (Es D.8 completato) | 8 / 11 |
 
 ### Liste Dettagliate Esercizi
 
@@ -68,7 +68,7 @@
 - [x] **Es C.4 (A)**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
 - [x] **Es C.5 (A)**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
 - [x] **Es C.6 (A)**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
-- [x] **Es C.7 (A)**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
+- [x] **Es C.7 (A)**: SortJoin(A,B,n) di two max-heap (Appello 07/02/2025)
 - [x] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
 - [x] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
 - [x] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
@@ -81,7 +81,7 @@
 - [x] **Es D.5 (A)**: Algoritmo bottom-up per ricorrenza due stringhe ℓ(i, j) (Appello 24/01/2025)
 - [x] **Es D.6 (A)**: Greedy Selezione Attività con inizio per ultimo (Appello 07/02/2025)
 - [x] **Es D.7 (A)**: Greedy Scheduling Programmi sum C_j (Appello 18/06/2025)
-- [ ] **Es D.8 (A)**: DP Memoizzata Ricorrenza M(i,j) con 3 prodotti (Appello 10/09/2025)
+- [x] **Es D.8 (A)**: DP Memoizzata Ricorrenza M(i,j) con 3 prodotti (Appello 10/09/2025)
 - [ ] **Es D.9 (A)**: Greedy Caricamento File Cloud capacità limitata c (Appello 20/01/2026)
 - [ ] **Es D.10 (A)**: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria (Appello 04/07/2025)
 - [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D)

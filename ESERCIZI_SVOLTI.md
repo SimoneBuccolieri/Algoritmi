@@ -1242,3 +1242,57 @@ GREEDY_SCHEDULING_PROGRAMMI(l, n):
 
 ---
 
+### 📝 Es D.8: DP Memoizzata Ricorrenza Matriciale M(i, j) con 3 Prodotti
+* **Fonte**: Appello 10 Settembre 2025, Esercizio 2
+* **Problema**: 
+  Sia `n > 0` un intero. Si consideri la quantità `M(i, j)` definita per `1 <= i <= j <= n`:
+  - `M(i, j) = 1` se `i = j`
+  - `M(i, j) = 2` se `j = i + 1`
+  - `M(i, j) = M(i + 1, j - 1) * M(i + 1, j) * M(i, j - 1)` se `j > i + 1`
+
+  **(a)** Scrivere la coppia di algoritmi `INIT_M(n)` e `REC_M(M, i, j)` per il calcolo memoizzato di `M(1, n)`.
+  **(b)** Calcolare il numero esatto `T(n)` di moltiplicazioni tra interi eseguite per il calcolo di `M(1, n)`.
+
+#### 1. Pseudocodice Memoizzato (Top-Down)
+```plaintext
+INIT_M(n):
+    Sia M una matrice di dimensione (n + 1) x (n + 1)
+    for i = 1 to n:
+        for j = 1 to n:
+            M[i][j] = NIL
+
+    return REC_M(M, 1, n)
+
+REC_M(M, i, j):
+    // 1. Controllo della memoria (Memoization Hit)
+    if M[i][j] != NIL:
+        return M[i][j]
+
+    // 2. Calcolo nei 3 rami della ricorrenza con salvataggio in M[i][j]
+    if i == j:
+        M[i][j] = 1
+    else if j == i + 1:
+        M[i][j] = 2
+    else:
+        // Caso j > i + 1: tre chiamate ricorsive e 2 moltiplicazioni
+        M[i][j] = REC_M(M, i + 1, j - 1) * REC_M(M, i + 1, j) * REC_M(M, i, j - 1)
+
+    // 3. Ritorno del valore memorizzato
+    return M[i][j]
+```
+
+#### 2. Complessità Esatta e Conteggio Moltiplicazioni (Punto b)
+* **Conteggio Esatto delle Moltiplicazioni**:
+  * La regione triangolare superiore contiene in totale `n(n+1)/2` celle distinte.
+  * Le celle dei casi base non compiono alcuna moltiplicazione:
+    * `i == j`: `n` celle.
+    * `j == i + 1`: `n - 1` celle.
+    * Totale celle casi base: `n + (n - 1) = 2n - 1` celle.
+  * Le celle del caso ricorsivo `j > i + 1` sono: `n(n+1)/2 - (2n - 1) = (n - 1)(n - 2) / 2` celle.
+  * Per calcolare il prodotto di 3 termini `a * b * c`, si eseguono **2 moltiplicazioni per cella ricorsiva**.
+  * Numero esatto di moltiplicazioni: `T(n) = 2 * [ (n - 1)(n - 2) / 2 ] = (n - 1)(n - 2) = n^2 - 3n + 2`.
+* **Complessità Temporale Esatta**: **`n^2 - 3n + 2` moltiplicazioni** ➔ **Theta(n^2)**.
+* **Spazio Ausiliario**: Matrice `M` di dimensione `(n+1) x (n+1)` ➔ **Theta(n^2)**.
+
+---
+
