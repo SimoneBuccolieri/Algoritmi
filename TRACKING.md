@@ -30,14 +30,14 @@
 
 | Gruppo | Descrizione | Stato / Esercizi Guidati (G) e Autonomi (A) | Progresso |
 |---|---|---|---|
-| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 10 / 10 |
-| **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.1 guidato) | 0 / 10 |
-| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | ✅ Completato | 10 / 10 |
-| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso (Es D.8 completato) | 8 / 11 |
+| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | 🔄 In corso | 10 / 13 |
+| **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.10 completato) | 10 / 13 |
+| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso | 10 / 13 |
+| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso | 10 / 13 |
 
 ### Liste Dettagliate Esercizi
 
-#### Gruppo A: Domande A (Ricorrenze e Asintotici)
+#### Gruppo A: Domande A (Ricorrenze e Teoria Asintotica)
 - [x] **Es A.1 (G)**: Ord(A,p,r) ricorrenza & MT (Appello 31/01/2024)
 - [x] **Es A.2 (G)**: Limite asintotico stretto per T(n) = 2T(n/5) + T(n/2) + n (Appello 14/02/2024)
 - [x] **Es A.3 (G)**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
@@ -48,18 +48,24 @@
 - [x] **Es A.8 (A)**: Relazioni asintotiche O e Omega (Appello 18/06/2025)
 - [x] **Es A.9 (A)**: Dimostrazione proprietà Omega(n^2) (Appello 10/09/2025)
 - [x] **Es A.10 (A)**: Ordinamento asintotico di funzioni (Appello 20/01/2026)
+- [ ] **Es A.11 (A)**: Ricorrenza albero 3 rami T(n) = T(n/4) + T(n/2) + T(n/4) + n (Appello 04/07/2025)
+- [ ] **Es A.12 (A)**: Risoluzione per sostituzione T(n) = T(n-1) + 2n (Appello 16/06/2023)
+- [ ] **Es A.13 (A)**: Master Theorem tre casi e condizioni di regolarità (Appello 15/07/2023)
 
 #### Gruppo B: Domande B (Heap, BST base, Huffman, Hash)
-- [ ] **Es B.1 (G)**: Tabella hash chaining m=8 (Appello 31/01/2024)
-- [ ] **Es B.2 (G)**: Codice Huffman alfabeto e frequenze (Appello 14/02/2024)
-- [ ] **Es B.3 (G)**: BuildMaxHeap su array [7, 1, 17, 0, 5, 4, 22] (Appello 18/06/2024)
-- [ ] **Es B.4 (A)**: Ricorrenza lunghezze LCS (Appello 02/07/2024)
-- [ ] **Es B.5 (A)**: Inserimenti successivi in max-heap e rimozione (Appello 19/09/2024)
-- [ ] **Es B.6 (A)**: Algoritmo ottimo GREEDY-SEL teoria (Appello 24/01/2025)
-- [ ] **Es B.7 (A)**: Tabella hash indirizzamento aperto doppio hash (Appello 07/02/2025)
-- [ ] **Es B.8 (A)**: Codice Huffman alfabeto e frequenze (Appello 18/06/2025)
-- [ ] **Es B.9 (A)**: Codice Huffman alphabet frequencies (Appello 10/09/2025)
-- [ ] **Es B.10 (A)**: Max-heap BuildMaxHeap passi intermedi (Appello 20/01/2026)
+- [x] **Es B.1 (G)**: Tabella hash chaining m=8 (Appello 31/01/2024)
+- [x] **Es B.2 (G)**: Codice Huffman alfabeto e frequenze (Appello 14/02/2024)
+- [x] **Es B.3 (G)**: BuildMaxHeap su array [7, 1, 17, 0, 5, 4, 22] (Appello 18/06/2024)
+- [x] **Es B.4 (A)**: Ricorrenza lunghezze LCS (Appello 02/07/2024)
+- [x] **Es B.5 (A)**: Tabella hash indirizzamento aperto doppio hash (Appello 07/02/2025)
+- [x] **Es B.6 (A)**: Codice Huffman alfabeto e frequenze (Appello 18/06/2025)
+- [x] **Es B.7 (A)**: Inserimenti successivi in max-heap e rimozione ExtractMax (Appello 19/09/2024)
+- [x] **Es B.8 (A)**: Teoria GREEDY-SEL e controesempio algoritmo non ottimo (Appello 24/01/2025)
+- [x] **Es B.9 (A)**: BST Inserimenti 10,5,3,15,7,12 e Cancellazione nodo 5 (Appello 04/07/2025)
+- [x] **Es B.10 (A)**: Tabella hash indirizzamento aperto ispezione lineare e marcatura DELETED (Appello 16/06/2023)
+- [ ] **Es B.11 (A)**: Max-heap BuildMaxHeap su array [5, 12, 8, 15, 3, 9, 20] (Appello 20/01/2026)
+- [ ] **Es B.12 (A)**: Tabella hash indirizzamento aperto ispezione lineare (Appello 16/06/2023)
+- [ ] **Es B.13 (A)**: Min-heap vs Max-heap e Coda con Priorità (Appello 15/07/2023)
 
 #### Gruppo C: Esercizi 1 (Divide et Impera, Alberi/BST)
 - [x] **Es C.1 (G)**: Prod(A,k) per A[i]*A[j] = k (Appello 31/01/2024)
@@ -68,10 +74,13 @@
 - [x] **Es C.4 (A)**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
 - [x] **Es C.5 (A)**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
 - [x] **Es C.6 (A)**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
-- [x] **Es C.7 (A)**: SortJoin(A,B,n) di two max-heap (Appello 07/02/2025)
+- [x] **Es C.7 (A)**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
 - [x] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
 - [x] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
 - [x] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
+- [ ] **Es C.11 (A)**: Indice Stabile stab(A,n) in array ordinato con Divide et Impera (Appello 04/07/2025)
+- [ ] **Es C.12 (A)**: Conta Inversioni inversions(A,n) mediante MergeSort (Appello 16/06/2023)
+- [ ] **Es C.13 (A)**: Verifica BST quasi-bilanciato isBalanced(T) (Appello 15/07/2023)
 
 #### Gruppo D: Esercizi 2 (Programmazione Dinamica e Greedy)
 - [x] **Es D.1 (G)**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
@@ -82,9 +91,11 @@
 - [x] **Es D.6 (A)**: Greedy Selezione Attività con inizio per ultimo (Appello 07/02/2025)
 - [x] **Es D.7 (A)**: Greedy Scheduling Programmi sum C_j (Appello 18/06/2025)
 - [x] **Es D.8 (A)**: DP Memoizzata Ricorrenza M(i,j) con 3 prodotti (Appello 10/09/2025)
-- [ ] **Es D.9 (A)**: Greedy Caricamento File Cloud capacità limitata c (Appello 20/01/2026)
-- [ ] **Es D.10 (A)**: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria (Appello 04/07/2025)
+- [x] **Es D.9 (A)**: Greedy Caricamento File Cloud capacità limitata c (Appello 20/01/2026)
+- [x] **Es D.10 (A)**: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria (Appello 04/07/2025)
 - [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D)
+- [ ] **Es D.12 (A)**: DP Zaino 0/1 con capacità W (Formulazione Matriciale V(i,w))
+- [ ] **Es D.13 (A)**: Matrix Chain Multiplication m[i,j] (Punti di taglio k)
 
 ---
 

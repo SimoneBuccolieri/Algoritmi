@@ -1296,3 +1296,397 @@ REC_M(M, i, j):
 
 ---
 
+### 📝 Es D.9: Greedy Caricamento File Cloud (Capacità Limitata c)
+* **Fonte**: Appello 20 Gennaio 2026, Esercizio 2
+* **Problema**: 
+  Siano dati `n` file di dimensioni `d_1, ..., d_n` MB e una capacità massima del cloud `c` MB. Caricare il maggior numero possibile di file senza eccedere `c`.
+  **(a)** Progettare un algoritmo greedy e valutarne la complessità.
+  **(b)** Dimostrare la proprietà di scelta greedy (dimostrazione per scambio).
+
+#### 1. Pseudocodice (Shortest File First)
+```plaintext
+GREEDY_CLOUD_STORAGE(F, d, c, n):
+    Ordina i file in F in base a d in ordine crescente (d[1] <= d[2] <= ... <= d[n])
+
+    file_caricati = {}
+    current_size = 0
+
+    for i = 1 to n:
+        if current_size + d[i] <= c:
+            file_caricati = file_caricati U { f_i }
+            current_size = current_size + d[i]
+        else:
+            break
+
+    return file_caricati
+```
+
+#### 2. Dimostrazione della Scelta Greedy (Per Scambio)
+* **Tesi**: Esiste una soluzione ottima `S` che contiene il file di dimensione minima `f_1` (`d_1 <= d_j` per ogni `j`).
+* **Dimostrazione**: Sia `T` una soluzione ottima qualsiasi per il caricamento file.
+  * **Caso 1**: Se `f_1` appartiene a `T`, la tesi è verificata.
+  * **Caso 2**: Se `f_1` non appartiene a `T`, sia `f_k` un qualsiasi file in `T`. Poiché `f_1` è il file di dimensione minima in assoluto, vale `d_1 <= d_k`.
+  * **Scambio**: Sostituiamo `f_k` con `f_1`: `T' = (T \ {f_k}) U {f_1}`.
+  * **Ammissibilità**: `size(T') = size(T) - d_k + d_1 <= size(T) <= c`. Quindi `T'` rispetta il limite `c`.
+  * **Conclusione**: Poiché `|T'| = |T|`, anche `T'` è una soluzione ottima contenente `f_1`. Q.E.D.
+
+#### 3. Complessità
+* **Tempo**: **Theta(n log n)** per l'ordinamento (es. MergeSort/HeapSort) + **O(n)** per il ciclo.
+* **Spazio**: **Theta(1)** in-place o **Theta(n)**.
+
+---
+
+### 📝 Es D.10: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria
+* **Fonte**: Appello 4 Luglio 2025, Esercizio 2
+* **Problema**: 
+  Data una stringa `X = <x_1, ..., x_n>`, si consideri `ℓ(i, j)` per `1 <= i <= j <= n`:
+  - `ℓ(i, j) = 1` se `i = j`
+  - `ℓ(i, j) = 2` se `i = j - 1`
+  - `ℓ(i, j) = 2 + ℓ(i + 1, j - 1)` se `i < j - 1` e `x_i == x_j`
+  - `ℓ(i, j) = sum_{k=i}^{j-1} ( ℓ(i, k) + ℓ(k + 1, j) )` se `i < j - 1` e `x_i != x_j`
+
+  **(a)** Scrivere `INIT_L(X)` e `REC_L(X, L, i, j)` per il calcolo memoizzato di `ℓ(1, n)`.
+  **(b)** Determinare la complessità al caso migliore `T_best(n)` per i confronti tra caratteri.
+
+#### 1. Pseudocodice Memoizzato (Top-Down)
+```plaintext
+INIT_L(X):
+    Sia L una matrice di dimensione (n + 1) x (n + 1)
+    for i = 1 to n:
+        for j = 1 to n:
+            L[i][j] = NIL
+
+    return REC_L(X, L, 1, n)
+
+REC_L(X, L, i, j):
+    if L[i][j] != NIL:
+        return L[i][j]
+
+    if i == j:
+        L[i][j] = 1
+    else if i == j - 1:
+        L[i][j] = 2
+    else if X[i] == X[j]:
+        L[i][j] = 2 + REC_L(X, L, i + 1, j - 1)
+    else:
+        sum_val = 0
+        for k = i to j - 1:
+            sum_val = sum_val + REC_L(X, L, i, k) + REC_L(X, L, k + 1, j)
+        L[i][j] = sum_val
+
+    return L[i][j]
+```
+
+#### 2. Complessità al Caso Migliore T_best(n) (Punto b)
+* **Condizione di Caso Migliore**: Tutti i caratteri di `X` sono uguali (es. `X = "aaaaa"`). Il controllo `X[i] == X[j]` è sempre vero per `i < j - 1`, perciò non si entra mai nel ciclo `for k`.
+* **Conteggio Esatto dei Confronti**: Viene eseguito 1 confronto `X[i] == X[j]` per ogni cella `(i, j)` con `i < j - 1`. Le celle con `i < j - 1` sono `n(n+1)/2 - (2n - 1) = (n - 1)(n - 2) / 2`.
+* **Complessità Temporale Caso Migliore**: **`(n - 1)(n - 2) / 2` confronti** ➔ **Theta(n^2)**.
+* **Spazio Ausiliario**: Matrice `L` di dimensione `(n+1) x (n+1)` ➔ **Theta(n^2)**.
+
+---
+
+## 📂 Gruppo B: Domande B (Heap, BST base, Huffman, Hash)
+
+### 📝 Es B.1: Tabella Hash con Chaining (Liste di Trabocco) m = 8
+* **Fonte**: Appello 31 Gennaio 2024, Domanda B
+* **Problema**: 
+  Si consideri una tabella hash di dimensione `m = 8`, gestita mediante chaining (liste di trabocco) con funzione di hash `h(k) = k mod m`. 
+  Descrivere in dettaglio come avviene l'inserimento della sequenza di chiavi: `13, 10, 33, 21, 8, 26`.
+
+#### 1. Calcoli Passo-Passo della Funzione Hash
+* `k = 13` ➔ `h(13) = 13 mod 8 = 5` ➔ Inserito nello slot `5` (Lista: `[13]`).
+* `k = 10` ➔ `h(10) = 10 mod 8 = 2` ➔ Inserito nello slot `2` (Lista: `[10]`).
+* `k = 33` ➔ `h(33) = 33 mod 8 = 1` ➔ Inserito nello slot `1` (Lista: `[33]`).
+* `k = 21` ➔ `h(21) = 21 mod 8 = 5` ➔ Collisione nello slot `5`! Inserito in lista di trabocco.
+* `k = 8`  ➔ `h(8) = 8 mod 8 = 0` ➔ Inserito nello slot `0` (Lista: `[8]`).
+* `k = 26` ➔ `h(26) = 26 mod 8 = 2` ➔ Collisione nello slot `2`! Inserito in lista di trabocco.
+
+#### 2. Stato Finale della Tabella Hash T[0..7]
+- `T[0]`: `8`
+- `T[1]`: `33`
+- `T[2]`: `26 -> 10`
+- `T[3]`: `NIL`
+- `T[4]`: `NIL`
+- `T[5]`: `21 -> 13`
+- `T[6]`: `NIL`
+- `T[7]`: `NIL`
+
+#### 3. Complessità
+* **Inserimento in Chaining**: Tempo **Theta(1)** per ciascun inserimento.
+* **Ricerca (Caso Medio)**: Tempo **Theta(1 + alpha)** dove `alpha = n / m` è il fattore di carico della tabella.
+
+---
+
+### 📝 Es B.2: Codice di Huffman per Alfabeto e Frequenze
+* **Fonte**: Appello 14 Febbraio 2024, Domanda B
+* **Problema**: 
+  Indicare, in forma di albero binario, il codice prefisso ottenuto tramite l'algoritmo di Huffman per l'alfabeto `{a, b, c, d, e, f}` con frequenze `a:11, b:6, c:13, d:35, e:10, f:25`. Spiegare brevemente il processo di costruzione.
+
+#### 1. Passi dell'Algoritmo di Huffman (Estrazione dei 2 Minimi)
+* **Insieme Iniziale**: `{b:6, e:10, a:11, c:13, f:25, d:35}`
+* **Passo 1**: Unione dei due minimi `b(6)` ed `e(10)` ➔ Nodo `z1` con frequenza `16`.
+  * Nodi rimasti: `{a:11, c:13, z1:16, f:25, d:35}`
+* **Passo 2**: Unione dei due minimi `a(11)` e `c(13)` ➔ Nodo `z2` con frequenza `24`.
+  * Nodi rimasti: `{z1:16, z2:24, f:25, d:35}`
+* **Passo 3**: Unione dei due minimi `z1(16)` e `z2(24)` ➔ Nodo `z3` con frequenza `40`.
+  * Nodi rimasti: `{f:25, d:35, z3:40}`
+* **Passo 4**: Unione dei due minimi `f(25)` e `d(35)` ➔ Nodo `z4` con frequenza `60`.
+  * Nodi rimasti: `{z3:40, z4:60}`
+* **Passo 5**: Unione degli ultimi due nodi `z3(40)` e `z4(60)` ➔ **Radice dell'Albero (Frequenza Totale 100)**.
+
+#### 2. Codici Prefissi Risultanti (Ramo Sinistro 0, Ramo Destro 1)
+- `d` (freq 35): **`11`** (2 bit)
+- `f` (freq 25): **`10`** (2 bit)
+- `b` (freq 6): **`000`** (3 bit)
+- `e` (freq 10): **`001`** (3 bit)
+- `a` (freq 11): **`010`** (3 bit)
+- `c` (freq 13): **`011`** (3 bit)
+
+#### 3. Complessità
+* **Tempo**: **Theta(n log n)** utilizzando un Min-Heap per estrarre `n-1` volte i due nodi di frequenza minima.
+* **Spazio**: **Theta(n)** per l'albero di codifica.
+
+---
+
+### 📝 Es B.3: Procedura BuildMaxHeap e Passi Intermedi
+* **Fonte**: Appello 18 Giugno 2024, Domanda B
+* **Problema**: 
+  Dare la definizione di max-heap. Dato l'array `A = [7, 1, 17, 0, 5, 4, 22]`, specificare il max-heap ottenuto applicando `BuildMaxHeap` e descrivere sinteticamente i passi intermedi.
+
+#### 1. Definizione di Max-Heap
+Un **Max-Heap** è un albero binario quasi-completo (ovvero completamente riempito a tutti i livelli tranne eventualmente l'ultimo, che è riempito da sinistra a destra) memorizzato su array, in cui per ogni nodo `i` vale la proprietà `A[PARENT(i)] >= A[i]`.
+
+#### 2. Passi Intermedi di BuildMaxHeap su A = [7, 1, 17, 0, 5, 4, 22] (n = 7)
+Si parte dal primo nodo non-foglia `i = floor(n / 2) = floor(7 / 2) = 3`:
+
+* **Passo 1 (`i = 3`, nodo `A[3] = 17`)**:
+  * Figli: `A[6] = 4`, `A[7] = 22`.
+  * `22 > 17` ➔ Scambio `17` e `22`.
+  * Array: `[7, 1, 22, 0, 5, 4, 17]`
+* **Passo 2 (`i = 2`, nodo `A[2] = 1`)**:
+  * Figli: `A[4] = 0`, `A[5] = 5`.
+  * `5 > 1` ➔ Scambio `1` e `5`.
+  * Array: `[7, 5, 22, 0, 1, 4, 17]`
+* **Passo 3 (`i = 1`, nodo `A[1] = 7` - Radice)**:
+  * Figli: `A[2] = 5`, `A[3] = 22`.
+  * `22 > 7` ➔ Scambio `7` e `22`. Array: `[22, 5, 7, 0, 1, 4, 17]`
+  * `MaxHeapify` ricorsivo su `A[3] = 7`: figli `A[6] = 4`, `A[7] = 17`.
+  * `17 > 7` ➔ Scambio `7` e `17`.
+  * Array finale: **`[22, 5, 17, 0, 1, 4, 7]`**
+
+#### 3. Complessità
+* **Tempo**: **Theta(n)** in quanto la somma delle altezze dei sottoalberi converge a un valore lineare.
+* **Spazio**: **Theta(1)** ausiliario (operazione eseguita in-place).
+
+---
+
+### 📝 Es B.4: Equazione di Ricorrenza per LCS (Longest Common Subsequence)
+* **Fonte**: Appello 2 Luglio 2024, Domanda B
+* **Problema**: 
+  Date due stringhe `X = <x_1, ..., x_m>` e `Y = <y_1, ..., y_n>`, scrivere la relazione di ricorrenza `c(i, j)` per il calcolo della lunghezza della Longest Common Subsequence.
+
+#### 1. Relazione di Ricorrenza
+- `c(i, j) = 0` se `i = 0` oppure `j = 0` (caso base)
+- `c(i, j) = 1 + c(i-1, j-1)` se `i, j > 0` e `x_i == y_j` (caso match)
+- `c(i, j) = max(c(i-1, j), c(i, j-1))` se `i, j > 0` e `x_i != y_j` (caso mismatch)
+
+#### 2. Spiegazione Logica
+* Se uno dei due prefissi è vuoto (`i=0` o `j=0`), la sottosequenza comune ha lunghezza 0.
+* Se i caratteri correnti `x_i` e `y_j` coincidono, essi allungano di 1 la LCS dei prefissi precedenti `X[1..i-1]` e `Y[1..j-1]`.
+* Se i caratteri differiscono, si sceglie il massimo tra scartare `x_i` (`c(i-1, j)`) oppure scartare `y_j` (`c(i, j-1)`).
+
+---
+
+### 📝 Es B.5: Tabella Hash Indirizzamento Aperto con Doppio Hash m = 7
+* **Fonte**: Appello 7 Febbraio 2025, Domanda B
+* **Problema**: 
+  Si consideri una tabella hash di dimensione `m = 7` a indirizzamento aperto con doppio hash basato su `h1(k) = k mod 7` e `h2(k) = 1 + (k mod 5)`. 
+  Funzione di ispezione: `h(k, i) = (h1(k) + i * h2(k)) mod 7`. 
+  Descrivere l'inserimento della sequenza di chiavi `10, 20, 34, 35, 48`.
+
+#### 1. Passi degli Inserimenti e Ispezioni
+* **`k = 10`**: `h1(10) = 10 mod 7 = 3` ➔ Slot `3` libero ➔ Inserito in `T[3]`.
+* **`k = 20`**: `h1(20) = 20 mod 7 = 6` ➔ Slot `6` libero ➔ Inserito in `T[6]`.
+* **`k = 34`**: `h1(34) = 6` (Collisione con 20!). `h2(34) = 1 + (34 mod 5) = 5`.
+  * `i = 1`: `(6 + 1 * 5) mod 7 = 11 mod 7 = 4` ➔ Slot `4` libero ➔ Inserito in `T[4]`.
+* **`k = 35`**: `h1(35) = 35 mod 7 = 0` ➔ Slot `0` libero ➔ Inserito in `T[0]`.
+* **`k = 48`**: `h1(48) = 6` (Collisione con 20!). `h2(48) = 1 + (48 mod 5) = 4`.
+  * `i = 1`: `(6 + 4) mod 7 = 3` (Occupato da 10)
+  * `i = 2`: `(6 + 8) mod 7 = 0` (Occupato da 35)
+  * `i = 3`: `(6 + 12) mod 7 = 4` (Occupato da 34)
+  * `i = 4`: `(6 + 16) mod 7 = 1` ➔ Slot `1` libero ➔ Inserito in `T[1]`.
+
+#### 2. Stato Finale della Tabella T[0..6]
+- `T[0]`: `35`
+- `T[1]`: `48`
+- `T[2]`: `NIL`
+- `T[3]`: `10`
+- `T[4]`: `34`
+- `T[5]`: `NIL`
+- `T[6]`: `20`
+
+#### 3. Complessità
+* **Inserimento con Doppio Hash**: Caso medio `O(1 / (1 - alpha))` tentativi dove `alpha = n / m`.
+* **Vantaggio del Doppio Hashing**: Elimina il problema dell'agglomerazione secondaria.
+
+---
+
+### 📝 Es B.6: Codice di Huffman per Alfabeto e Frequenze
+* **Fonte**: Appello 18 Giugno 2025, Domanda B
+* **Problema**: 
+  Indicare il codice prefisso ottenuto tramite Huffman per l'alfabeto `{a, b, c, d, e, f}` con frequenze `a:12, b:7, c:14, d:30, e:10, f:27`.
+
+#### 1. Passi dell'Algoritmo di Huffman (Estrazione dei 2 Minimi)
+* **Insieme Iniziale**: `{b:7, e:10, a:12, c:14, f:27, d:30}`
+* **Passo 1**: Unione dei minimi `b(7)` ed `e(10)` ➔ Nodo `z1` (freq `17`).
+* **Passo 2**: Unione dei minimi `a(12)` e `c(14)` ➔ Nodo `z2` (freq `26`).
+* **Passo 3**: Unione dei minimi `z1(17)` e `z2(26)` ➔ Nodo `z3` (freq `43`).
+* **Passo 4**: Unione dei minimi `f(27)` e `d(30)` ➔ Nodo `z4` (freq `57`).
+* **Passo 5**: Unione degli ultimi nodi `z3(43)` e `z4(57)` ➔ **Radice Totale (100)**.
+
+#### 2. Codici Prefissi Risultanti (Sinistra 0, Destra 1)
+- `d` (freq 30): **`00`** (2 bit)
+- `f` (freq 27): **`01`** (2 bit)
+- `b` (freq 7):  **`100`** (3 bit)
+- `e` (freq 10): **`101`** (3 bit)
+- `a` (freq 12): **`110`** (3 bit)
+- `c` (freq 14): **`111`** (3 bit)
+
+#### 3. Complessità
+* **Tempo**: **Theta(n log n)** utilizzando un Min-Heap per estrarre `n-1` volte i nodi a frequenza minima.
+* **Spazio**: **Theta(n)** per l'albero di codifica.
+
+---
+
+### 📝 Es B.7: Inserimenti Successivi ed ExtractMax su Max-Heap
+* **Fonte**: Appello 19 Settembre 2024, Domanda B
+* **Problema**: 
+  1. Dare la definizione di Max-Heap.
+  2. Inserire una alla volta le chiavi `17, 19, 22, 15, 20, 25` in un max-heap inizialmente vuoto.
+  3. Eseguire l'operazione `ExtractMax` e mostrare lo heap risultante.
+
+#### 1. Inserimenti Successivi Passo-Passo (Heapify-Up)
+* Inserisco `17` ➔ `[17]`
+* Inserisco `19` ➔ `[17, 19]` ➔ Scambio con padre ➔ `[19, 17]`
+* Inserisco `22` ➔ `[19, 17, 22]` ➔ Scambio con padre ➔ `[22, 17, 19]`
+* Inserisco `15` ➔ `[22, 17, 19, 15]` ➔ OK (`17 > 15`)
+* Inserisco `20` ➔ `[22, 17, 19, 15, 20]` ➔ Scambio con padre `17` ➔ `[22, 20, 19, 15, 17]`
+* Inserisco `25` ➔ `[22, 20, 19, 15, 17, 25]` ➔ Scambio con padre `19` ➔ Scambio con radice `22` ➔ **`[25, 20, 22, 15, 17, 19]`**
+
+#### 2. Operazione ExtractMax
+* **Passo A**: Salviamo il massimo `25` e lo sostituiamo con l'ultimo elemento `19`. Riduciamo la dimensione dell'heap a 5. Array temporaneo: `[19, 20, 22, 15, 17]`.
+* **Passo B**: Eseguiamo **`MaxHeapify(A, 1)`** alla radice per ripristinare la proprietà dell'heap:
+  * Figli di `19`: `A[2] = 20` e `A[3] = 22`.
+  * Il figlio più grande è `22`. Scambiamo `19` e `22`.
+* **Array Finale**: **`[22, 20, 19, 15, 17]`**
+
+#### 3. Complessità
+* **Inserimento `HeapInsert`**: Tempo **O(log n)** per ciascuna chiave.
+* **Estrazione `ExtractMax`**: Tempo **O(log n)** per l'esecuzione di `MaxHeapify`.
+* **Spazio**: **Theta(1)** ausiliario.
+
+---
+
+### 📝 Es B.8: Teoria Selezione Attività Greedy (GREEDY-SEL) e Controesempi
+* **Fonte**: Appello 24 Gennaio 2025, Domanda B
+* **Problema**: 
+  1. Definire il problema della selezione di attività compatibili.
+  2. Descrivere brevemente l'algoritmo ottimo `GREEDY-SEL`.
+  3. Fornire un esempio di scelta greedy NON ottima e dimostrarne la non-ottimalità tramite controesempio.
+
+#### 1. Definizione Formale del Problema
+* **Input**: Un insieme `S = {a_1, a_2, ..., a_n}` di `n` attività con tempi di inizio `s_i` e fine `f_i` (intervallo `[s_i, f_i)`).
+* **Compatibilità**: Due attività `a_i` e `a_j` sono compatibili se non si sovrappongono temporalmente (`s_i >= f_j` oppure `s_j >= f_i`).
+* **Obiettivo**: Trovare un sottoinsieme di `S` di **cardinalità massima** di attività mutualmente compatibili.
+
+#### 2. Algoritmo Ottimo GREEDY-SEL
+* Ordinare le attività per **tempo di fine crescente** (`f_1 <= f_2 <= ... <= f_n`).
+* Selezionare la prima attività `a_1`. Per ogni attività successiva `a_i`, selezionarla se il suo tempo di inizio `s_i` è `>=` al tempo di fine dell'ultima attività selezionata.
+* **Complessità**: Tempo **O(n log n)** per l'ordinamento + **O(n)** per la scansione greedy.
+
+#### 3. Esempio di Scelta Greedy NON Ottima (Scelta per Tempo di Inizio Crescente)
+* **Strategia Errata**: Selezionare l'attività con tempo di inizio `s_i` più piccolo.
+* **Controesempio**:
+  * `a_1 = (1, 10)`
+  * `a_2 = (2, 3)`
+  * `a_3 = (4, 5)`
+* **Risultato Greedy**: Seleziona `a_1 = (1, 10)` poiché ha inizio minimo `1`. Cardinalità = **1**.
+* **Soluzione Ottima**: Seleziona `{a_2, a_3}` poiché compatibili tra loro. Cardinalità = **2**.
+* **Conclusione**: Scegliere per tempo di inizio crescente non restituisce la soluzione ottima.
+
+---
+
+### 📝 Es B.9: Alberi Binari di Ricerca (BST) — Inserimenti e Cancellazione
+* **Fonte**: Appello 4 Luglio 2025, Domanda B
+* **Problema**: 
+  1. Dare la definizione di albero binario di ricerca (BST).
+  2. Inserire le chiavi `10, 5, 3, 15, 7, 12` a partire da albero vuoto.
+  3. Cancellare la chiave `5` dallo albero risultante.
+
+#### 1. Definizione di BST
+Un **Albero Binario di Ricerca (BST)** è un albero binario in cui per ogni nodo `x`:
+* Tutte le chiavi nel sottoalbero sinistro `left(x)` sono `<= x.key`.
+* Tutte le chiavi nel sottoalbero destro `right(x)` sono `>= x.key`.
+
+#### 2. Costruzione del BST per Inserimenti Successivi
+```
+       10
+     /    \
+    5      15
+   / \    /
+  3   7  12
+```
+
+#### 3. Cancellazione della Chiave `5` (Caso 3: Nodo con 2 Figli)
+Poiché il nodo `5` possiede 2 figli (`3` e `7`), la procedura `Tree-Delete` lo sostituisce con il suo **Successore in-order** (il minimo nel sottoalbero destro), che è `7`.
+* Il nodo `7` prende il posto di `5`.
+* Il figlio sinistro `3` rimane agganciato a `7`.
+
+Albero Risultante dopo la cancellazione di `5`:
+```
+       10
+     /    \
+    7      15
+   /      /
+  3      12
+```
+
+#### 4. I 3 Casi Generali della Cancellazione (`Tree-Delete`)
+1. **Caso 1 (Foglia - 0 figli)**: Si rimuove direttamente il nodo impostando a `NIL` il puntatore del padre.
+2. **Caso 2 (1 solo figlio)**: Il figlio unico scavalca il padre (il padre del nodo rimosso punta direttamente al nipote).
+3. **Caso 3 (2 figli)**: Si trova il **Successore in-order** `y` (minimo del sottoalbero destro), si sposta `y` al posto del nodo `z`, e si aggiornano i figli.
+
+#### 5. Complessità
+* **Inserimento `Tree-Insert`**: Tempo **O(h)** dove `h` è l'altezza dell'albero (**O(log n)** nel caso bilanciato, **O(n)** nel caso peggiore).
+* **Cancellazione `Tree-Delete`**: Tempo **O(h)** per la ricerca del successore.
+* **Spazio**: **Theta(n)** per l'albero.
+
+---
+
+### 📝 Es B.10: Tabella Hash Indirizzamento Aperto — Ispezione Lineare e DELETED
+* **Fonte**: Appello 16 Giugno 2023, Domanda B
+* **Problema**: 
+  1. Inserire la sequenza `22, 33, 11, 44, 12, 23` in una tabella hash di dimensione `m = 11` con ispezione lineare `h(k, i) = (k mod 11 + i) mod 11`.
+  2. Spiegare perché la cancellazione della chiave `33` richiede il valore `DELETED` anziché `NIL`.
+  3. Mostrare il comportamento della ricerca di `12` prima e dopo la cancellazione.
+
+#### 1. Inserimenti Passo-Passo
+* `k = 22`: `22 mod 11 = 0` ➔ Slot `0` libero ➔ Inserito in `T[0]`.
+* `k = 33`: `33 mod 11 = 0` (Occ) ➔ `i = 1`: `(0 + 1) mod 11 = 1` ➔ Inserito in `T[1]`.
+* `k = 11`: `11 mod 11 = 0` (Occ) ➔ `i = 1` (Occ) ➔ `i = 2` ➔ Inserito in `T[2]`.
+* `k = 44`: `44 mod 11 = 0` (Occ) ➔ `i = 1, 2` (Occ) ➔ `i = 3` ➔ Inserito in `T[3]`.
+* `k = 12`: `12 mod 11 = 1` (Occ da 33) ➔ `i = 1` (Occ da 11) ➔ `i = 2` (Occ da 44) ➔ `i = 3`: slot `4` libero ➔ Inserito in `T[4]`.
+* `k = 23`: `23 mod 11 = 1` (Occ da 33) ➔ ... ➔ slot `5` libero ➔ Inserito in `T[5]`.
+
+Stato Tabella `T[0..10]`:
+- `T[0] = 22`, `T[1] = 33`, `T[2] = 11`, `T[3] = 44`, `T[4] = 12`, `T[5] = 23`, `T[6..10] = NIL`.
+
+#### 2. Importanza della Marcatura DELETED
+* La ricerca nell'indirizzamento aperto si arresta quando trova la prima cella `NIL` (assumendo che la chiave non sia presente).
+* Se al posto di `33` mettessimo `NIL` in `T[1]`, la ricerca di `12` inizierebbe da `h1(12) = 1`, troverebbe `NIL` e **fallirebbe erroneamente**, ignorando che `12` si trova nello slot `4`.
+* Impostando `DELETED`, la ricerca riconosce lo slot rimosso e **continua l'ispezione** negli slot successivi fino a trovare `12` nello slot `4`.
+
+#### 3. Complessità
+* **Inserimento/Ricerca**: Tempo medio **O(1 / (1 - alpha))** con `alpha = n / m`.
+
+---
