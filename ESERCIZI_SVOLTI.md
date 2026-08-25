@@ -1686,7 +1686,47 @@ Stato Tabella `T[0..10]`:
 * Se al posto di `33` mettessimo `NIL` in `T[1]`, la ricerca di `12` inizierebbe da `h1(12) = 1`, troverebbe `NIL` e **fallirebbe erroneamente**, ignorando che `12` si trova nello slot `4`.
 * Impostando `DELETED`, la ricerca riconosce lo slot rimosso e **continua l'ispezione** negli slot successivi fino a trovare `12` nello slot `4`.
 
-#### 3. Complessità
-* **Inserimento/Ricerca**: Tempo medio **O(1 / (1 - alpha))** con `alpha = n / m`.
+---
+
+### 📝 Es A.5: Ricorrenza per Sostituzione — T(n) = T(n-1) + 3n
+* **Fonte**: Appello 19 Settembre 2024, Domanda A
+* **Problema**: Dimostrare mediante il Metodo per Sostituzione (Induzione) che T(n) = O(n^2) per la ricorrenza `T(n) = T(n-1) + 3n` con `T(1) = 1`.
+
+#### 1. Ipotesi Induttiva
+Assumiamo vera la tesi per la dimensione `n - 1`:
+`T(n - 1) <= c * (n - 1)^2`   per una costante `c > 0`.
+
+#### 2. Sostituzione nella Ricorrenza
+`T(n) = T(n - 1) + 3n`
+`T(n) <= c * (n - 1)^2 + 3n`
+
+#### 3. Sviluppo Algebrico del Quadrato
+`T(n) <= c * (n^2 - 2n + 1) + 3n`
+`T(n) <= c * n^2 - 2c * n + c + 3n`
+`T(n) <= c * n^2 - (2c - 3) * n + c`
+
+#### 4. Imposizione della Tesi T(n) <= c * n^2 e Calcolo di c
+Vogliamo che:
+`c * n^2 - (2c - 3) * n + c <= c * n^2`
+`==> - (2c - 3) * n + c <= 0`
+`==> c <= (2c - 3) * n`
+`==> c * (2n - 1) >= 3n`
+`==> c >= (3n) / (2n - 1)`
+
+Analizziamo il valore della funzione `f(n) = (3n) / (2n - 1)` per `n >= 1`:
+- Per `n = 1`: `3(1) / (2(1) - 1) = 3 / 1 = 3`.
+- Per `n = 2`: `6 / 3 = 2`.
+- Per `n = 3`: `9 / 5 = 1.8`.
+
+La funzione è decrescente per `n >= 1` ed il suo valore massimo si ottiene in `n = 1` ed è pari a `3`.
+Scegliendo **`c = 3`**, abbiamo che `3 >= (3n) / (2n - 1)` è verificata per ogni `n >= 1`.
+
+#### 5. Verifica Caso Base
+Per `n = 1`:
+`T(1) = 1 <= 3 * (1)^2 = 3` (Verificato!).
+
+#### 6. Conclusione
+Con `c = 3` e `n0 = 1`, abbiamo dimostrato per induzione su `n` che `T(n) <= 3 n^2` per ogni `n >= 1`.
+Pertanto: **`T(n) = O(n^2)`**. **Q.E.D.**
 
 ---
