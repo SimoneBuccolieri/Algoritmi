@@ -30,7 +30,7 @@
 
 | Gruppo | Descrizione | Stato / Esercizi Guidati (G) e Autonomi (A) | Progresso |
 |---|---|---|---|
-| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | 🔄 In corso | 10 / 13 |
+| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 13 / 13 |
 | **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.10 completato) | 10 / 13 |
 | **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso | 10 / 13 |
 | **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso | 10 / 13 |
@@ -48,9 +48,9 @@
 - [x] **Es A.8 (A)**: Relazioni asintotiche O e Omega (Appello 18/06/2025)
 - [x] **Es A.9 (A)**: Dimostrazione proprietà Omega(n^2) (Appello 10/09/2025)
 - [x] **Es A.10 (A)**: Ordinamento asintotico di funzioni (Appello 20/01/2026)
-- [ ] **Es A.11 (A)**: Ricorrenza albero 3 rami T(n) = T(n/4) + T(n/2) + T(n/4) + n (Appello 04/07/2025)
-- [ ] **Es A.12 (A)**: Risoluzione per sostituzione T(n) = T(n-1) + 2n (Appello 16/06/2023)
-- [ ] **Es A.13 (A)**: Master Theorem tre casi e condizioni di regolarità (Appello 15/07/2023)
+- [x] **Es A.11 (A)**: Ricorrenza albero asimmetrico T(n) = 2T(n/5) + T(n/2) + n (Appello 04/07/2025)
+- [x] **Es A.12 (A)**: Risoluzione per sostituzione T(n) = T(n-1) + 2n (Appello 16/06/2023)
+- [x] **Es A.13 (A)**: Master Theorem tre casi e condizioni di regolarità (Appello 15/07/2023)
 
 #### Gruppo B: Domande B (Heap, BST base, Huffman, Hash)
 - [x] **Es B.1 (G)**: Tabella hash chaining m=8 (Appello 31/01/2024)

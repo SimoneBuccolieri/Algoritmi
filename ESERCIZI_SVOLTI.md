@@ -1725,8 +1725,53 @@ Scegliendo **`c = 3`**, abbiamo che `3 >= (3n) / (2n - 1)` è verificata per ogn
 Per `n = 1`:
 `T(1) = 1 <= 3 * (1)^2 = 3` (Verificato!).
 
-#### 6. Conclusione
-Con `c = 3` e `n0 = 1`, abbiamo dimostrato per induzione su `n` che `T(n) <= 3 n^2` per ogni `n >= 1`.
-Pertanto: **`T(n) = O(n^2)`**. **Q.E.D.**
+---
+
+### 📝 Es A.11: Ricorrenza Albero Asimmetrico — T(n) = 2T(n/5) + T(n/2) + n
+* **Fonte**: Appello 04 Luglio 2025, Domanda A
+* **Problema**: Dimostrare il limite stretto Theta(n) per la ricorrenza asimmetrica `T(n) = 2 T(n/5) + T(n/2) + n`.
+
+#### 1. Somma delle Frazioni dei Rami
+`2 * (1/5) + (1/2) = (2/5) + (1/2) = 4/10 + 5/10 = 9/10 < 1`
+Poiché la somma delle frazioni è strettamente minore di 1, l'albero decresce geometricamente con ragione `r = 9/10`.
+
+#### 2. Dimostrazione per Sostituzione (T(n) <= c * n)
+`Ipotesi`: `T(k) <= c * k` per `k < n`.
+`T(n) <= 2 * c * (n/5) + c * (n/2) + n`
+`T(n) <= (2/5) c n + (1/2) c n + n`
+`T(n) <= (9/10) c n + n = [ (9/10) c + 1 ] * n`
+
+Imponiamo che sia `<= c * n`:
+`(9/10) c + 1 <= c ==> 1 <= (1/10) c ==> c >= 10`.
+
+Con `c = 10` e `n0 = 1`, abbiamo `T(n) <= 10 n`.
+Poiché il primo livello fa lavoro `n`, vale anche `T(n) = Omega(n)`.
+**Conclusione**: **`T(n) = Theta(n)`**. **Q.E.D.**
 
 ---
+
+### 📝 Es A.12: Risoluzione per Sostituzione — T(n) = T(n-1) + 2n
+* **Fonte**: Appello 16 Giugno 2023, Domanda A
+* **Problema**: Dimostrare per sostituzione che `T(n) = O(n^2)` per `T(n) = T(n-1) + 2n` con `T(1) = 1`.
+
+#### 1. Dimostrazione Induttiva
+- Ipotesi: `T(n-1) <= c * (n-1)^2`.
+- Sostituzione: `T(n) <= c * (n-1)^2 + 2n = c*n^2 - 2c*n + c + 2n = c*n^2 - (2c - 2)n + c`.
+- Imponiamo `<= c*n^2`: `- (2c - 2)n + c <= 0 ==> c <= (2c - 2)n ==> c >= (2n) / (2n - 1)`.
+- Per `n = 1`: `c >= 2`.
+- Caso Base: `T(1) = 1 <= 2 * 1 = 2` (Verificato!).
+**Conclusione**: **`T(n) = O(n^2)`** con `c = 2` e `n0 = 1`. **Q.E.D.**
+
+---
+
+### 📝 Es A.13: Teoria Master Theorem — I 3 Casi e Regolarità
+* **Fonte**: Appello 15 Luglio 2023, Domanda A
+* **Problema**: Spiegare i 3 casi del Master Theorem per `T(n) = a T(n/b) + f(n)` e la condizione di regolarità.
+
+#### 1. I 3 Casi del Master Theorem
+1. **Caso 1 (Foglie Dominano)**: Se `f(n) = O(n^(log_b a - epsilon))` per `epsilon > 0`, allora `T(n) = Theta(n^(log_b a))`.
+2. **Caso 2 (Bilanciato)**: Se `f(n) = Theta(n^(log_b a))`, allora `T(n) = Theta(n^(log_b a) * log n)`.
+3. **Caso 3 (Radice Domina)**: Se `f(n) = Omega(n^(log_b a + epsilon))` per `epsilon > 0` e vale la **Condizione di Regolarità** `a * f(n/b) <= c * f(n)` per `c < 1` ed `n` grande, allora `T(n) = Theta(f(n))`.
+
+---
+
