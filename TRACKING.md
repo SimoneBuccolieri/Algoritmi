@@ -31,8 +31,8 @@
 | Gruppo | Descrizione | Stato / Esercizi Guidati (G) e Autonomi (A) | Progresso |
 |---|---|---|---|
 | **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 13 / 13 |
-| **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | 🔄 In corso (Es B.10 completato) | 10 / 13 |
-| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso | 10 / 13 |
+| **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | ✅ Completato | 13 / 13 |
+| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.11 completato) | 11 / 13 |
 | **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso | 10 / 13 |
 
 ### Liste Dettagliate Esercizi
@@ -63,9 +63,9 @@
 - [x] **Es B.8 (A)**: Teoria GREEDY-SEL e controesempio algoritmo non ottimo (Appello 24/01/2025)
 - [x] **Es B.9 (A)**: BST Inserimenti 10,5,3,15,7,12 e Cancellazione nodo 5 (Appello 04/07/2025)
 - [x] **Es B.10 (A)**: Tabella hash indirizzamento aperto ispezione lineare e marcatura DELETED (Appello 16/06/2023)
-- [ ] **Es B.11 (A)**: Max-heap BuildMaxHeap su array [5, 12, 8, 15, 3, 9, 20] (Appello 20/01/2026)
-- [ ] **Es B.12 (A)**: Tabella hash indirizzamento aperto ispezione lineare (Appello 16/06/2023)
-- [ ] **Es B.13 (A)**: Min-heap vs Max-heap e Coda con Priorità (Appello 15/07/2023)
+- [x] **Es B.11 (A)**: Max-heap BuildMaxHeap su array [5, 12, 8, 15, 3, 9, 20] (Appello 20/01/2026)
+- [x] **Es B.12 (A)**: Tabella hash indirizzamento aperto ispezione lineare (Appello 16/06/2023)
+- [x] **Es B.13 (A)**: Min-heap vs Max-heap e Coda con Priorità (Appello 15/07/2023)
 
 #### Gruppo C: Esercizi 1 (Divide et Impera, Alberi/BST)
 - [x] **Es C.1 (G)**: Prod(A,k) per A[i]*A[j] = k (Appello 31/01/2024)
@@ -78,7 +78,7 @@
 - [x] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
 - [x] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
 - [x] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
-- [ ] **Es C.11 (A)**: Indice Stabile stab(A,n) in array ordinato con Divide et Impera (Appello 04/07/2025)
+- [x] **Es C.11 (A)**: Indice Stabile stab(A,n) in array ordinato con Divide et Impera (Appello 04/07/2025)
 - [ ] **Es C.12 (A)**: Conta Inversioni inversions(A,n) mediante MergeSort (Appello 16/06/2023)
 - [ ] **Es C.13 (A)**: Verifica BST quasi-bilanciato isBalanced(T) (Appello 15/07/2023)
 

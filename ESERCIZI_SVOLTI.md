@@ -1775,3 +1775,89 @@ Poiché il primo livello fa lavoro `n`, vale anche `T(n) = Omega(n)`.
 
 ---
 
+### 📝 Es B.11: Max-Heap — BuildMaxHeap su Array [5, 12, 8, 15, 3, 9, 20]
+* **Fonte**: Appello 20 Gennaio 2026, Domanda B
+* **Problema**: Eseguire `BuildMaxHeap` su `A = [5, 12, 8, 15, 3, 9, 20]` di dimensione `n = 7`.
+
+#### Passaggi dell'Algoritmo:
+1. Indici dei nodi non-foglia: da `floor(7/2) - 1 = 2` a `0`.
+2. **`MaxHeapify(A, 2)`** (`A[2] = 8`): figli `A[5] = 9`, `A[6] = 20`. Scambio `8` con `20`.
+   - Stato: `[5, 12, 20, 15, 3, 9, 8]`
+3. **`MaxHeapify(A, 1)`** (`A[1] = 12`): figli `A[3] = 15`, `A[4] = 3`. Scambio `12` con `15`.
+   - Stato: `[5, 15, 20, 12, 3, 9, 8]`
+4. **`MaxHeapify(A, 0)`** (`A[0] = 5`): figli `A[1] = 15`, `A[2] = 20`. Scambio `5` con `20`.
+   - Chiamata ricorsiva su `i = 2` (`A[2] = 5` con figli `A[5] = 9`, `A[6] = 8`): Scambio `5` con `9`.
+
+**Array Finale**: **`[20, 15, 9, 12, 3, 5, 8]`**.
+
+---
+
+### 📝 Es B.12: Tabella Hash Indirizzamento Aperto — Doppio Hashing ed Ispezione Lineare
+* **Fonte**: Appello 16 Giugno 2023, Domanda B
+* **Problema**:
+  1. Eseguire l'inserimento di `10, 20, 34, 35, 48` con doppio hashing (`m = 7`, `h1(k) = k mod 7`, `h2(k) = 1 + (k mod 5)`).
+  2. Rispondere alla domanda teorica sull'opportunità di usare `m = 8`.
+  3. Variante con ispezione lineare.
+
+#### 1. Doppio Hashing (m = 7)
+- `k = 10`: `h1(10) = 3` ➔ **T[3]**
+- `k = 20`: `h1(20) = 6` ➔ **T[6]**
+- `k = 34`: `h1(34) = 6` (Coll.) ➔ `h2(34) = 5` ➔ `(6 + 1*5) mod 7 = 4` ➔ **T[4]**
+- `k = 35`: `h1(35) = 0` ➔ **T[0]**
+- `k = 48`: `h1(48) = 6` (Coll.) ➔ `h2(48) = 4` ➔ `i=4`: `(6 + 4*4) mod 7 = 22 mod 7 = 1` ➔ **T[1]**
+
+Stato Finale `T[0..6]`: `[35, 48, NIL, 10, 34, NIL, 20]`.
+
+#### 2. Opportunità di m = 8
+**NO**. Nel doppio hashing `h2(k)` ed `m` devono essere coprimi (`MCD(h2(k), m) = 1`). Con `m = 8` (pari), i valori pari di `h2(k)` generebbero cicli brevi di ispezione visitando solo una parte delle celle.
+
+---
+
+### 📝 Es B.13: Min-Heap vs Max-Heap e Coda con Priorità
+* **Fonte**: Appello 15 Luglio 2023, Domanda B
+* **Problema**:
+  1. Definire la proprietà del Min-heap rispetto al Max-heap.
+  2. Spiegare le operazioni `ExtractMin()` ed `Insert(k)`.
+  3. Indicare la complessità temporale di ciascuna operazione nel caso peggiore.
+
+#### 1. Proprietà Min-Heap
+In ogni nodo `x` diverso dalla radice: `A[parent(x)] <= A[x]` (Padre <= Figli). Il minimo risiede nella radice `A[0]`.
+
+#### 2. Operazione ExtractMin()
+- Si salva il minimo `A[0]`, si sposta l'ultimo elemento `A[n-1]` nella radice e si riduce `n = n - 1`.
+- Si chiama `MinHeapify(A, 0)` per far **scendere** l'elemento fuoriposto scambiandolo col figlio minore finché `Padre <= Figli`.
+
+#### 3. Operazione Insert(k)
+- Si inserisce `k` in fondo all'array alla posizione `n`, incrementando `n = n + 1`.
+- Si fa **risalire** `k` dal basso verso l'alto (procedura `Heap-Decrease-Key` / *sift-up*) scambiandolo con il padre finché `A[parent] <= k`.
+
+---
+
+### 📝 Es C.11: Divide et Impera — Indice Stabile stab(A, p, r)
+* **Fonte**: Appello 04 Luglio 2025, Esercizio 1
+* **Problema**: Progettare un algoritmo Divide et Impera per trovare l'indice stabile `i` per cui `A[i] == i` in un array ordinato di interi distinti `A[0..n-1]`.
+
+#### 1. Pseudocodice
+```pascal
+stab(A, p, r) {
+    if p > r then return -1
+    q = floor((p + r) / 2)
+    if A[q] == q then return q
+    if A[q] < q then
+        return stab(A, q + 1, r)
+    else
+        return stab(A, p, q - 1)
+}
+```
+
+#### 2. Correttezza e Logica
+Poiché gli elementi sono interi distinti in ordine strettamente crescente, se `A[q] < q`, allora per ogni `j <= q` si ha `A[j] < j`, rendendo impossibile trovare un indice stabile a sinistra di `q`. La ricerca deve quindi proseguire a destra. Analogamente, se `A[q] > q`, la ricerca prosegue a sinistra.
+
+#### 3. Equazione di Ricorrenza e Complessità
+`T(n) = T(n/2) + 1` (con `a = 1`, `b = 2`, `f(n) = 1 = O(1)`).
+`n^(log_b a) = n^(log_2 1) = n^0 = 1`.
+Poiché `f(n) = Theta(n^0) = Theta(1)`, ricadiamo nel **Caso 2 del Master Theorem**.
+**Complessità Temporale**: **`Theta(log n)`** (ossia **`O(log n)`**). **Q.E.D.**
+
+---
+
