@@ -19,8 +19,8 @@ L'esame scritto è composto da **4 SEZIONI RIGIDE**:
 |---|---|---|
 | **Domanda A** | Ricorrenze & Teoria Asintotica | **13 / 13** ✅ |
 | **Domanda B** | Heap, BST, Hash, Huffman, Greedy | **13 / 13** ✅ |
-| **Esercizio 1** | Divide et Impera & Alberi/BST | **13 / 13** ✅ |
-| **Esercizio 2** | Programmazione Dinamica & Greedy | **10 / 10** ✅ (Appelli Disponibili) |
+| **Esercizio 1** | Divide et Impera & Alberi/BST | **13 / 13** 🔄 (In consolidamento: Sorting) |
+| **Esercizio 2** | Programmazione Dinamica & Greedy | **10 / 10** 🔄 (In consolidamento: DP & Greedy) |
 
 ---
 
@@ -113,7 +113,7 @@ L'esame scritto è composto da **4 SEZIONI RIGIDE**:
 - [x] Es B.12 — Hash Doppio Hashing m=7 vs m=8 (16/06/2023)
 - [x] Es B.13 — Min-Heap vs Max-Heap, ExtractMin, Insert (15/07/2023)
 
-#### 🧩 Gruppo C — 12 / 13
+#### 🧩 Gruppo C — 13 / 13 ✅
 - [x] Es C.1 — Prod(A,k): A[i]*A[j]=k, Two Pointers (31/01/2024)
 - [x] Es C.2 — Split(A,n): Partizionamento eredità (14/02/2024)
 - [x] Es C.3 — Triplet(A): A[i]+A[j]=A[k], Two Pointers (18/06/2024)
@@ -125,7 +125,7 @@ L'esame scritto è composto da **4 SEZIONI RIGIDE**:
 - [x] Es C.9 — mdist(T,v): distanza minima in BST (10/09/2025)
 - [x] Es C.10 — Arricchimento BST: diff(x) + Insert (20/01/2026)
 - [x] Es C.11 — stab(A,p,r): Indice Stabile Divide et Impera (04/07/2025)
-- [ ] Es C.12 — CountInversions: Conta Inversioni con MergeSort ⏸️ *In coda*
+- [x] Es C.12 — CountInversions: Conta Inversioni con MergeSort (16/06/2023)
 - [x] Es C.13 — isBalanced(T): Verifica BST bilanciato — valore sentinella -1 (15/07/2023)
 
 #### 💼 Gruppo D — 10 / 10 (base appelli disponibili)
