@@ -10,19 +10,22 @@ export function createNavbar(activeTab, onTabChange) {
     </div>
     <nav>
       <button class="tab-btn ${activeTab === 'domanda-a' ? 'active' : ''}" data-tab="domanda-a">
-        📐 DOMANDA A (Ricorrenze & Sostituzione)
+        📐 DOMANDA A (Ricorrenze)
+      </button>
+      <button class="tab-btn ${activeTab === 'sorting' ? 'active' : ''}" data-tab="sorting">
+        ✨ SORTING (Merge, Quick, Heap)
       </button>
       <button class="tab-btn ${activeTab === 'heap' ? 'active' : ''}" data-tab="heap">
-        🌳 MAX-HEAP & HEAPSORT
+        🌳 MAX-HEAP
       </button>
       <button class="tab-btn ${activeTab === 'bst' ? 'active' : ''}" data-tab="bst">
-        🌴 BST (Inserimento & Cancellazione)
+        🌴 BST
       </button>
       <button class="tab-btn ${activeTab === 'greedy' ? 'active' : ''}" data-tab="greedy">
-        🎯 ESERCIZIO 2: GREEDY
+        🎯 GREEDY
       </button>
       <button class="tab-btn ${activeTab === 'dp' ? 'active' : ''}" data-tab="dp">
-        🧩 ESERCIZIO 2: PROGRAMMAZIONE DINAMICA (DP)
+        🧩 DINAMICA (DP)
       </button>
     </nav>
   `;

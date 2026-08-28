@@ -5,6 +5,7 @@ import { createHeapView } from './components/Heap/HeapView.js';
 import { createBSTView } from './components/BST/BSTView.js';
 import { createGreedyView } from './components/Greedy/GreedyView.js';
 import { createDPView } from './components/DP/DPView.js';
+import { createSortingView } from './components/Sorting/SortingView.js';
 
 let activeTab = 'domanda-a';
 const app = document.getElementById('app');
@@ -21,6 +22,8 @@ function renderApp() {
 
   if (activeTab === 'domanda-a') {
     main.appendChild(createDomandaAView());
+  } else if (activeTab === 'sorting') {
+    main.appendChild(createSortingView());
   } else if (activeTab === 'heap') {
     main.appendChild(createHeapView());
   } else if (activeTab === 'bst') {

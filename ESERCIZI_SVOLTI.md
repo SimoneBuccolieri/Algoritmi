@@ -1861,3 +1861,100 @@ Poiché `f(n) = Theta(n^0) = Theta(1)`, ricadiamo nel **Caso 2 del Master Theore
 
 ---
 
+### 📝 Es C.13: Verifica Bilanciamento BST — isBalanced(T)
+* **Fonte**: Appello 15 Luglio 2023, Esercizio 1
+* **Problema**: Realizzare una funzione `isBalanced(T)` che dato un BST `T` restituisce `True` se l'albero è bilanciato in altezza (per ogni nodo x la differenza tra l'altezza del sottoalbero sinistro e quella del sottoalbero destro è al massimo 1), `False` altrimenti.
+
+#### 1. Pseudocodice (Soluzione dello Studente)
+```pascal
+isBalanced(T):
+    return fun(T.root) != -1
+
+fun(x):
+    if x == nil: return 0          // albero vuoto ha altezza 0
+
+    left  = fun(x.left)
+    right = fun(x.right)
+
+    if left == -1 OR right == -1:  // un sottoalbero è già sbilanciato
+        return -1
+
+    if abs(left - right) > 1:      // differenza di altezza eccessiva
+        return -1
+
+    return max(left, right) + 1    // altezza di questo nodo
+```
+
+#### 2. Idea e Correttezza
+La funzione ausiliaria `fun(x)` restituisce l'**altezza** del sottoalbero radicato in `x` se esso è bilanciato, oppure **-1** come valore sentinella se in qualsiasi punto del sottoalbero viene violata la condizione di bilanciamento (differenza di altezza > 1).
+
+* **Caso base**: `x == nil` → restituisce 0. Un sottoalbero vuoto ha altezza 0 ed è banalmente bilanciato.
+* **Propagazione del -1**: Se uno dei due figli restituisce -1 (sbilanciamento trovato sotto), il nodo corrente propaga immediatamente -1 senza ulteriori calcoli.
+* **Controllo locale**: Se `abs(left - right) > 1`, il nodo corrente viola la condizione di bilanciamento → return -1.
+* **Caso bilanciato**: Se nessuna delle condizioni precedenti è vera, restituisce l'altezza corretta `max(left, right) + 1`.
+
+`isBalanced(T)` controlla semplicemente che `fun(T.root) != -1`, ovvero che non sia stato trovato alcun punto di sbilanciamento nell'intero albero.
+
+#### 3. Equazione di Ricorrenza e Complessità
+Ogni nodo viene visitato esattamente una volta. L'equazione di ricorrenza è:
+`T(n) = 2T(n/2) + theta(1)` (con `a = 2`, `b = 2`, `f(n) = theta(1)`).
+`n^(log_b a) = n^(log_2 2) = n^1 = n`.
+Poiché `f(n) = theta(1) = O(n^(1-epsilon))` per `epsilon = 1`, ricadiamo nel **Caso 1 del Master Theorem**.
+**Complessità Temporale**: **`Theta(n)`**. **Q.E.D.**
+
+---
+
+### 📝 Es C.12: Conta Inversioni mediante MergeSort — CountInversions(A, p, r)
+* **Fonte**: Appello 16 Giugno 2023 / Cormen Es. 2-4
+* **Problema**: Realizzare un algoritmo Divide et Impera efficiente `CountInversions(A, p, r)` che restituisce il numero totale di inversioni (`A[i] > A[j]` con `i < j`) presenti in un array `A[1..n]` di interi distinti in tempo `O(n log n)`.
+
+#### 1. Pseudocodice
+```pascal
+CountInversions(A, p, r):
+    if p >= r:
+        return 0
+    q = floor((p + r) / 2)
+    inv_left = CountInversions(A, p, q)
+    inv_right = CountInversions(A, q + 1, r)
+    inv_cross = MergeAndCount(A, p, q, r)
+    return inv_left + inv_right + inv_cross
+
+MergeAndCount(A, p, q, r):
+    n1 = q - p + 1
+    n2 = r - q
+    crea array L[1..n1] e R[1..n2]
+    copia A[p..q] in L e A[q+1..r] in R
+    
+    i = 1, j = 1, k = p, inv = 0
+    while i <= n1 and j <= n2:
+        if L[i] <= R[j]:
+            A[k] = L[i]
+            i = i + 1
+        else:
+            A[k] = R[j]
+            inv = inv + (n1 - i + 1)
+            j = j + 1
+        k = k + 1
+
+    while i <= n1:
+        A[k] = L[i]; i = i + 1; k = k + 1
+    while j <= n2:
+        A[k] = R[j]; j = j + 1; k = k + 1
+
+    return inv
+```
+
+#### 2. Idea e Correttezza
+L'algoritmo suddivide l'insieme totale delle inversioni in tre categorie mutuamente esclusive ed esaustive:
+1. Inversioni interne alla metà sinistra (`inv_left`).
+2. Inversioni interne alla metà destra (`inv_right`).
+3. Inversioni a cavallo tra le due metà (`inv_cross`).
+
+Poiché i due sottoarray `L` ed `R` sono già ordinati, durante la procedura di fusione `MergeAndCount`, quando un elemento `R[j] < L[i]`, esso è strettamente minore di tutti gli elementi rimanenti in `L` da `i` a `n1` (inclusi). Dunque genera esattamente `n1 - i + 1` inversioni cross in tempo costante `O(1)`.
+
+#### 3. Complessità
+* **Equazione di Ricorrenza**: `T(n) = 2T(n/2) + Theta(n)`.
+* **Master Theorem**: `a = 2`, `b = 2`, `f(n) = Theta(n) = Theta(n^(log_2 2)) = Theta(n^1)`.
+* Ricade nel **Caso 2 del Master Theorem** $\implies$ **`Theta(n log n)`** (ossia **`O(n log n)`**). **Q.E.D.**
+
+---

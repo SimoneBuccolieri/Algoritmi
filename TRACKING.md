@@ -1,120 +1,143 @@
-# 📚 TRACKING.MD — Piano di Studio Algoritmi & Strutture Dati (Baldan)
-> **Unico punto di verità** | Aggiornato: 2026-07-16
+# 📚 TRACKING.MD — Piano di Studio & Syllabus Completo Algoritmi (Baldan)
+> **Unico punto di verità** | Sincronizzato con `ESERCIZI_SVOLTI.MD` | **Mancano 5 giorni all'esame!**
 
 ---
 
-## 🎯 STRUTTURA ESAME
-- **Domanda A** (Teoria/Breve)
-- **Domanda B** (Teoria/Breve)
-- **Esercizio 1** (Algoritmo): Al 90% sarà **BST (Alberi)** o **Divide et Impera**. L'obiettivo è massimizzare la riuscita di questo esercizio.
-- **Esercizio 2** (Algoritmo / PD / Greedy)
+## 🎯 STRUTTURA DELLA PROVA D'ESAME
+
+L'esame scritto è composto da **4 SEZIONI RIGIDE**:
+1. **DOMANDA A** (5-7 Punti): Ricorrenze, Master Theorem, Sostituzione, Teoria Asintotica. Talvolta chiede un algoritmo breve con relativa complessità.
+2. **DOMANDA B** (6-7 Punti): Quesiti teorico-pratici su Heap, Tabelle Hash, BST, Huffman, Greedy. Talvolta chiede una ricorrenza DP.
+3. **ESERCIZIO 1** (9-10 Punti): Algoritmo su Divide et Impera, Alberi/BST, o Due Indici su array ordinato.
+4. **ESERCIZIO 2** (8-11 Punti): Algoritmo su Programmazione Dinamica (Bottom-Up o Top-Down) o Algoritmi Greedy.
 
 ---
 
-## 📊 SYLLABUS & STATO AVANZAMENTO (Ripresa da Zero dopo 1 Mese)
+## 📊 PROGRESSO D'ESAME (Verificato su ESERCIZI_SVOLTI.MD)
 
-| # | Macro-argomento | Stato | Padronanza | Note |
-|---|----------------|-------|-----------|------|
-| 1 | **Equazioni di Ricorrenza** | 🔄 Ripasso (In corso) | MT, Sostituzione, Alberi Ricorrenza | Aggiungere: Induzione Forte e Casi Speciali (radici) |
-| 2 | **Ricorsione su Alberi** | 🔄 Da riprendere | BST Visite (mdist), Arricchimenti (leaves, diff) | Mancano: Verifica BST, RBT, Build Heap |
-| 3 | **Hashing & Codifica** | ⬜ Da fare | — | Divisione/Moltiplicazione, Open Addressing, Huffman |
-| 4 | **Divide et Impera** | 🔄 Da riprendere | Magic Index, Split(V), Ricerca Binaria | Mancano: Pattern array "Due Indici" (Prod/Triplet) |
-| 5 | **Programmazione Dinamica** | ⬜ Da fare | — | LCS, LIS, Edit Distance, Matrix Chain, Scansioni Tabelle |
-| 6 | **Algoritmi Greedy** | ⬜ Da fare | Selezione Attività Compatibili (e dimostrazione) | Mancano: Varianti Scheduling, File Cloud |
-| 7 | **Analisi Ammortizzata** | ⬜ Da fare | — | Metodo Potenziale, Aggregato, Accounting |
-| 8 | **Invarianti & Induzione** | ⬜ Da fare | — | Inizializzazione, Mantenimento, Conclusione |
+| Sezione | Argomento | Progresso Reale |
+|---|---|---|
+| **Domanda A** | Ricorrenze & Teoria Asintotica | **13 / 13** ✅ |
+| **Domanda B** | Heap, BST, Hash, Huffman, Greedy | **13 / 13** ✅ |
+| **Esercizio 1** | Divide et Impera & Alberi/BST | **13 / 13** ✅ |
+| **Esercizio 2** | Programmazione Dinamica & Greedy | **10 / 10** ✅ (Appelli Disponibili) |
 
 ---
 
-## 🎯 PROGRESSO GRUPPI DI ESERCIZI (10 per Gruppo)
+## 📋 SYLLABUS D'ESAME — PATTERN COMPLETO (da 11 Appelli Analizzati)
 
-| Gruppo | Descrizione | Stato / Esercizi Guidati (G) e Autonomi (A) | Progresso |
+### 📐 SEZIONE 1: DOMANDA A (5-7 Punti)
+
+| # | Pattern d'Esame | Appelli in cui Compare | Stato |
 |---|---|---|---|
-| **Gruppo A** | **Domande A** (Ricorrenze e Teoria Asintotica) | ✅ Completato | 13 / 13 |
-| **Gruppo B** | **Domande B** (Heap, BST base, Huffman, Hash) | ✅ Completato | 13 / 13 |
-| **Gruppo C** | **Esercizi 1** (Divide et Impera, Alberi/BST) | 🔄 In corso (Es C.11 completato) | 11 / 13 |
-| **Gruppo D** | **Esercizi 2** (Programmazione Dinamica e Greedy) | 🔄 In corso | 10 / 13 |
-
-### Liste Dettagliate Esercizi
-
-#### Gruppo A: Domande A (Ricorrenze e Teoria Asintotica)
-- [x] **Es A.1 (G)**: Ord(A,p,r) ricorrenza & MT (Appello 31/01/2024)
-- [x] **Es A.2 (G)**: Limite asintotico stretto per T(n) = 2T(n/5) + T(n/2) + n (Appello 14/02/2024)
-- [x] **Es A.3 (G)**: Risoluzione T(n) = 4T(n/2) + n^3 + 1 (Appello 18/06/2024)
-- [x] **Es A.4 (A)**: Ordinamento asintotico di funzioni (Appello 02/07/2024)
-- [x] **Es A.5 (A)**: Risoluzione T(n) = T(n-1) + 3n + 1 (Appello 19/09/2024)
-- [x] **Es A.6 (A)**: Definizione max-heap & Min(A,B) (Appello 24/01/2025)
-- [x] **Es A.7 (A)**: Risoluzione T(n) = 3T(n/3) + n^2 + 1 (Appello 07/02/2025)
-- [x] **Es A.8 (A)**: Relazioni asintotiche O e Omega (Appello 18/06/2025)
-- [x] **Es A.9 (A)**: Dimostrazione proprietà Omega(n^2) (Appello 10/09/2025)
-- [x] **Es A.10 (A)**: Ordinamento asintotico di funzioni (Appello 20/01/2026)
-- [x] **Es A.11 (A)**: Ricorrenza albero asimmetrico T(n) = 2T(n/5) + T(n/2) + n (Appello 04/07/2025)
-- [x] **Es A.12 (A)**: Risoluzione per sostituzione T(n) = T(n-1) + 2n (Appello 16/06/2023)
-- [x] **Es A.13 (A)**: Master Theorem tre casi e condizioni di regolarità (Appello 15/07/2023)
-
-#### Gruppo B: Domande B (Heap, BST base, Huffman, Hash)
-- [x] **Es B.1 (G)**: Tabella hash chaining m=8 (Appello 31/01/2024)
-- [x] **Es B.2 (G)**: Codice Huffman alfabeto e frequenze (Appello 14/02/2024)
-- [x] **Es B.3 (G)**: BuildMaxHeap su array [7, 1, 17, 0, 5, 4, 22] (Appello 18/06/2024)
-- [x] **Es B.4 (A)**: Ricorrenza lunghezze LCS (Appello 02/07/2024)
-- [x] **Es B.5 (A)**: Tabella hash indirizzamento aperto doppio hash (Appello 07/02/2025)
-- [x] **Es B.6 (A)**: Codice Huffman alfabeto e frequenze (Appello 18/06/2025)
-- [x] **Es B.7 (A)**: Inserimenti successivi in max-heap e rimozione ExtractMax (Appello 19/09/2024)
-- [x] **Es B.8 (A)**: Teoria GREEDY-SEL e controesempio algoritmo non ottimo (Appello 24/01/2025)
-- [x] **Es B.9 (A)**: BST Inserimenti 10,5,3,15,7,12 e Cancellazione nodo 5 (Appello 04/07/2025)
-- [x] **Es B.10 (A)**: Tabella hash indirizzamento aperto ispezione lineare e marcatura DELETED (Appello 16/06/2023)
-- [x] **Es B.11 (A)**: Max-heap BuildMaxHeap su array [5, 12, 8, 15, 3, 9, 20] (Appello 20/01/2026)
-- [x] **Es B.12 (A)**: Tabella hash indirizzamento aperto ispezione lineare (Appello 16/06/2023)
-- [x] **Es B.13 (A)**: Min-heap vs Max-heap e Coda con Priorità (Appello 15/07/2023)
-
-#### Gruppo C: Esercizi 1 (Divide et Impera, Alberi/BST)
-- [x] **Es C.1 (G)**: Prod(A,k) per A[i]*A[j] = k (Appello 31/01/2024)
-- [x] **Es C.2 (G)**: Split(A,n) partizionamento eredità (Appello 14/02/2024)
-- [x] **Es C.3 (G)**: Algoritmo triplet(A) per A[i]+A[j]=A[k] (Appello 18/06/2024)
-- [x] **Es C.4 (A)**: Union(A1,A2,n) di due max-heap senza duplicati (Appello 02/07/2024)
-- [x] **Es C.5 (A)**: Massimo e Merge di BST completi su array (Appello 19/09/2024)
-- [x] **Es C.6 (A)**: Split(V) Divide et Impera stabilità titolo (Appello 24/01/2025)
-- [x] **Es C.7 (A)**: SortJoin(A,B,n) di due max-heap (Appello 07/02/2025)
-- [x] **Es C.8 (A)**: Arricchimento BST leaves(x) e insert (Appello 18/06/2025)
-- [x] **Es C.9 (A)**: Distanza minima in BST mdist(T,v) (Appello 10/09/2025)
-- [x] **Es C.10 (A)**: Arricchimento BST massima differenza diff(x) e insert (Appello 20/01/2026)
-- [x] **Es C.11 (A)**: Indice Stabile stab(A,n) in array ordinato con Divide et Impera (Appello 04/07/2025)
-- [ ] **Es C.12 (A)**: Conta Inversioni inversions(A,n) mediante MergeSort (Appello 16/06/2023)
-- [ ] **Es C.13 (A)**: Verifica BST quasi-bilanciato isBalanced(T) (Appello 15/07/2023)
-
-#### Gruppo D: Esercizi 2 (Programmazione Dinamica e Greedy)
-- [x] **Es D.1 (G)**: Selezione attività greedy con inizio per ultimo (Appello 31/01/2024)
-- [x] **Es D.2 (G)**: Calcolo memoizzato ricorrenza l(i,j) (Appello 14/02/2024)
-- [x] **Es D.3 (G)**: Longest Common Substring (Appello 18/06/2024)
-- [x] **Es D.4 (A)**: Algoritmo bottom-up per tabella c(i,j) (Appello 02/07/2024)
-- [x] **Es D.5 (A)**: Algoritmo bottom-up per ricorrenza due stringhe ℓ(i, j) (Appello 24/01/2025)
-- [x] **Es D.6 (A)**: Greedy Selezione Attività con inizio per ultimo (Appello 07/02/2025)
-- [x] **Es D.7 (A)**: Greedy Scheduling Programmi sum C_j (Appello 18/06/2025)
-- [x] **Es D.8 (A)**: DP Memoizzata Ricorrenza M(i,j) con 3 prodotti (Appello 10/09/2025)
-- [x] **Es D.9 (A)**: Greedy Caricamento File Cloud capacità limitata c (Appello 20/01/2026)
-- [x] **Es D.10 (A)**: DP Memoizzata Ricorrenza ℓ(i, j) con Sommatoria (Appello 04/07/2025)
-- [ ] **Es D.11 (A)**: LIS — Longest Increasing Subsequence (Formulazione DP 1D)
-- [ ] **Es D.12 (A)**: DP Zaino 0/1 con capacità W (Formulazione Matriciale V(i,w))
-- [ ] **Es D.13 (A)**: Matrix Chain Multiplication m[i,j] (Punti di taglio k)
+| 1 | **Master Theorem** — Risolvere T(n)=aT(n/b)+f(n) nei Casi 1/2/3 + Condizione di Regolarità a·f(n/b) ≤ c·f(n). | A.1, A.3, A.7, A.13 | ✅ Completo |
+| 2 | **Metodo per Sostituzione** — Dimostrazione induttiva O/Omega/Theta. Trovare c, n0 e gestire frazioni crescenti/decrescenti. | A.5, A.12 | ✅ Completo |
+| 3 | **Alberi di Ricorsione** — Ricorrenze asimmetriche a più rami (es. T(n)=2T(n/5)+T(n/2)+n). Serie geometrica 1/(1-r). | A.2, A.11 | ✅ Completo |
+| 4 | **Ricorrenze Sottrattive** — T(n)=T(n-1)+2n => Theta(n^2) oppure T(n)=(2/3)T(n-1)+2n => Theta(n). | A.5, A.12 | ✅ Completo |
+| 5 | **Algebra Notazioni Asintotiche** — Dimostrare proprietà formali (es. f=O(n), g=n^2-f => g=Omega(n^2)). | A.8, A.9 | ✅ Completo |
+| 6 | **Gerarchia di Crescita** — Ordinare funzioni per grandezza asintotica crescente/decrescente. | A.4, A.10 | ✅ Completo |
+| **⚠️ 7** | **Algoritmo + Complessità come Domanda A** — Il prof può chiedere un intero algoritmo divide et impera (es. Ord(A,p,r) 31/01/2024) o un algoritmo su struttura dati (es. min(A,B) su min-heap e max-heap 24/01/2025) direttamente in Domanda A. | A.1 (31/01/24), A.6 (24/01/25) | ⚠️ Pattern noto ma non esercitato come A autonomo |
 
 ---
 
-## 📈 SESSIONI DI STUDIO (Storico e Attuali)
+### 🌳 SEZIONE 2: DOMANDA B (6-7 Punti)
 
-| Data | Argomenti Trattati | Capito ✅ | Difficoltà ❗ | Prossima sessione consigliata |
-|------|--------------------|----------|--------------|-------------------------------|
-| 2026-05-04 | **Pillar 1**: Master Theorem, Sostituzione. <br> **Pillar 2**: Ricorsione con tuple, Verifica ABR. | MT, Parametri ricorsivi. | Dimostrazioni formali e casi NIL. | Operazioni BST (Successore, Cancellazione). |
-| 2026-05-08 | **Pillar 2**: Successore e Cancellazione BST (Completi). <br> Proprietà RBT/Heap. | Logica Successore e Transplant. | Casi 2 e 3 della Cancellazione (subtilités). | RBT Fixup, Heap Build O(n). |
-| 2026-05-11 | **Pillar 4**: Divide et Impera (Ricerca Binaria). | Condizioni per array ordinati. | Gestione indici e rami ricorsivi asimmetrici. | Merge/Quick Sort, Inversioni. |
-| 2026-05-18 | **Pillars 4, 2, 6**: D&C, BST Arricchiti, Greedy. | Logica scarto D&C; routing BST; Proprietà scelta Greedy. | Gestione ritorni BST; casi limite Greedy. | Programmazione Dinamica (Blocco B). |
-| 2026-08-04 | **Ripresa Studio**: Risolto Es A.2 (Ricorrenza a più termini). | Albero di ricorrenza e sostituzione per T(n) = 2T(n/5) + T(n/2) + n. | Nessuna, concetto del 9/10 n assimilato. | Prossimo in scaletta: Es A.3 (Ricorrenza MT) o Es C.3 (Algoritmo Triplet). |
-| 2026-07-16 | **Riorganizzazione Piano**: Passaggio a 4 Gruppi strutturati come lo scritto (Domanda A, Domanda B, Es 1, Es 2). | Struttura dello scritto d'esame. | Adattamento dello studio agli appelli reali. | Continuare Gruppo A (Es A.2). |
-| 2026-08-18 | **Gruppo D**: DP Bottom-Up 2D Matrice e Stringhe (Es D.4 e Es D.5). | Metodo delle Frecce per indici Bottom-Up (`n-2 down to i`). | Memoizzazione e Greedy da approfondire nei prossimi esercizi. | Focus su Greedy (Es D.6, D.7, D.9) e DP Memoizzata (Es D.8, D.10). |
+| # | Pattern d'Esame | Appelli in cui Compare | Stato |
+|---|---|---|---|
+| 1 | **Max-Heap & BuildMaxHeap** — Esecuzione passo-passo su array scombinati, indici non-foglia floor(n/2)-1..0, scambi. | B.3, B.11 | ✅ Completo |
+| 2 | **Operazioni Heap & Code Priorità** — Insert (sift-up), ExtractMax/ExtractMin (discesa), tempi O(log n). | B.7, B.13 | ✅ Completo |
+| 3 | **Tabelle Hash — Chaining** — Liste trabocco h(k)=k mod m, collisioni, fattore di carico alpha=n/m. | B.1 | ✅ Completo |
+| 4 | **Tabelle Hash — Indirizzamento Aperto** — Ispezione Lineare, Quadratica, Doppio Hashing h(k,i)=(h1+i·h2) mod m, MCD(h2,m)=1, marcatura DELETED. | B.5, B.10, B.12 | ✅ Completo |
+| 5 | **Codici di Huffman** — Costruzione albero da frequenze, unione 2 minimi, codice binario prefisso. | B.2, B.6 | ✅ Completo |
+| 6 | **Operazioni su BST** — Inserimenti, proprietà SX<PAD<DX, cancellazione nodo con 2 figli (Successore). | B.9 | ✅ Completo |
+| 7 | **Teoria Greedy** — Algoritmo GREEDY-SEL (ordinamento per tempo di fine), controesempi di strategie non ottime. | B.8 | ✅ Completo |
+| **⚠️ 8** | **Ricorrenza DP come Domanda B** — Il prof può chiedere di scrivere la ricorrenza l(i,j) per l'LCS direttamente in Domanda B (02/07/2024). | B.4 (02/07/24) | ⚠️ Pattern noto, Es B.4 completo |
 
 ---
 
-## 📝 NOTE METODOLOGICHE
-- **Complessità Asintotica**: Ogni soluzione deve includere l'analisi T(n).
-- **Baldan Style**: Rigore formale, uso dei template `GUIDA_*.txt` e attenzione alle dimostrazioni.
-- **Top-Down Logic**: Definire la ricorrenza prima di scrivere lo pseudocodice.
-- **Formattazione**: DIVIETO ASSOLUTO di usare il carattere "$" nei markdown per le espressioni matematiche.
+### 🧩 SEZIONE 3: ESERCIZIO 1 (9-10 Punti)
+
+| # | Pattern d'Esame | Appelli in cui Compare | Stato |
+|---|---|---|---|
+| 1 | **Ricerca Binaria Modificata** — Array ordinato + condizione su A[q] per tagliare sinistra/destra (es. stab(A,p,r): A[i]==i). | C.11 (04/07/25) | ✅ Completo |
+| 2 | **Divide et Impera con Condizioni Logiche (Split)** — Ricerca di un punto di transizione nell'array con proprietà strutturale (es. Split(V): ultimo indice positivo). | C.6 (24/01/25), C.2 (14/02/24) | 🔄 In corso |
+| **⚠️ 3** | **Due Indici / Two Pointers su Array Ordinato** — Array ordinato, puntatore i a sinistra e j a destra, cerca coppie/triplette con condizione (es. Prod(A,k): A[i]*A[j]=k; Triplet(A): A[i]+A[j]=A[k]). | C.1 (31/01/24), C.3 (18/06/24) | ✅ Esercizi svolti, ⚠️ Pattern ora classificato |
+| 4 | **Arricchimento BST (nodi con campi extra)** — Aggiungere campi ai nodi (leaves, diff) e mantenerli in Insert. Funzione di query in O(1). | C.8, C.9, C.10 | ✅ Completo |
+| 5 | **Operazioni Avanzate su Heap/BST** — Fondere strutture (Union senza duplicati, SortJoin, merge BST completi su array). | C.4, C.5, C.7 | ✅ Completo |
+
+---
+
+### 💼 SEZIONE 4: ESERCIZIO 2 (8-11 Punti)
+
+| # | Pattern d'Esame | Appelli in cui Compare | Stato |
+|---|---|---|---|
+| 1 | **DP Bottom-Up su 2 Stringhe (Matrice 2D m×n)** — Tabella l(i,j) con i ∈ [0..m] e j ∈ [0..n]. Tipicamente LCS o varianti (l'array risultato dipende da ENTRAMBE le stringhe). | D.3, D.5 | ✅ Completo |
+| 2 | **DP Top-Down Memoizzata (INIT + REC)** — Algoritmo ricorsivo con matrice inizializzata a NIL, salvataggio sottoproblemi. Calcolo complessità al caso migliore Tbest. | D.2, D.8, D.10 | ✅ Completo |
+| **⚠️ 3** | **DP su Stringa Singola Triangolare (1≤i≤j≤n)** — Ricorrenza l(i,j) definita su UNA SOLA stringa, con triangolo inferiore/superiore. Caso base i=j o i=j-1. Compare sia come Bottom-Up che Top-Down. | D.2 (14/02/24 — Es2 memoizzato), C.11-tipo (04/07/25 — Es2) | ⚠️ Pattern ora classificato. Es. con stringa singola in D.2 già risolto |
+| 4 | **DP Bottom-Up su Matrice con Prodotti (non stringhe)** — Tabella c(i,j) o M(i,j) definita su indici numerici, spesso con 3 prodotti o combinazioni. Calcolo complessità esatta con costo unitario ai prodotti. | D.4, D.8 | ✅ Completo |
+| 5 | **Greedy Selezione Attività (Inizia per Ultima/Finisce prima)** — Algoritmo iterativo + applicazione su esempio + dimostrazione proprietà di scelta greedy. | D.1, D.6 | ✅ Completo |
+| 6 | **Greedy Scheduling Minimizzazione Sum C_j** — Ordinare i programmi per lunghezza crescente (SPT), dimostrazione scelta greedy. | D.7 | ✅ Completo |
+| 7 | **Greedy Cloud/File Storage (Capacità Limitata)** — Caricare il massimo numero di file entro capacità c, ordinando per dimensione. | D.9 | ✅ Completo |
+
+---
+
+## 🎯 CHECKLIST ESERCIZI REGISTRATI (4 x 13)
+
+#### 📐 Gruppo A — 13 / 13
+- [x] Es A.1 — Ord(A,p,r) Divide et Impera + MT (31/01/2024)
+- [x] Es A.2 — Albero ricorsione 2T(n/5)+T(n/2)+n (14/02/2024)
+- [x] Es A.3 — Master Theorem 4T(n/2)+n^3+1 (18/06/2024)
+- [x] Es A.4 — Ordinamento asintotico funzioni + def Omega (02/07/2024)
+- [x] Es A.5 — Sostituzione T(n)=T(n-1)+3n (19/09/2024)
+- [x] Es A.6 — Def Max-Heap + min(A,B) su heap (24/01/2025)
+- [x] Es A.7 — Master Theorem T(n)=3T(n/3)+n/2+1 (07/02/2025)
+- [x] Es A.8 — Prop. formale O e Omega f=O(n), g=n^2-f => g=Omega(n^2) (18/06/2025)
+- [x] Es A.9 — Prop. Omega(n^2): somma sì, differenza no (10/09/2025)
+- [x] Es A.10 — Ordinamento asintotico funzioni (20/01/2026)
+- [x] Es A.11 — Albero ricorsione asimmetrico (04/07/2025)
+- [x] Es A.12 — Sostituzione T(n)=T(n-1)+2n (16/06/2023)
+- [x] Es A.13 — Teoria Master Theorem 3 Casi + Regolarità (15/07/2023)
+
+#### 🌳 Gruppo B — 13 / 13
+- [x] Es B.1 — Hash Chaining m=8 (31/01/2024)
+- [x] Es B.2 — Huffman frequenze {a,b,c,d,e,f} (14/02/2024)
+- [x] Es B.3 — BuildMaxHeap [7,1,17,0,5,4,22] (18/06/2024)
+- [x] Es B.4 — Ricorrenza LCS come Domanda B (02/07/2024)
+- [x] Es B.5 — Hash Doppio Hashing m=7 (07/02/2025)
+- [x] Es B.6 — Huffman frequenze {a,b,c,d,e,f} (18/06/2025)
+- [x] Es B.7 — Max-Heap: inserimenti + ExtractMax + rimozione 15 (19/09/2024)
+- [x] Es B.8 — Teoria GREEDY-SEL + controesempi (24/01/2025)
+- [x] Es B.9 — BST: inserimenti 10,5,3,15,7,12 + cancellazione 5 (04/07/2025)
+- [x] Es B.10 — Hash Ispezione Lineare + DELETED (16/06/2023)
+- [x] Es B.11 — BuildMaxHeap [5,12,8,15,3,9,20] (20/01/2026)
+- [x] Es B.12 — Hash Doppio Hashing m=7 vs m=8 (16/06/2023)
+- [x] Es B.13 — Min-Heap vs Max-Heap, ExtractMin, Insert (15/07/2023)
+
+#### 🧩 Gruppo C — 12 / 13
+- [x] Es C.1 — Prod(A,k): A[i]*A[j]=k, Two Pointers (31/01/2024)
+- [x] Es C.2 — Split(A,n): Partizionamento eredità (14/02/2024)
+- [x] Es C.3 — Triplet(A): A[i]+A[j]=A[k], Two Pointers (18/06/2024)
+- [x] Es C.4 — Union(A1,A2,n): due max-heap senza duplicati (02/07/2024)
+- [x] Es C.5 — max(T,n) + merge(T1,T2,k) su BST completi su array (19/09/2024)
+- [x] Es C.6 — Split(V): Divide et Impera titolo azionario (24/01/2025)
+- [x] Es C.7 — SortJoin(A,B,n): fusione due max-heap in-place (07/02/2025)
+- [x] Es C.8 — Arricchimento BST: leaves(x) + Insert (18/06/2025)
+- [x] Es C.9 — mdist(T,v): distanza minima in BST (10/09/2025)
+- [x] Es C.10 — Arricchimento BST: diff(x) + Insert (20/01/2026)
+- [x] Es C.11 — stab(A,p,r): Indice Stabile Divide et Impera (04/07/2025)
+- [ ] Es C.12 — CountInversions: Conta Inversioni con MergeSort ⏸️ *In coda*
+- [x] Es C.13 — isBalanced(T): Verifica BST bilanciato — valore sentinella -1 (15/07/2023)
+
+#### 💼 Gruppo D — 10 / 10 (base appelli disponibili)
+- [x] Es D.1 — Greedy: attività che inizia per ultima + dimostrazione (31/01/2024)
+- [x] Es D.2 — DP Top-Down INITL+RECL su stringa singola l(i,j) (14/02/2024)
+- [x] Es D.3 — DP Bottom-Up: Longest Common Substring (18/06/2024)
+- [x] Es D.4 — DP Bottom-Up: matrice c(i,j) con prodotti (19/09/2024)
+- [x] Es D.5 — DP Bottom-Up: l(i,j) su 2 stringhe (24/01/2025)
+- [x] Es D.6 — Greedy: attività che inizia per ultima + dimostrazione (02/07/2024)
+- [x] Es D.7 — Greedy Scheduling: minimizzazione Sum C_j (18/06/2025)
+- [x] Es D.8 — DP Top-Down INITM+RECM: matrice M(i,j) con 3 prodotti (10/09/2025)
+- [x] Es D.9 — Greedy Cloud Storage: carica massimo file entro capacità c (20/01/2026)
+- [x] Es D.10 — DP Top-Down: l(i,j) memoizzata su 2 stringhe (04/07/2025)
+
+> ⚠️ Gli appelli 16/06/2023 e 15/07/2023 NON sono presenti in pdfjoiner.txt. Non conosciamo il testo degli esercizi di quelle date. I precedenti D.11/D.12/D.13 erano placeholder inventati e sono stati rimossi.
