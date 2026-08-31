@@ -1,4 +1,6 @@
-# 📚 SILLABO COMPLETO E DEFINITIVO ESAMI UFFICIALI (Prof. Baldan)
+import re
+
+content = """# 📚 SILLABO COMPLETO E DEFINITIVO ESAMI UFFICIALI (Prof. Baldan)
 > **Il punto di riferimento unico e totale per superare lo scritto con il massimo dei voti.**  
 > **Fonti 100% Reali d'Esame**: `pdfjoiner.txt` (Appelli 2024–2026) e `Raccolta Appelli.txt` (Appelli 2019–2023).  
 > **Ogni esercizio è un vero tema d'esame assegnato negli appelli ufficiali dal 2019 al 2026.**  
@@ -37,18 +39,6 @@
 
 ---
 
-
-#### [ ] 📝 Esercizio A.1.3 (Raccolta Esercizi, Domanda 3)
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Risolvere la ricorrenza utilizzando il Master Theorem:
-    ```plaintext
-    T(n) = 4 * T(n/2) + n^2 * sqrt(n)
-    ```
-    Verificare in modo esplicito la condizione di regolarità calcolando la costante `c < 1` tale che `a * f(n/b) <= c * f(n)`.
-
----
-
 ### 🔹 PATTERN A.2: Metodo di Sostituzione Induttivo & Ricorrenze Sottrattive
 *   **Regola chiave**: Ipotizzare la forma asintotica, sostituire l'ipotesi induttiva, ricavare le costanti `c > 0` e la soglia `n_0 >= 1`.
 
@@ -62,8 +52,8 @@
     ```
     Dimostrare per sostituzione (induzione) che `T(n) = O(n^2)`. Determinare esplicitamente le costanti `c > 0` e `n_0 >= 1` per cui vale la definizione formale.
 
-#### [x] 📝 Esercizio A.2.2 (Appello 16 Giugno 2023 / 11 Aprile 2019, Domanda 1 — 7 Punti)
-> **Stato**: ⭐ SVOLTO OGGI (30/08) | **Valutazione Reale**: `7.0/10 — Sostituzione induttiva T(n) = (1/3)T(n-1) + 3n^2; compreso il metodo di maggiorazione dopo correzione sull'impostazione algebrica.`
+#### [ ] 📝 Esercizio A.2.2 (Appello 16 Giugno 2023 / 11 Aprile 2019, Domanda 1 — 7 Punti)
+> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
 *   **Traccia Integrale**:
     Dare la definizione della classe `Theta(f(n))`. Mostrare che la ricorrenza:
     ```plaintext
@@ -71,14 +61,6 @@
     T(1) = 1
     ```
     ha soluzione in `Theta(n^2)` provando separatamente che `T(n) = O(n^2)` e `T(n) = Omega(n^2)` mediante induzione.
-
----
-
-
-#### [ ] 📝 Esercizio A.2.3 (Raccolta Esercizi, Domanda 4)
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Risolvere la ricorrenza `T(n) = T(n - 2) + 2n` utilizzando il metodo di sostituzione per dimostrare un limite asintotico stretto `T(n) = Theta(n^2)`.
 
 ---
 
@@ -278,25 +260,6 @@
 ---
 ---
 
-
----
-
-### 🔹 PATTERN B.7: B-Alberi & Proprietà Heap Avanzate
-
-#### [ ] 📝 Esercizio B.7.1 (Raccolta Esercizi, Domanda 47) — B-Alberi (B-Tree)
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Dare la definizione formale di B-Albero con grado minimo `t >= 2`.
-    Qual è la minima altezza di un B-albero con grado minimo `t` contenente `n` chiavi? Dimostrare la formula considerando il caso in cui ogni nodo ha il numero massimo di figli `2t`.
-
-#### [ ] 📝 Esercizio B.7.2 (Raccolta Esercizi, Domande 22 & 23) — Secondo Minimo in Min-Heap & IsMaxHeap
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    1. Scrivere una funzione `sndmin(A)` che dato in input un array `A` di dimensione `n >= 3` organizzato a min-heap, restituisce il secondo elemento più piccolo presente nell'heap in tempo `O(1)` (dimostrando che esso deve trovarsi necessariamente tra i due figli della radice `A[2]` e `A[3]`).
-    2. Scrivere una funzione ricorsiva `IsMaxHeap(A, i, n)` che dato un array `A[1..n]` verifica se esso soddisfa la proprietà di max-heap in tempo `O(n)`.
-
----
-
 # 🧩 SEZIONE 3: ESERCIZI 1 (9–10 Punti)
 *Tipologia: Divide et Impera, Ricerca Binaria, Array Puntatori, BST Avanzati, Operazioni Heap.*
 
@@ -324,28 +287,10 @@
     Un array di interi `A[1..n]` si dice *triangolare* se esiste un indice `q in [1, n]` tale che `A[1..q]` è strettamente crescente e `A[q..n]` è strettamente decrescente (l'elemento `A[q]` è il massimo assoluto, detto *picco*).
     Realizzare un algoritmo Divide et Impera che trova il valore del massimo `A[q]` in tempo `O(log n)`. Scrivere lo pseudocodice e motivare la complessità.
 
-
-#### [ ] 📝 Esercizio C.1.5 (Appello 17 Giugno 2022, Esercizio 1 — 10 Punti) — Array Semi-Ordinato (Ruotato)
+#### [ ] 📝 Esercizio C.1.4 (Appello 06 Luglio 2021, Esercizio 1 — 8 Punti) — `missing(A, n)`
 > **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Diciamo che un array senza ripetizioni `A[1..n]` è *semi-ordinato* se esiste un indice `k in [1, n]` tale che `A[1..k]` è strettamente crescente, `A[k+1..n]` è strettamente crescente, e `A[1] > A[n]` (l'array è ordinato e poi ruotato circolarmente verso destra).
-    Realizzare un algoritmo Divide et Impera efficiente `FindMin(A, p, r)` che trova e restituisce l'elemento minimo dell'array `A` in tempo `O(log n)`. Scrivere lo pseudocodice e motivare la complessità.
-
-#### [x] 📝 Esercizio C.1.4 (Appello 06 Luglio 2021, Esercizio 1 — 8 Punti) — `missing(A, n)`
-> **Stato**: ⭐ SVOLTO OGGI (30/08) | **Valutazione Reale**: `7.0/10 — Elemento mancante in O(log n); trovata la condizione A[q] < q dopo analisi del controesempio sulla media.`
 *   **Traccia Integrale**:
     Realizzare una funzione `missing(A, n)` che dato un array `A[1..n]` contenente `n` interi distinti nell'intervallo `[0, n]` ordinati in senso strettamente crescente, trova e restituisce l'unico intero mancante nell'intervallo `[0, n]` con complessità temporale `O(log n)`.
-
----
-
-
-#### [ ] 📝 Esercizio C.1.6 (Raccolta Esercizi, Esercizio 1) — `gap(A, p, r)`
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Dato un array di interi `A[1..n]`, chiamiamo *gap* un indice `i in [1, n)` tale che `A[i + 1] - A[i] > 1`.
-    1. Mostrare per induzione su `n` che un array `A[1..n]` tale che `A[n] - A[1] >= n` contiene almeno un gap.
-    2. Fornire lo pseudocodice di una procedura ricorsiva Divide et Impera `gap(A, p, r)` che dato un array con `A[r] - A[p] >= r - p + 1` restituisce un gap in tempo `O(log n)`.
-    3. Valutare la complessità con il Master Theorem.
 
 ---
 
@@ -365,13 +310,13 @@
     Scrivere lo pseudocodice, motivare la correttezza e dimostrare che la complessità temporale è `O(n^2)` con spazio ausiliario `O(1)`.
 
 #### [x] 📝 Esercizio C.2.3 (Appello 14 Febbraio 2024, Esercizio 1 — 10 Punti) — `Split(A, 2n)` / `TriSort`
-> **Stato**: ⭐ CONSOLIDATO IL 30/08 | **Valutazione Reale**: `9.5/10 — TriSort in-place a 3 puntatori su {0,1,2} in tempo O(n) e spazio O(1) svolto perfettamente in autonomia.`
+> **Stato**: ✅ SVOLTO NELLE SESSIONI PRECEDENTI | **Valutazione Reale**: `8.5/10 — TriSort a 3 puntatori in tempo O(n); logica capita, da tenere a mente non avanzare mid su scambio high.`
 *   **Traccia Integrale**:
     Realizzare una procedura `TriSort(A)` che dato un array `A[1..n]` di `n` elementi con valori in `{0, 1, 2}` lo ordina in modo crescente in-place. L'unica operazione ammessa per modificare l'array è lo scambio di elementi in posizione `i` e `j`.
     Dare lo pseudocodice a 3 puntatori (`low, mid, high`), motivarne la correttezza e calcolare il numero esatto di confronti e scambi nel caso peggiore in tempo `O(n)`.
 
-#### [x] 📝 Esercizio C.2.4 (Appello 12 Settembre 2022, Esercizio 1 — 10 Punti) — `Diff(A, k)`
-> **Stato**: ⭐ SVOLTO OGGI (30/08) | **Valutazione Reale**: `6.5/10 — Two Pointers su differenza; chiarita la regola dei puntatori concordi da sinistra i=1, j=2.`
+#### [ ] 📝 Esercizio C.2.4 (Appello 12 Settembre 2022, Esercizio 1 — 10 Punti) — `Diff(A, k)`
+> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
 *   **Traccia Integrale**:
     Realizzare una funzione `Diff(A, k)` che, dato un array `A[1..n]` ordinato in senso crescente di interi distinti e un intero `k > 0`, verifica se esistono due indici `i, j` tali che `A[j] - A[i] = k` in tempo `O(n)` e spazio ausiliario `O(1)`.
 
@@ -381,7 +326,7 @@
 *   **Regola chiave**: Definire il campo extra del nodo `x` in funzione solo dei figli `x.left` e `x.right`. Aggiornare il campo durante `Insert` risalendo lungo il cammino percorso in tempo `O(h)`.
 
 #### [x] 📝 Esercizio C.3.1 (Appello 18 Giugno 2025, Esercizio 1 — 10 Punti) — `leaves(x)`
-> **Stato**: ⭐ CONSOLIDATO IL 31/08 | **Valutazione Reale**: `9.5/10 — Arricchimento leaves(x) con definizione locale corretta, CountLeaves in O(1) e manutenzione in O(h); capita al 100% anche la visita ricorsiva O(n).`
+> **Stato**: ✅ SVOLTO NELLE SESSIONI PRECEDENTI | **Valutazione Reale**: `9.0/10 — Arricchimento leaves(x) con manutenzione in O(h) risalendo.`
 *   **Traccia Integrale**:
     Si vuole arricchire ciascun nodo `x` di un albero binario di ricerca con un campo `x.leaves` che mantiene il numero di foglie presenti nel sottoalbero radicato in `x`.
     1. Descrivere come modificare la procedura `Insert(T, z)` per mantenere aggiornato il campo `leaves` in tempo `O(h)`.
@@ -407,7 +352,7 @@
 *   **Regola chiave**: Visita ricorsiva post-order per calcolare altezze o validare proprietà in tempo `O(n)`. Uso di valori sentinella (es. `-1`).
 
 #### [x] 📝 Esercizio C.4.1 (Appello 15 Luglio 2023, Esercizio 1 — 9 Punti) — `isBalanced(T)`
-> **Stato**: ⭐ CONSOLIDATO IL 30/08 | **Valutazione Reale**: `8.5/10 — isBalanced con sentinella -1 e altezza 1 + max(left, right) in tempo lineare Theta(n) completato con successo.`
+> **Stato**: ✅ SVOLTO NELLE SESSIONI PRECEDENTI | **Valutazione Reale**: `9.5/10 — isBalanced(T) con sentinella -1 e altezza max(left, right) + 1 in Theta(n).`
 *   **Traccia Integrale**:
     Dato un BST `T`, realizzare una funzione `isBalanced(T)` che verifica se l'albero è bilanciato in altezza (per ogni nodo la differenza tra l'altezza del figlio sinistro e destro è al più 1). L'algoritmo deve visitare ogni nodo una sola volta in tempo `O(n)`.
 
@@ -429,24 +374,15 @@
 
 ---
 
-
-#### [x] 📝 Esercizio C.4.5 (Appello 04 Luglio 2022, Esercizio 1 — 9 Punti) — `strongBST(T)`
-> **Stato**: ⭐ SVOLTO OGGI (30/08) | **Valutazione Reale**: `7.5/10 — Verifica strongBST; intuita la propagazione intervallo (min,max), sistemata la chiusura ricorsiva.`
-*   **Traccia Integrale**:
-    Realizzare una funzione `strongBST(T)` che dato un albero binario `T` con nodi aventi chiavi numeriche intere verifica se `T` soddisfa la proprietà di albero binario di ricerca in tempo `O(n)`.
-    L'algoritmo deve verificare che per ogni nodo `x`, la sua chiave sia strettamente maggiore del massimo del sottoalbero sinistro e strettamente minore del minimo del sottoalbero destro visitando ogni nodo una sola volta.
-
----
-
 ### 🔹 PATTERN C.5: Operazioni su Max-Heap & Min-Heap
 
 #### [x] 📝 Esercizio C.5.1 (Appello 07 Febbraio 2025, Esercizio 1 — 10 Punti) — `SortJoin(A, B, n)`
-> **Stato**: ⭐ CONSOLIDATO IL 30/08 | **Valutazione Reale**: `9.5/10 — SortJoin fusione in-place in tempo O(n log n) e spazio O(1); logica copiatura, BuildMaxHeap ed estrazione Heapsort capita al 100%.`
+> **Stato**: ✅ SVOLTO NELLE SESSIONI PRECEDENTI | **Valutazione Reale**: `9.0/10 — SortJoin(A,B,n) fusione heap in-place O(n log n).`
 *   **Traccia Integrale**:
     Dati due max-heap `A` e `B` ciascuno memorizzato in un array di dimensione `n`, scrivere una procedura `SortJoin(A, B, n)` che fonde i due heap in un unico array ordinato di dimensione `2n` in tempo `O(n log n)` operando in-place.
 
 #### [x] 📝 Esercizio C.5.2 (Appello 02 Luglio 2024, Esercizio 1 — 10 Punti) — `Union(A1, A2, n)`
-> **Stato**: ⭐ CONSOLIDATO IL 30/08 | **Valutazione Reale**: `9.5/10 — Union di max-heap in tempo lineare O(n) con BuildMaxHeap; motivato il confronto con HeapInsert O(n log n).`
+> **Stato**: ✅ SVOLTO NELLE SESSIONI PRECEDENTI | **Valutazione Reale**: `9.0/10 — Union(A1,A2,n) max-heap unione in tempo O(n).`
 *   **Traccia Integrale**:
     Dati due max-heap `A1` e `A2` di dimensione `n`, realizzare un algoritmo efficiente per costruire un nuovo max-heap contenente l'unione insiemistica degli elementi (senza duplicati) in tempo `O(n)`.
 
@@ -523,8 +459,8 @@
     (a) Scrivere un algoritmo iterativo Bottom-Up per il calcolo di `m`.
     (b) Valutare la complessità esatta dell'algoritmo contando il numero esatto di prodotti tra interi eseguiti.
 
-#### [x] 📝 Esercizio D.3.2 (Appello 10 Settembre 2025, Esercizio 2 — 9 Punti)
-> **Stato**: ⭐ SVOLTO OGGI (30/08) | **Valutazione Reale**: `7.5/10 — DP Top-Down INIT_M + REC_M corretta; spiegata la formula di Gauss per il conteggio esatto delle celle.`
+#### [ ] 📝 Esercizio D.3.2 (Appello 10 Settembre 2025, Esercizio 2 — 9 Punti)
+> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
 *   **Traccia Integrale**:
     Sia `n > 0`. Ricorrenza `M(i, j)` per `1 <= i <= j <= n`:
     ```plaintext
@@ -565,58 +501,15 @@
     (a) Proporre un algoritmo greedy efficiente per risolvere il problema in tempo `O(n log n)`.
     (b) Dimostrare la proprietà di scelta greedy tramite tecnica di sostituzione (mostrando che esiste una soluzione ottima che contiene il file di dimensione minima).
 
-
-#### [ ] 📝 Esercizio D.4.5 (Appello 04 Luglio 2022, Esercizio 2 — 10 Punti) — Copertura Punti con Intervalli Unitari
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Dato un insieme di `n` numeri reali positivi e distinti `S = {x_1, ..., x_n}` su una retta, si vuole trovare il numero minimo di intervalli chiusi di lunghezza 1 (cioè della forma `[a, a + 1]`) che coprono tutti i punti di `S`.
-    (a) Progettare un algoritmo greedy efficiente: dopo aver ordinato i punti `x_1 < x_2 < ... < x_n`, posizionare il primo intervallo su `[x_1, x_1 + 1]`, eliminare i punti coperti e ripetere sul primo punto scoperto.
-    (b) Dimostrare formalmente la proprietà di scelta greedy tramite tecnica di sostituzione.
-
 #### [ ] 📝 Esercizio D.4.4 (Appello 27 Agosto 2020, Esercizio 2 — 9 Punti) — Greedy Parcheggi e Auto
 > **Stato**: ⏳ **DA SVOLGERE / IN CODA**
 *   **Traccia Integrale**:
     Lungo una strada rettilinea ci sono `n` parcheggi liberi alle posizioni `p_1 < p_2 < ... < p_n` e `n` auto alle posizioni `a_1 < a_2 < ... < a_n`. Un posteggiatore vuole assegnare ciascuna auto a un parcheggio distinto minimizzando la somma totale degli spostamenti `Somma |a_i - p_{f(i)}|`.
     (a) Proporre una strategia greedy che assegna l'auto `a_i` al parcheggio `p_i` per ogni `i`.
     (b) Dimostrare la correttezza mostrando che se due assegnazioni si incrociano, scambiare i parcheggi riduce o lascia invariata la distanza totale.
+"""
 
----
+with open('SILLABO_ESERCIZI_ESAME.md', 'w', encoding='utf-8') as f:
+    f.write(content)
 
-
----
-
-### 🔹 PATTERN D.5: DP su Griglie 2D, Parentesizzazione di Espressioni e LIS
-
-#### [ ] 📝 Esercizio D.5.1 (Raccolta Esercizi, Esercizio 22) — Cammino Massimo su Scacchiera
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Si supponga di avere una scacchiera `n x n`. Si vuole spostare un pezzo dall'angolo in basso a sinistra `(1, 1)` all'angolo in alto a destra `(n, n)`. Ad ogni passo il pezzo può muoversi solo di una casella verso l'alto o verso destra. Ad ogni casella `(i, j)` è associato un guadagno `G[i, j]`.
-    1. Scrivere l'equazione di ricorrenza per il massimo guadagno ottenibile.
-    2. Scrivere l'algoritmo Bottom-Up in tempo `O(n^2)` e spazio `O(n^2)`.
-    3. Spiegare come ricostruire il cammino ottimo effettuato.
-
-#### [ ] 📝 Esercizio D.5.2 (Raccolta Esercizi, Esercizio 19) — Parentesizzazione Minima di Espressioni
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Sia data un'espressione `E = x_1 op_1 x_2 op_2 ... x_{n-1} op_{n-1} x_n` con `n >= 2`, dove ogni `x_i` è un intero positivo e `op_i in {+, *}`. Utilizzando la Programmazione Dinamica, determinare una parentesizzazione che rende il valore dell'espressione minimo.
-    1. Dare una caratterizzazione ricorsiva del valore minimo `v(i, j)` per la sottoespressione da `x_i` a `x_j`.
-    2. Scrivere l'algoritmo Bottom-Up in tempo `O(n^3)` per il calcolo di `v(1, n)`.
-
-#### [ ] 📝 Esercizio D.5.3 (Raccolta Esercizi, Esercizio 28) — LIS (Longest Increasing Subsequence)
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Data una sequenza di numeri `X = <x_1, ..., x_n>`, si vuole determinare una sottosequenza crescente di lunghezza massima.
-    1. Definire la ricorrenza `L[i] = 1 + max{ L[j] : j < i e X[j] < X[i] }`.
-    2. Scrivere l'algoritmo Bottom-Up in tempo `O(n^2)`.
-    3. Mostrare come ricostruire la sequenza tramite array dei puntatori `prev[1..n]`.
-
----
-
-### 🔹 PATTERN D.6: DP Coin Change (Resto Monete)
-
-#### [ ] 📝 Esercizio D.5.1 (Appello 30 Gennaio 2023, Esercizio 2 — 9 Punti) — Coin Change (Resto Monete)
-> **Stato**: ⏳ **DA SVOLGERE / IN CODA**
-*   **Traccia Integrale**:
-    Supponiamo di avere un numero illimitato di monete di `k` tagli distinti `d_1 < d_2 < ... < d_k` (con `d_1 = 1`). Si vuole pagare una somma intera `s > 0` utilizzando il numero minimo possibile di monete.
-    (a) Scrivere l'equazione di ricorrenza DP per `C(s)` (numero minimo di monete per pagare `s`).
-    (b) Scrivere un algoritmo iterativo Bottom-Up in tempo `O(s * k)` e spazio `O(s)`.
+print('Updated SILLABO_ESERCIZI_ESAME.md with ONLY real exam questions!')
