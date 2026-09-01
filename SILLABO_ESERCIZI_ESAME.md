@@ -267,6 +267,14 @@
 
 ---
 
+
+#### [x] 📝 Esercizio B.5.2 (Appello 24 Gennaio 2022, Domanda B — 6 Punti) — `SearchUnique(T, k)`
+> **Stato**: ⭐ SVOLTO OGGI (31/08) | **Valutazione Reale**: `9.0/10 — Ricerca chiave unica in BST in tempo O(h) con verifica dei sottoalberi.`
+*   **Traccia Integrale**:
+    Realizzare una funzione `SearchUnique(T, k)` che dato un BST `T` verifica se la chiave `k` è presente in un unico nodo (restituendo il nodo) oppure se è assente/duplicata (restituendo `nil`) in tempo `O(h)`.
+
+---
+
 ### 🔹 PATTERN B.6: Teoria Greedy (GREEDY-SEL e Controesempi)
 
 #### [ ] 📝 Esercizio B.6.1 (Appello 24 Gennaio 2025, Domanda B — 7 Punti)
@@ -353,7 +361,7 @@
 *   **Regola chiave**: Indici agli estremi che avanzano o indietreggiano verso il centro in `O(n)` sfruttando l'ordinamento.
 
 #### [x] 📝 Esercizio C.2.1 (Appello 31 Gennaio 2024, Esercizio 1 — 10 Punti) — `Prod(A, k)`
-> **Stato**: ✅ SVOLTO NELLE SESSIONI PRECEDENTI | **Valutazione Reale**: `9.5/10 — Prod(A,k) Two Pointers in tempo O(n) e spazio O(1).`
+> **Stato**: ⭐ CONSOLIDATO IL 31/08 | **Valutazione Reale**: `9.5/10 — Prod(A, k) Two Pointers con gestione completa di positivi e negativi in tempo O(n) e spazio O(1) svolto brillantemente.`
 *   **Traccia Integrale**:
     Realizzare una funzione `Prod(A, k)` che dato un array `A` di interi `>= 0` ordinato in senso crescente e un valore intero `k >= 0` verifica se esistono due indici `i` e `j` tali che `k = A[i] * A[j]`. Valutarne la complessità (tempo `O(n)` e spazio `O(1)`).
     Adattare la soluzione al caso in cui i valori nell'array possono essere anche negativi (assumendo ancora `k >= 0`).
@@ -364,8 +372,8 @@
     Sia `A[1..n]` un array ordinato di interi positivi distinti. Realizzare un algoritmo efficiente `triplet(A)` che verifica se esistono tre indici `i < j < k` tali che `A[i] + A[j] = A[k]`.
     Scrivere lo pseudocodice, motivare la correttezza e dimostrare che la complessità temporale è `O(n^2)` con spazio ausiliario `O(1)`.
 
-#### [x] 📝 Esercizio C.2.3 (Appello 14 Febbraio 2024, Esercizio 1 — 10 Punti) — `Split(A, 2n)` / `TriSort`
-> **Stato**: ⭐ CONSOLIDATO IL 30/08 | **Valutazione Reale**: `9.5/10 — TriSort in-place a 3 puntatori su {0,1,2} in tempo O(n) e spazio O(1) svolto perfettamente in autonomia.`
+#### [x] 📝 Esercizio C.2.3 (Appello 14 Febbraio 2024 / 30 Gennaio 2023, Esercizio 1 — 10 Punti) — `TriSort` / `3Order`
+> **Stato**: ⭐ SVOLTO OGGI (31/08) | **Valutazione Reale**: `10/10 — Partizione a 3 puntatori su resti modulo 3 in tempo O(n) e spazio O(1) in-place svolta perfettamente al primo colpo.`
 *   **Traccia Integrale**:
     Realizzare una procedura `TriSort(A)` che dato un array `A[1..n]` di `n` elementi con valori in `{0, 1, 2}` lo ordina in modo crescente in-place. L'unica operazione ammessa per modificare l'array è lo scambio di elementi in posizione `i` e `j`.
     Dare lo pseudocodice a 3 puntatori (`low, mid, high`), motivarne la correttezza e calcolare il numero esatto di confronti e scambi nel caso peggiore in tempo `O(n)`.
@@ -400,6 +408,14 @@
 *   **Traccia Integrale**:
     Realizzare una funzione `avgTree(T)` che dato un albero binario `T` con nodi aventi chiavi numeriche arricchisce ciascun nodo `x` con i campi `x.size` (numero di nodi nel sottoalbero) e `x.sum` (somma delle chiavi nel sottoalbero).
     Mostrare come utilizzare tali campi per calcolare la media delle chiavi di qualsiasi sottoalbero in tempo `O(1)`.
+
+---
+
+
+#### [x] 📝 Esercizio C.3.4 (Appello 24 Gennaio 2022, Esercizio 1 — 9 Punti) — BST con Campo `x.min`
+> **Stato**: ⭐ SVOLTO OGGI (31/08) | **Valutazione Reale**: `9.5/10 — Inserimento Insert(T, z) con aggiornamento x.min in tempo O(h) svolto in autonomia.`
+*   **Traccia Integrale**:
+    Si consideri una variante dei BST nella quale i nodi `x` hanno un campo `x.min` (minimo delle chiavi nel sottoalbero di `x`). Realizzare la procedura `Insert(T, z)` in tempo `O(h)`.
 
 ---
 
